@@ -1,0 +1,253 @@
+var boxopened = "";
+var imgopened = "";
+var count = 0;
+var found = 0;
+var flip = 0;
+
+
+function randomFromTo(from, to){
+    return Math.floor(Math.random() * (to - from + 1) + from);
+}
+
+function shuffle() {
+
+    var children = $("#boxcard").children();
+    var child = $("#boxcard div:first-child");
+
+    var array_img = new Array();
+    var order = new Array();
+
+    for (i=0; i<children.length; i++) {
+        array_img[i] = $("#"+child.attr("id")+" img").attr("src");
+        child = child.next();
+    }
+
+    var child = $("#boxcard div:first-child");
+
+    for (z=0; z<children.length ; z++){
+        randIndex = randomFromTo(0, array_img.length - 1);
+        
+        order.push(array_img[randIndex]); 
+        // set new image
+        $("#"+child.attr("id")+" img").attr("src", array_img[randIndex]);
+        array_img.splice(randIndex, 1);
+
+        child = child.next();
+    }
+
+    return order;
+}
+
+
+function syncCards(order) {
+
+    var child = $("#boxcard div:first-child");
+
+    for (i = 0 ; i < order.length ; i++){
+        $("#"+child.attr("id")+" img").attr("src", order[i]);
+        child = child.next();
+    }
+}
+
+
+
+$(document).ready(function() {
+
+    var gameState = 0;
+    var recvOrderID;
+
+    $("img").hide();
+    $("#boxcard div").click(openCard);
+
+    init();
+
+    function init() {
+        $.ajax({
+            type: "POST",
+            data: {init: '1'},
+            success: function (resp) {
+                if      (resp.paired == -1){
+                    /* <-- no user waiting on server --> */
+                    recvOrderID = setInterval(sendWait, 1000);
+                }
+                else {
+                    /* <-- there is already another user waiting on server --> */
+                    order = shuffle();
+                    sendOrder(order);  /* <-- send card order to server --> */ 
+                    setInterval(recvAns, 1000); 
+                }
+            }
+        });
+    }
+
+
+    function sendWait () {
+
+         flip = 1-flip;
+         if   (flip == 0)
+             $('#waiting').html("Waiting for Oppenent's Join...");
+         else
+             $('#waiting').html("");
+
+         $.ajax({
+            type: "POST",
+            data: {waiting: '1'},
+            success: function (resp) {
+                if (resp.paired != -1) recvOrder();                  
+            }
+        });     
+    }
+
+
+    function sendOrder(order){
+        $.ajax({
+            url:  "/shuffle",
+            type: "POST",
+            traditional: true,
+            data: {order: order},
+        });   
+    }
+
+
+    function recvOrder(order){
+        $.ajax({
+            url:  "/shuffle",
+            type: "GET",
+            success: function(resp) {
+              $('#dbg').html('Game Start' + resp.success);  
+               if (resp.success == 1){
+                   syncCards(resp.order);
+                   window.clearInterval(recvOrderID); 
+                   $("#waiting").html('Your Turn!');
+                   setTimeout(clearWaitMsg, 3000);
+                   setInterval(recvAns, 1000); 
+               }
+            }
+        });   
+    }
+
+
+    function sendAns(img0, box0, img1, box1){
+        $.ajax({
+            url:  "/answer",
+            type: "POST",
+            data: {img0:img0, box0:box0, img1:img1, box1:box1},
+        });  
+    }
+  
+
+    function recvAns(){
+
+        if ( $("#waiting").hasClass('disappear') || $("#waiting").text() == 'Your Turn!' ) return ;    /* <-- player's turn, don't receive ans --> */
+
+        flip = 1-flip;
+        if   (flip == 0)
+            $('#waiting').html("Waiting for Oppenent's Move...");
+        else
+            $('#waiting').html("");
+
+        $.ajax({
+            url:  "/answer",
+            type: "GET",
+            success: function(resp) {
+                if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
+                    checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0)
+		    $('#dbg').html(resp.img0 + '/' + resp.box0 + '<br />' + resp.img1 + '/' + resp.box1);  
+                    $("#waiting").html('Your Turn!');
+                    setTimeout(clearWaitMsg, 3000); 
+                }
+            } 
+        });  
+    }
+
+   
+    function clearWaitMsg(){
+        $("#waiting").html('');
+        $("#waiting").addClass('disappear');
+    }
+
+
+
+    function openCard() {
+
+        id = $(this).attr("id");
+
+        if ($("#"+id+" img").is(":hidden")) {
+            $("#boxcard div").unbind("click", openCard);
+
+            $("#"+id+" img").slideDown('fast');
+
+            if (imgopened == "") {
+                boxopened = id;
+                imgopened = $("#"+id+" img").attr("src");
+                setTimeout(function() {
+                    $("#boxcard div").bind("click", openCard)
+                }, 300);
+            } 
+            else {
+                currentopened = $("#"+id+" img").attr("src");
+                checkAns(imgopened, boxopened, currentopened, id, 1);
+                $('#waiting').removeClass('disappear');  
+            }
+
+            count++;
+            $("#count").html("" + count);
+
+            if (found == 10) {
+                msg = '<span id="msg">Congrats ! You Found All Sushi With </span>';
+                $("span.link").prepend(msg);
+            }
+        }
+    }
+
+
+    function checkAns(img0, box0, img1, box1, player){
+
+        if (img0 != img1) {    
+            /* <-- wrong answer --> */
+
+            setTimeout(function() {
+
+                if (player == 1){   /* <-- player's turn --> */
+                    sendAns(img0, box0, img1, box1);
+                    $('#waiting').removeClass('disappear');  
+		}
+                else {             /* <-- enemy's turn --> */
+                    $("#" + box0 + " img").slideDown('slow');
+                    $("#" + box1 + " img").slideDown('slow');
+                }
+
+                $("#" + box0 + " img").slideUp('slow');
+                $("#" + box1 + " img").slideUp('slow');
+                boxopened = "";
+                imgopened = "";
+
+            }, 400);
+        } 
+        else {
+            /* <-- right answer --> */
+
+            if (player == 1){    /* <-- player's turn --> */
+                sendAns(img0, box0, img1, box1);
+            }
+            else {             /* <-- enemy's turn --> */
+                $("#" + box0 + " img").slideDown('slow');
+                $("#" + box1 + " img").slideDown('slow');
+            }
+
+            $("#" + box0 + " img").addClass("opacity");
+            $("#" + box1 + " img").addClass("opacity");
+            boxopened = "";
+            imgopened = "";
+        }
+     
+        setTimeout(function() {
+            $("#boxcard div").bind("click", openCard)
+        }, 400);
+    }
+
+
+
+});   
+
+
