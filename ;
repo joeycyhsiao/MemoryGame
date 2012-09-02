@@ -134,11 +134,9 @@ $(document).ready(function() {
             url:  "/answer",
             type: "POST",
             data: {img0:img0, box0:box0, img1:img1, box1:box1, correctN:correctN},
-            success: function(resp) {   
-                if (resp.end == 1){
-                    recvEnd();
-                }
-            }
+   
+
+
         });  
     }
   
@@ -158,12 +156,13 @@ $(document).ready(function() {
             type: "GET",
             success: function(resp) {
                 if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
-
-                    checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
-                    if (resp.end == 1)
-                        recvEnd();
-                    else 
-                        setTimeout(clearWaitMsg, 4000); 
+                    checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0)
+		    $('#dbg').html(resp.img0 + '/' + resp.box0 + '<br />' + resp.img1 + '/' + resp.box1);  
+                    //$("#waiting").html('Your Turn!');
+                    setTimeout(clearWaitMsg, 4000); 
+                }
+                else if (resp.end == 1){
+                    recvEnd();
                 }
             } 
         });  
@@ -171,8 +170,6 @@ $(document).ready(function() {
 
   
     function recvEnd(){
-        $('#dbg').html('Ending'); 
-/*
         $.ajac({
             url:  "/end",
             type: "POST",
@@ -186,7 +183,6 @@ $(document).ready(function() {
                     $('#waiting').html("DRAW!");
             }
         });
-*/
     }
 
 
@@ -265,8 +261,8 @@ $(document).ready(function() {
             /* <-- right answer --> */
 
             if (player == 1){    /* <-- player's turn --> */
-                correctN++;
                 sendAns(img0, box0, img1, box1);
+                correctN++;
                 $('#correct_p').html(correctN);
             }
             else {             /* <-- enemy's turn --> */
