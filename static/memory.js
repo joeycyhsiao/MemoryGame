@@ -2,9 +2,12 @@ var boxopened = "";
 var imgopened = "";
 
 var flip  = 0;
+var recvAnsID;
 
-var moveN    = 0;
-var correctN = 0;
+var moveN       = 0;
+var correctN    = 0;
+var moveTime    = 0;
+var correctTime = 0;
 
 var turnStartTime = 0;
 
@@ -61,6 +64,7 @@ $(document).ready(function() {
 
     $("img").hide();
     $("#boxcard div").click(openCard);
+    $('#start').button();
 
     init();
 
@@ -77,7 +81,7 @@ $(document).ready(function() {
                     /* <-- there is already another user waiting on server --> */
                     order = shuffle();
                     sendOrder(order);  /* <-- send card order to server --> */ 
-                    setInterval(recvAns, 1000); 
+                    recvAnsID = setInterval(recvAns, 1000); 
                     setInterval(updateTime, 1000);  
                 }
             }
@@ -123,7 +127,7 @@ $(document).ready(function() {
                    window.clearInterval(recvOrderID); 
                    $("#waiting").html('Your Turn!');
                    setTimeout(clearWaitMsg, 3000);
-                   setInterval(recvAns, 1000); 
+                   recvAnsID = setInterval(recvAns, 1000); 
                    setInterval(updateTime, 1000);   
                }
             }
@@ -162,6 +166,9 @@ $(document).ready(function() {
                 //if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
                 if (resp.success == 1){
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
+
+
+
                     if (resp.end == 1)
                         recvEnd();
                     else 
@@ -179,21 +186,22 @@ $(document).ready(function() {
   
     function recvEnd(){
         $('#dbg').html('Ending'); 
-/*
-        $.ajac({
+        $.ajax({
             url:  "/end",
             type: "POST",
+            data: {moveN:moveN, moveTime:moveTime, correctN:correctN, correctTime:correctTime},
             success:function(resp){
                 $('#waiting').removeClass('disappear');
+                $('#timer').removeClass('Countdown: -- seconds');
+                window.clearInterval(recvAnsID); 
                 if      (resp.result == 1)
          	    $('#waiting').html("YOU WIN!");
                 else if (resp.result == -1)
-                    $('#waiting').html("YOU LOSE!");
-                else if (resp.result == 0)
+                    $('#waiting').html("YOU LOSE...");
+                else  
                     $('#waiting').html("DRAW!");
             }
         });
-*/
     }
 
  
@@ -202,7 +210,6 @@ $(document).ready(function() {
         $("#waiting").addClass('disappear');
         turnStartTime = new Date();
     }
-
 
 
     function updateTime(){
@@ -240,7 +247,8 @@ $(document).ready(function() {
         if ($("#"+id+" img").is(":hidden")) {
             $("#boxcard div").unbind("click", openCard);
 
-            $("#"+id+" img").slideDown('fast');
+            //$("#"+id+" img").slideDown('fast');
+            $("#"+id+" img").fadeIn(1000);
 
             if (imgopened == "") {
                 boxopened = id;
@@ -251,8 +259,9 @@ $(document).ready(function() {
             } 
             else {
                 moveN++;
-                currentopened = $("#"+id+" img").attr("src");
-                checkAns(imgopened, boxopened, currentopened, id, 1);
+                imgcurrent = $("#"+id+" img").attr("src");
+                checkAns(imgopened, boxopened, imgcurrent, id, 1);
+
                 $('#waiting').removeClass('disappear');  
                 $('#move_p').html("Player Move: " + moveN);  
                 $("#correct_p").html("Player Score: " + correctN); 
@@ -274,12 +283,18 @@ $(document).ready(function() {
                     $("#timer").html('Countdown: -- seconds'); 
 		}
                 else {             /* <-- enemy's turn --> */
-                    $("#" + box0 + " img").slideDown(1000);
-                    $("#" + box1 + " img").slideDown(1000);
+//                    $("#" + box0 + " img").slideDown(1000);
+//                    $("#" + box1 + " img").slideDown(1000);
+                    $("#" + box0 + " img").fadeIn(1000);
+                    $("#" + box1 + " img").fadeIn(1000);
                 }
 
-                $("#" + box0 + " img").slideUp(1000);
-                $("#" + box1 + " img").slideUp(1000);
+                //$("#" + box0 + " img").delay(1000).slideUp(1000);
+                //$("#" + box1 + " img").delay(1000).slideUp(1000);
+
+                $("#" + box0 + " img").delay(1000).fadeOut(1000);
+                $("#" + box1 + " img").delay(1000).fadeOut(1000);
+
                 boxopened = "";
                 imgopened = "";
 
@@ -301,8 +316,12 @@ $(document).ready(function() {
                 $("#timer").html('Countdown: -- seconds'); 
             }
             else {             /* <-- enemy's turn --> */
-                $("#" + box0 + " img").slideDown(1000);
-                $("#" + box1 + " img").slideDown(1000);
+
+                //$("#" + box0 + " img").slideDown(1000);
+                //$("#" + box1 + " img").slideDown(1000);
+                $("#" + box0 + " img").fadeIn(1000);
+                $("#" + box1 + " img").fadeIn(1000);
+ 
                 $("#waiting").html('Your Turn!'); 
             }
 

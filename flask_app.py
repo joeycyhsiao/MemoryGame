@@ -119,6 +119,23 @@ def answer():
                 return flask.jsonify( end='0')
     
 
+@app.route('/end', methods=['GET', 'POST'])
+def end():
+    usrID   = getUsr(request)
+    enemyID = getEnemy(usrID)
+    print 'end'
+    if request.method == 'POST':
+        correctN_p = getCountN(usrID, CORRECT_N)
+        correctN_o = getCountN(enemyID, CORRECT_N)
+        print correctN_p, correctN_o 
+        if   correctN_p > correctN_o: 
+            return flask.jsonify( result='1' )
+        elif correctN_p < correctN_o:
+            return flask.jsonify( result='-1')
+        else:
+            return flask.jsonify( result='0')
+ 
+
 
 def gameOver(usrID, enemyID):
     if ( usrID not in CORRECT_N ) or (enemyID not in CORRECT_N):
