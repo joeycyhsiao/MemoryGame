@@ -19,6 +19,7 @@ LAST_ANSWER = {}
 CORRECT_N = {}
 MOVE_N = {}
 GIVE_UP = {}
+TURN_TIME = {}
 TOTAL_N = 8
 
 
@@ -48,7 +49,6 @@ def shuffle():
 
         print 'shuffle GET' + getUsr(request)
         enemyID = getEnemy(getUsr(request))
-        print ORDERS
         print getUsr(request), enemyID
         if    enemyID in ORDERS:
             return flask.jsonify( order = ORDERS[enemyID], gameID=enemyID, success=1 )
@@ -75,8 +75,9 @@ def answer():
 
         if   enemyID in GIVE_UP:
              print 'I know give up!!'
+             boxopened = GIVE_UP[enemyID]
              del GIVE_UP[enemyID]
-             return flask.jsonify( moveN_o=moveN_o, correctN_o=correctN_o, giveup=1 )   
+             return flask.jsonify(boxopened=boxopened, moveN_o=moveN_o, correctN_o=correctN_o, giveup=1 )   
 
         elif enemyID in LAST_ANSWER:
             img0 = LAST_ANSWER[enemyID]['img0']
@@ -95,12 +96,23 @@ def answer():
             return flask.jsonify( img0="",   box0="",   img1="",   box1="",
                                   moveN_o=moveN_o, correctN_o=correctN_o, success=0, end=0 )
 
-    elif request.method == 'POST':    #- for sendAns() -#
-
+    elif request.method == 'POST':    #- for sendAns() & giveUpTurn() -#
         print 'answer POST' + usrID
-        if request.form.get('giveup') == '1':
+
+        turnTime = request.form.getlist('turnTime')
+        if usrID in TURN_TIME:
+            turnTime_p = TURN_TIME[usrID] 
+            turnTime_p.append(turnTime)
+            TURN_TIME[usrID] = turnTime_p
+        else:
+            TURN_TIME[usrID] = [turnTime]       
+        print 'Turn-time: ',
+        print  TURN_TIME 
+
+        #if request.form.get('giveup') == '1':
+        if 'giveup' in request.form:
             print 'give up!'
-            GIVE_UP[usrID] = True
+            GIVE_UP[usrID] = request.form.get('giveup')
             return flask.make_response()
         else: 
             ans = {} 
@@ -112,7 +124,7 @@ def answer():
     
             MOVE_N[usrID]    = request.form.get('moveN')
             CORRECT_N[usrID] = request.form.get('correctN')
-            
+
             if gameOver(usrID, enemyID): 
                 return flask.jsonify( end='1' )
             else:
@@ -128,6 +140,8 @@ def end():
         correctN_p = getCountN(usrID, CORRECT_N)
         correctN_o = getCountN(enemyID, CORRECT_N)
         print correctN_p, correctN_o 
+
+        writeRes(getUsr(request))
 
         if   correctN_p > correctN_o: 
             return flask.jsonify( result='1' )
@@ -147,7 +161,26 @@ def unload():
         print 'DELETE' 
         if usrID in WAITING:
             WAITING = []          
+        if usrID in TURN_TIME:
+            del TURN_TIME[usrID]          
         return flask.make_response()
+
+
+
+def writeRes(usrID):
+    global TURN_TIME, CORRECT_N, MOVE_N
+    print 'Writing Memory Game'
+    enemyID = getEnemy(usrID)
+    fp = open('./result/'+usrID+'_'+enemyID+'.txt', 'w')
+
+    fp.write(str(usrID) + ':' + str(enemyID) + '\n')
+    fp.write(str(CORRECT_N[usrID]) + ':' + str(CORRECT_N[enemyID]) + '\n')
+    for turnTime in TURN_TIME[usrID]:
+        for time in turnTime:
+            fp.write(str(time) + ',')
+        fp.write('\n')
+    fp.close()
+
 
 
 

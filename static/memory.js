@@ -11,7 +11,8 @@ var moveTime    = 0;
 var correctTime = 0;
 
 var turnStartTime = 0;
-var first = -1;
+var turnTime = [0, 0];
+
 
 function randomFromTo(from, to){
     return Math.floor(Math.random() * (to - from + 1) + from);
@@ -182,7 +183,9 @@ $(document).ready(function() {
         $.ajax({
             url:  "/answer",
             type: "POST",
-            data: {img0:img0, box0:box0, img1:img1, box1:box1, moveN:moveN, correctN:correctN},
+            traditional: true,
+            data: {img0:img0, box0:box0, img1:img1, box1:box1, 
+                   moveN:moveN, correctN:correctN, turnTime:turnTime},
             success: function(resp) {   
                 if (resp.end == 1){
                     recvEnd();
@@ -211,8 +214,15 @@ $(document).ready(function() {
                     else 
                         setTimeout(clearWaitMsg, 4000); 
                 }
-                else if (resp.giveup == 1)
+                else if (resp.giveup == 1){
+
+                   if (resp.boxopened != ""){
+                       $("#"+resp.boxopened+" img").fadeIn(1000);
+                       $("#"+resp.boxopened+" img").delay(1000).fadeOut(1000);
+                   }
+
                    clearWaitMsg(); 
+               }
 
                $('#move_o').html("Opponent Move: " + resp.moveN_o);          
                $('#correct_o').html("Opponent Score: " + resp.correctN_o);  
@@ -245,6 +255,7 @@ $(document).ready(function() {
     function clearWaitMsg(){
         $("#waiting").html('');
         $("#waiting").addClass('disappear');
+        turnTime = [0, 0];
         turnStartTime = new Date();
     }
 
@@ -261,16 +272,38 @@ $(document).ready(function() {
     }
 
 
+    function recordTime(number, giveup)
+    {
+        if      (giveup == 1 && turnTime[0] == 0)    /*- give up before any fliping -*/
+            turnTime = [30000, 30000];
+        else if (giveup == 1 && turnTime[0] != 0)    /*- give up after fliping one card -*/
+            turnTime[1] = 30000;
+        else { 
+            var curTime = new Date();
+            duration = curTime.getTime() - turnStartTime.getTime();
+            turnTime[number] = duration;
+        }
+    }
+
     function giveUpTurn(){
+        recordTime(0, 1)
         moveN++;
         $('#move_p').html("Playse Move: " + moveN);
         $("#waiting").removeClass('disappear');
         $("#timer").html('Countdown: -- seconds'); 
+       
         $.ajax({
             url:  "/answer",
             type: "POST",
-            data: {giveup:1, moveN:moveN},
-        });  
+            traditional: true,
+            data: {giveup:boxopened, moveN:moveN, turnTime:turnTime},
+        }); 
+
+        if (boxopened != ""){    /*- give up after opening one card -*/
+            $("#" + boxopened + " img").delay(1000).fadeOut(1000);
+            boxopened = "";
+            imgopened = "";
+        } 
     }
 
 
@@ -288,6 +321,8 @@ $(document).ready(function() {
             $("#"+id+" img").fadeIn(1000);
 
             if (imgopened == "") {
+                recordTime(0, 0);    /*- record timing of fliping 1st card -*/
+
                 boxopened = id;
                 imgopened = $("#"+id+" img").attr("src");
                 setTimeout(function() {
@@ -295,6 +330,8 @@ $(document).ready(function() {
                 }, 300);
             } 
             else {
+                recordTime(1, 0);    /*- record timing of fliping 2nd card -*/
+
                 moveN++;
                 imgcurrent = $("#"+id+" img").attr("src");
                 checkAns(imgopened, boxopened, imgcurrent, id, 1);

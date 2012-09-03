@@ -4,6 +4,6 @@ from tornado.ioloop import IOLoop
 from flask_app import app
 
 http_server = HTTPServer(WSGIContainer(app))
-http_server.listen(12000)
+http_server.listen(10000)
 IOLoop.instance().start()
 
