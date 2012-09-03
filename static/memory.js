@@ -6,6 +6,7 @@ var flip  = 0;
 var moveN    = 0;
 var correctN = 0;
 
+var turnStartTime = 0;
 
 function randomFromTo(from, to){
     return Math.floor(Math.random() * (to - from + 1) + from);
@@ -77,6 +78,7 @@ $(document).ready(function() {
                     order = shuffle();
                     sendOrder(order);  /* <-- send card order to server --> */ 
                     setInterval(recvAns, 1000); 
+                    setInterval(updateTime, 1000);  
                 }
             }
         });
@@ -87,7 +89,7 @@ $(document).ready(function() {
 
          flip = 1-flip;
          if   (flip == 0)
-             $('#waiting').html("Waiting for Oppenent's Join...");
+             $('#waiting').html("Waiting for Opponent's Join...");
          else
              $('#waiting').html("");
 
@@ -116,13 +118,13 @@ $(document).ready(function() {
             url:  "/shuffle",
             type: "GET",
             success: function(resp) {
-              $('#dbg').html('Game Start' + resp.success);  
                if (resp.success == 1){
                    syncCards(resp.order);
                    window.clearInterval(recvOrderID); 
                    $("#waiting").html('Your Turn!');
                    setTimeout(clearWaitMsg, 3000);
                    setInterval(recvAns, 1000); 
+                   setInterval(updateTime, 1000);   
                }
             }
         });   
@@ -133,7 +135,7 @@ $(document).ready(function() {
         $.ajax({
             url:  "/answer",
             type: "POST",
-            data: {img0:img0, box0:box0, img1:img1, box1:box1, correctN:correctN},
+            data: {img0:img0, box0:box0, img1:img1, box1:box1, moveN:moveN, correctN:correctN},
             success: function(resp) {   
                 if (resp.end == 1){
                     recvEnd();
@@ -149,7 +151,7 @@ $(document).ready(function() {
 
         flip = 1-flip;
         if   (flip == 0)
-            $('#waiting').html("Waiting for Oppenent's Move...");
+            $('#waiting').html("Waiting for Opponent's Move...");
         else
             $('#waiting').html("");
 
@@ -157,14 +159,19 @@ $(document).ready(function() {
             url:  "/answer",
             type: "GET",
             success: function(resp) {
-                if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
-
+                //if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
+                if (resp.success == 1){
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
                     if (resp.end == 1)
                         recvEnd();
                     else 
                         setTimeout(clearWaitMsg, 4000); 
                 }
+                else if (resp.giveup == 1)
+                   clearWaitMsg(); 
+
+               $('#move_o').html("Opponent Move: " + resp.moveN_o);          
+               $('#correct_o').html("Opponent Score: " + resp.correctN_o);  
             } 
         });  
     }
@@ -189,11 +196,37 @@ $(document).ready(function() {
 */
     }
 
-
  
     function clearWaitMsg(){
         $("#waiting").html('');
         $("#waiting").addClass('disappear');
+        turnStartTime = new Date();
+    }
+
+
+
+    function updateTime(){
+
+        if ( !$("#waiting").hasClass('disappear') ) return;    /* <-- enemy's turn --> */
+
+        var curTime = new Date();
+        var countdown = Math.ceil(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
+        $("#timer").html('Countdown: ' + countdown + ' seconds'); 
+
+        if (countdown <= 0) giveUpTurn();
+    }
+
+
+    function giveUpTurn(){
+        moveN++;
+        $('#move_p').html("Playse Move: " + moveN);
+        $("#waiting").removeClass('disappear');
+        $("#timer").html('Countdown: -- seconds'); 
+        $.ajax({
+            url:  "/answer",
+            type: "POST",
+            data: {giveup:1, moveN:moveN},
+        });  
     }
 
 
@@ -217,16 +250,12 @@ $(document).ready(function() {
                 }, 300);
             } 
             else {
+                moveN++;
                 currentopened = $("#"+id+" img").attr("src");
                 checkAns(imgopened, boxopened, currentopened, id, 1);
                 $('#waiting').removeClass('disappear');  
-                moveN++;
-                $('#move_p').html(moveN);  
-            }
-
-            if (foundN == 10) {
-                msg = '<span id="msg">Congrats ! You Found All Sushi With </span>';
-                $("span.link").prepend(msg);
+                $('#move_p').html("Player Move: " + moveN);  
+                $("#correct_p").html("Player Score: " + correctN); 
             }
         }
     }
@@ -242,6 +271,7 @@ $(document).ready(function() {
                 if (player == 1){   /* <-- player's turn --> */
                     sendAns(img0, box0, img1, box1);
                     $('#waiting').removeClass('disappear');
+                    $("#timer").html('Countdown: -- seconds'); 
 		}
                 else {             /* <-- enemy's turn --> */
                     $("#" + box0 + " img").slideDown(1000);
@@ -267,7 +297,8 @@ $(document).ready(function() {
             if (player == 1){    /* <-- player's turn --> */
                 correctN++;
                 sendAns(img0, box0, img1, box1);
-                $('#correct_p').html(correctN);
+                $('#correct_p').html('Player Score: ' + correctN);
+                $("#timer").html('Countdown: -- seconds'); 
             }
             else {             /* <-- enemy's turn --> */
                 $("#" + box0 + " img").slideDown(1000);
