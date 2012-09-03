@@ -3,6 +3,7 @@ var imgopened = "";
 
 var flip  = 0;
 var recvAnsID;
+var flipMsgID;
 
 var moveN       = 0;
 var correctN    = 0;
@@ -10,6 +11,7 @@ var moveTime    = 0;
 var correctTime = 0;
 
 var turnStartTime = 0;
+var first = -1;
 
 function randomFromTo(from, to){
     return Math.floor(Math.random() * (to - from + 1) + from);
@@ -64,7 +66,8 @@ $(document).ready(function() {
 
     $("img").hide();
     $("#boxcard div").click(openCard);
-    $('#start').button();
+    //$('#start').button().click(gameStart);
+    window.onbeforeunload = unloadPage;
 
     init();
 
@@ -76,27 +79,58 @@ $(document).ready(function() {
                 if      (resp.paired == -1){
                     /* <-- no user waiting on server --> */
                     recvOrderID = setInterval(sendWait, 1000);
+                    //first = 1;
                 }
                 else {
                     /* <-- there is already another user waiting on server --> */
                     order = shuffle();
                     sendOrder(order);  /* <-- send card order to server --> */ 
-                    recvAnsID = setInterval(recvAns, 1000); 
-                    setInterval(updateTime, 1000);  
+                    //$("#waiting").html("Press Start");
+                    //first = 0;
+                    flipMsgID = setInterval( function () {
+		        flipMsg("Ready?");
+                        usrID = $.cookie('username');
+                        $('#game').html('Game ID: ' + usrID);
+                    }, 1000);
+
+                    setTimeout( function() {
+                        window.clearInterval(flipMsgID);
+                        recvAnsID = setInterval(recvAns, 1000); 
+                        setInterval(updateTime, 1000);  
+                    }, 5000);
                 }
             }
         });
     }
 
+   
+    function unloadPage() {
+        $.ajax({
+            url:'/unload',
+            type: "GET",
+            async: false,
+        });
+    }
+
+//    function gameStart(){
+//        $("#waiting").html('Your Turn!');
+//        setTimeout(clearWaitMsg, 3000);
+//        recvAnsID = setInterval(recvAns, 1000); 
+//        setInterval(updateTime, 1000);  
+//     }
+
+    function flipMsg(msg) {
+         flip = 1-flip;
+         if   (flip == 0)
+             $('#waiting').html(msg);
+         else
+             $('#waiting').html("");
+    }
+
 
     function sendWait () {
 
-         flip = 1-flip;
-         if   (flip == 0)
-             $('#waiting').html("Waiting for Opponent's Join...");
-         else
-             $('#waiting').html("");
-
+         flipMsg("Waiting for Opponent's Join...");
          $.ajax({
             type: "POST",
             data: {waiting: '1'},
@@ -125,10 +159,19 @@ $(document).ready(function() {
                if (resp.success == 1){
                    syncCards(resp.order);
                    window.clearInterval(recvOrderID); 
-                   $("#waiting").html('Your Turn!');
-                   setTimeout(clearWaitMsg, 3000);
-                   recvAnsID = setInterval(recvAns, 1000); 
-                   setInterval(updateTime, 1000);   
+                   //$("#waiting").html("Please Press Start Button"); 
+                    flipMsgID = setInterval( function () {
+		        flipMsg("Ready?");
+                    }, 1000);
+
+                   setTimeout(function (){
+		       window.clearInterval(flipMsgID);
+                       $("#waiting").html('Your Turn!');
+                       setTimeout(clearWaitMsg, 3000);
+                       recvAnsID = setInterval(recvAns, 1000); 
+                       setInterval(updateTime, 1000);   
+                       $('#game').html('Game ID: ' + resp.gameID);
+                   }, 5000);
                }
             }
         });   
@@ -153,11 +196,7 @@ $(document).ready(function() {
 
         if ( $("#waiting").hasClass('disappear') || $("#waiting").text() == 'Your Turn!' ) return ;    /* <-- player's turn, don't receive ans --> */
 
-        flip = 1-flip;
-        if   (flip == 0)
-            $('#waiting').html("Waiting for Opponent's Move...");
-        else
-            $('#waiting').html("");
+        flipMsg("Waiting for Opponent's Move...");
 
         $.ajax({
             url:  "/answer",
@@ -166,8 +205,6 @@ $(document).ready(function() {
                 //if (resp.img0 != "" && resp.box0 != "" && resp.img1 != "" && resp.box1 != "") {
                 if (resp.success == 1){
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
-
-
 
                     if (resp.end == 1)
                         recvEnd();

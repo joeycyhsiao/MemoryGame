@@ -5,17 +5,17 @@
         <script type="text/javascript" src="/static/jquery-1.5.min.js"></script>
         <script type="text/javascript" src="/static/jquery-ui-1.8.22.custom.min.js"></script>
         <script type="text/javascript" src="/static/memory.js"></script>
+        <script src="/static/jquery.cookie.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="/static/jquery-ui-1.8.22.custom.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/static/memory.css" />
         <title>JQuery Memory Game</title>
     </head>
     <body>
-        <br />
-        <br />
         <div id="title"> MEMORY GAME </div>
         <br />
-        <br />
-        <br />
+	<br />
+	<br />
+	<br />
         <div id="boxcard">
             <div id="card1"><img src="static/img/01.jpg" /></div>
             <div id="card2"><img src="static/img/02.jpg" /></div>
@@ -34,17 +34,18 @@
             <div id="card17"><img src="static/img/07.jpg" /></div>
             <div id="card18"><img src="static/img/08.jpg" /></div>
         </div>
-        <br />
-        <br />
-        <div id="dbg"></div>
-        <div id="correct_p">Player Score: 0</div>
-        <div id="move_p">Player Moves: 0</div>
-        <div id="correct_o">Opponent Score: 0</div>
-        <div id="move_o">Opponent Move: 0</div>
-        <div id="timer">Countdown: -- seconds</div>
         <div id="waiting"></div>
-        <button id='start' type='button'>START</button>
-        <br />
-        <br />
+    	<div id='txtarea'>
+            <div id="dbg"></div>
+            <div id="game">Game ID: </div>
+            <div id="correct_p">Player Score: 0</div>
+            <div id="move_p">Player Moves: 0</div>
+            <div id="correct_o">Opponent Score: 0</div>
+            <div id="move_o">Opponent Move: 0</div>
+            <div id="timer">Countdown: -- seconds</div>
+            <!--<button id='start' type='button'>START</button>-->
+            <br />
+            <br />
+	</div>
     </body>
 </html>

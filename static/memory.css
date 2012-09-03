@@ -5,6 +5,7 @@
 #boxcard {
     margin: 0 auto;
     width: 625px;
+    height: 625px;
     z-index: 1;
 }
 
@@ -63,11 +64,11 @@
 #waiting {
  
     position:absolute;
-    top:5em;
+    top:1.5em;
     bottom:5em;
-    left:3em;
-    right:3em;
-    font-size:3em;
+    left:10em;
+    right:10em;
+    font-size:2em;
     z-index:99;
     text-align:center;
     width:20em;
@@ -80,6 +81,22 @@
 {
     font-size:4em;
     text-align:center;
+    width:10em;
+    margin-left:4.7em;
 }
 
 
+#start
+{
+    position:absolute;
+    top:7em;
+    left:33em;
+}
+
+
+#txtarea
+{
+    position:absolute;
+    left:60em;
+    top:10.5em;
+}

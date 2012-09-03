@@ -51,7 +51,7 @@ def shuffle():
         print ORDERS
         print getUsr(request), enemyID
         if    enemyID in ORDERS:
-            return flask.jsonify( order = ORDERS[enemyID], success=1 )
+            return flask.jsonify( order = ORDERS[enemyID], gameID=enemyID, success=1 )
         else:
             return flask.jsonify( success=0 )
 
@@ -128,6 +128,7 @@ def end():
         correctN_p = getCountN(usrID, CORRECT_N)
         correctN_o = getCountN(enemyID, CORRECT_N)
         print correctN_p, correctN_o 
+
         if   correctN_p > correctN_o: 
             return flask.jsonify( result='1' )
         elif correctN_p < correctN_o:
@@ -135,6 +136,19 @@ def end():
         else:
             return flask.jsonify( result='0')
  
+
+
+@app.route('/unload', methods=['GET'])
+def unload():
+    print 'unload'
+    global WAITING
+    if request.method == 'GET':
+        usrID = getUsr(request)
+        print 'DELETE' 
+        if usrID in WAITING:
+            WAITING = []          
+        return flask.make_response()
+
 
 
 def gameOver(usrID, enemyID):
@@ -175,15 +189,19 @@ def newUsr():
     return val
 
 
-def getPair(usrID):
+def getPair(usrID, remove=False):
     for pair in PAIRS:
         if usrID in pair:
-            return pair
+            if not remove:
+                return pair
+            else:
+                del PAIRS[PAIRS.index(pair)]
+                return -1
     return -1
 
 
-def getEnemy(usrID):
-    pair = getPair(usrID)
+def getEnemy(usrID, remove=False):
+    pair = getPair(usrID, remove)
     if   pair == -1:
         return -1
     elif pair[0] != usrID:
