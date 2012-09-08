@@ -5,7 +5,7 @@ GROUPS  = {}
 PLAYERS = {}
 
 WAITING = []
-TOTAL_N = 8
+TOTAL_N = 3
 
 class Game():
 
@@ -45,7 +45,9 @@ class Game():
     def isReady(self):
         return self.ready
     def isOver(self):
-        return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() == TOTAL_N )
+        print 'IS OVER?'
+        print '%d:%d\n' %( self.grps[0].getCorrectN(), self.grps[1].getCorrectN() )
+        return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() >= TOTAL_N )
 
     def allKnowAns(self):
         for grp in self.grps:
@@ -56,9 +58,21 @@ class Game():
 
     def usrChangeState(self):
         self.changed += 1
-
     def allChanged(self):
         return (self.changed == 4) 
+    def getChangedN(self):
+        return self.changed
+
+    def getResult(self, grpID):
+        grp      = getGrp( grpID )
+        enemyGrp = getGrp( grp.getEnemyGID() )
+
+        if   grp.getCorrectN() > enemyGrp.getCorrectN():
+            return  1
+        elif grp.getCorrectN() < enemyGrp.getCorrectN():
+            return -1
+        else:
+            return  0
 
 
 

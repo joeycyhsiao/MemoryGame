@@ -15,17 +15,18 @@ var turnLen   = [0, 0];
 
 var turnState = -1;
 
-
 CTRL = 1;
 WAIT = 2;
 KNOW = 3;
+END  = 4;
 
-function randomFromTo(from, to){
+function randomFromTo(from, to)
+{
     return Math.floor(Math.random() * (to - from + 1) + from);
 }
 
-function shuffle() {
-
+function shuffle() 
+{
     var children = $("#boxcard").children();
     var child = $("#boxcard div:first-child");
 
@@ -54,8 +55,8 @@ function shuffle() {
 }
 
 
-function syncCards(order) {
-
+function syncCards(order) 
+{
     var child = $("#boxcard div:first-child");
 
     for (i = 0 ; i < order.length ; i++){
@@ -66,8 +67,8 @@ function syncCards(order) {
 
 
 
-$(document).ready(function() {
-
+$(document).ready(function() 
+{
     var gameState = 0;
     var recvOrderID;
 
@@ -98,10 +99,10 @@ $(document).ready(function() {
                         gameStartTime = new Date();
                         window.clearInterval(flipMsgID);
                         $("#waiting").html('Take Control!');
-                        //turnState = CTRL;
+                        turnState = CTRL;
                         setTimeout(clearWaitMsg, 3000);
-                        recvAnsID  = setInterval(recvAns, 500); 
-                        recvKnowID = setInterval(recvKnow, 500); 
+                        recvAnsID  = setInterval(recvAns, 1000); 
+                        recvKnowID = setInterval(recvKnow, 1000); 
                         setInterval(updateTime, 1000);  
                     }, 5000);
                 }
@@ -161,15 +162,15 @@ $(document).ready(function() {
                     window.clearInterval(flipMsgID);
                     $('#game').html('Game ID: ' + resp.gameID);
 
-
-					if   (resp.isEnemy == 1) turnState = WAIT;
-					else {
+                    if   (resp.isEnemy == 1) turnState = WAIT;
+                    else {
                         $("#waiting").html('Take Control!');
+                        turnState = CTRL;
                         setTimeout(clearWaitMsg, 3000);
                     }
 
-                    recvAnsID  = setInterval(recvAns, 500); 
-                    recvKnowID = setInterval(recvKnow, 500); 
+                    recvAnsID  = setInterval(recvAns, 1000); 
+                    recvKnowID = setInterval(recvKnow, 1000); 
                     setInterval(updateTime, 1000);   
 
                 }, 5000);
@@ -219,7 +220,10 @@ $(document).ready(function() {
             success: function(resp) {   
                 updateMove(0, resp.moveN, resp.correctN);
                 turnState = KNOW;
-                if (resp.end == 1) recvEnd();
+                if (resp.end == 1){
+					turnState = END;
+					recvEnd();
+				}
             }
         });  
     }
@@ -237,11 +241,13 @@ $(document).ready(function() {
             success: function(resp) {
                 if (resp.giveup == 1) {
 
-                    updateMove(resp.isEnemy, resp.moveN, -1);
-                    if (resp.box != ""){
-                        $("#" + resp.box + " img").fadeIn(1000);
-                        $("#" + resp.box + " img").delay(1000).fadeOut(1000);
+                    if (box_open != ''){
+                        $("#" + box_open + " img").delay(1000).fadeOut(1000);
+                        box_open = '';
+                        img_open = '';
                     }
+
+                    updateMove(resp.isEnemy, resp.moveN, -1);
                     turnState = KNOW;
                 }
                 else if (resp.full == 1) {
@@ -249,7 +255,10 @@ $(document).ready(function() {
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
                     updateMove(resp.isEnemy, resp.moveN, resp.correctN);
                     turnState = KNOW;
-                    if (resp.end == 1) recvEnd();
+                    if (resp.end == 1){
+						turnState = END;
+						recvEnd();
+					}
                 }
                 else {
                     $("#timer").html('Countdown: ' + resp.countdown + ' seconds'); 
@@ -260,7 +269,7 @@ $(document).ready(function() {
                     }
                 }
             } 
-        });  
+        }); 
     }
 
   
@@ -273,11 +282,13 @@ $(document).ready(function() {
             type: "GET",
             success: function(resp) {
                 if (resp.allknow == 1) {
-                    if   (resp.ctrl == 1) {
-                        //turnState = CTRL;
+                    if   (resp.ctrl == 1)  /*- assigned as ctrler -*/{
+						turnState = CTRL;
+						$("#waiting").html('Take Control!');
                         setTimeout(clearWaitMsg, 4000);  
-                    }
-                    else turnState = WAIT;
+					}
+                    else 
+                        turnState = WAIT;
                 }
             }
         });
@@ -294,7 +305,8 @@ $(document).ready(function() {
             success:function(resp){
                 $('#waiting').removeClass('disappear');
                 $('#timer').html('Countdown: -- seconds');
-                window.clearInterval(recvAnsID); 
+                window.clearInterval(recvAnsID);
+                window.clearInterval(recvKnowID); 
                 if      (resp.result == 1)
                     $('#waiting').html("YOU WIN!");
                 else if (resp.result == -1)
@@ -324,7 +336,7 @@ $(document).ready(function() {
         if ( turnState != CTRL || turnStartTime == 0 ) return;    
 
         var curTime = new Date();
-        countdown = Math.ceil(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
+        countdown = Math.floor(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
         sendCountdown(countdown);
 
         if (countdown <= 0) 
@@ -357,9 +369,13 @@ $(document).ready(function() {
             type: "POST",
             traditional: true,
             data: {
-                giveup:1, img:img, box:box, 
-                turnLen:turnLen, startTime:getTimeFromBegin(turnStartTime)
+                giveup:1, turnLen:turnLen, 
+			    startTime:getTimeFromBegin(turnStartTime)
             },
+			success: function(resp){
+                updateMove(0, resp.moveN, -1);
+                turnState = KNOW;
+			}
         }); 
 
         if (box_open != ""){    /*- give up after opening one card -*/
@@ -373,7 +389,7 @@ $(document).ready(function() {
 
     function openCard() 
     {
-        if ( turnState != CTRL ) return;    
+        if ( turnState != CTRL || !$("#waiting").hasClass('disappear') ) return;    
 
         var box_cur = $(this).attr("id");
 
@@ -410,15 +426,16 @@ $(document).ready(function() {
         if (img0 != img1) {    /*- wrong answer -*/
 
             setTimeout(function() {
+
                 if (turnState == CTRL) {  
-                    if (sendFull == 1){
+
+                    if (sendFull == 1)
                         sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
                                     getTimeFromBegin(turnStartTime) ); 
-                    }
+                    
                     $('#waiting').removeClass('disappear');
                 }
-                else 
-				    showBoxes(box0, box1);
+                else showBoxes(box0, box1);
 
                 hideBoxes(box0, box1);
             }, 400);
@@ -430,12 +447,14 @@ $(document).ready(function() {
                 sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
                             getTimeFromBegin(turnStartTime) );
             }
-            else 
-                showBoxes(box0, box1);
+            else showBoxes(box0, box1);
 
-			coverBoxes(box0, box1);
+            coverBoxes(box0, box1);
         } 
  
+        box_open = "";
+        img_open = "";
+
         setTimeout(function() {
             $("#boxcard div").bind("click", openCard);
         }, 400);
@@ -455,8 +474,6 @@ $(document).ready(function() {
     {
         $("#" + box0 + " img").delay(1000).fadeOut(1000);
         $("#" + box1 + " img").delay(1000).fadeOut(1000);
-        box_open = "";
-        img_open = "";
     }
 
 
@@ -465,8 +482,6 @@ $(document).ready(function() {
     {
         $("#" + box0 + " img").addClass('opacity');
         $("#" + box1 + " img").addClass('opacity');
-        box_open = "";
-        img_open = "";
     }
 
 

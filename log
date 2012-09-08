@@ -1,531 +1,250 @@
-PLAYERS: 1323
-{1323: <memorygame.Player instance at 0xb6d78e2c>}
-PLAYERS: 1324
-{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>}
-PLAYERS: 1325
-{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>, 1325: <memorygame.Player instance at 0xb5bdb64c>}
-PLAYERS: 1326
-{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>, 1325: <memorygame.Player instance at 0xb5bdb64c>, 1326: <memorygame.Player instance at 0xb5be548c>}
-GROUPS:  {1323: <memorygame.Group instance at 0xb5be566c>}
-GROUPS:  {1323: <memorygame.Group instance at 0xb5be566c>, 1325: <memorygame.Group instance at 0xb5be560c>}
-GAMES:  {1323: <memorygame.Game instance at 0xb5be562c>}
+PLAYERS: 1464
+{1464: <memorygame.Player instance at 0x8acf2ac>}
+PLAYERS: 1465
+{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>}
+PLAYERS: 1466
+{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>, 1466: <memorygame.Player instance at 0x8ad45ec>}
+PLAYERS: 1467
+{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>, 1466: <memorygame.Player instance at 0x8ad45ec>, 1467: <memorygame.Player instance at 0x8ad4d4c>}
+GROUPS:  {1464: <memorygame.Group instance at 0x8ad4bac>}
+GROUPS:  {1464: <memorygame.Group instance at 0x8ad4bac>, 1466: <memorygame.Group instance at 0x8ad4c6c>}
+GAMES:  {1464: <memorygame.Game instance at 0x8ad4c4c>}
 FULL moveN 1, correctN 0
-Know Nothing
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 1, correctN 0
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
 Know Nothing
+IS OVER?
+0:0
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 2, correctN 0
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+Know Nothing
+IS OVER?
+0:0
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 2, correctN 0
+IS OVER?
+0:0
+
 Know Nothing
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
+IS OVER?
+0:0
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 3, correctN 0
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 3, correctN 1
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
+ChangedN:  3
+FULL moveN 3, correctN 0
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
 Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 4, correctN 0
+IS OVER?
+0:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 4, correctN 1
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
+IS OVER?
+0:1
+
+Know Nothing
+IS OVER?
+0:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
+ChangedN:  3
+FULL moveN 4, correctN 1
+IS OVER?
+1:1
+
 Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 5, correctN 0
-Know Nothing
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 5, correctN 1
-Know Nothing
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 6, correctN 0
-Know Nothing
+ChangedN:  3
+FULL moveN 5, correctN 1
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
+IS OVER?
+1:1
+
 All Know
+ChangedN:  0
 All Know
+ChangedN:  1
 All Know
+ChangedN:  2
 All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+ChangedN:  3
 FULL moveN 6, correctN 2
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 7, correctN 0
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 7, correctN 3
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 8, correctN 0
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 8, correctN 3
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 9, correctN 0
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 9, correctN 3
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 10, correctN 1
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 10, correctN 4
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 11, correctN 1
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 11, correctN 5
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 12, correctN 1
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-FULL moveN 12, correctN 6
-Know Nothing
-All Know
-All Know
-All Know
-All Know
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
-Know Nothing
+IS OVER?
+1:2
+
+END
+IS OVER?
+1:2
+
+END
+IS OVER?
+1:2
+
+END
+IS OVER?
+1:2
+
+END

@@ -72,9 +72,10 @@ def answer():    #- used by only ctrler -#
             return flask.make_response() 
 
     elif 'giveup' in request.form:
+        usr.listenAns()
         grp.giveUpTurn()
         grp.increaseMoveN()
-        return flask.make_response()
+        return flask.jsonify( moveN=grp.getMoveN() )
 
     elif 'full'   in request.form:    #- one player finish the turn -#
         img0 = request.form.get('img0')
@@ -124,7 +125,7 @@ def wait():    #- used by recvAns() from teammate and enemies -#
     elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
         usr.listenAns()
         return flask.jsonify( full=1, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1], 
-                              moveN=moveN, correctN=correctN, isEnemy=isEnemy )
+                              moveN=moveN, correctN=correctN, isEnemy=isEnemy, end=game.isOver() )
 
     else:                        #- no move -#
         return flask.jsonify( countdown=game.getCountdown() )
@@ -142,6 +143,8 @@ def know():
         curCtrlGrp  = mg.getGrp( game.getCtrl()[1] )
         nextCtrlGrp = mg.getGrp( curCtrlGrp.getEnemyGID() )
 
+        print 'ChangedN: ', 
+        print game.getChangedN()
         game.usrChangeState()
         if game.allChanged():
            game.reset()
@@ -170,8 +173,9 @@ def countdown():
 
 @app.route('/end', methods=['POST'])
 def end():
-    pass 
-
+    print 'END'
+    (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
+    return flask.jsonify( result=game.getResult( grp.getGrpID() ) )
 
 
 @app.route('/unload', methods=['GET'])
