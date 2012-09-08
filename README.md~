@@ -9,12 +9,8 @@ http://superdit.com/2011/02/09/jquery-memory-game/
 
 
 Server Engine:
-
-
 Flask:
 http://flask.pocoo.org/
-
-
 Tornado:
 http://www.tornadoweb.org/
 
