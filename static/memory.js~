@@ -286,6 +286,7 @@ $(document).ready(function() {
                     else{  
 						turnState = WAIT;
 						$('#dbg').html('to be wait')
+                    else 
 					}
                 }
             }

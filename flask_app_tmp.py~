@@ -11,7 +11,6 @@ import csv
 app = Flask(__name__)
 
 
-count = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -40,8 +39,7 @@ def shuffle():
     if   request.method == 'GET':     #- for recvOrder() -#
         if  game != -1 and game.isReady() :
             ctrler = mg.getUsr( game.getCtrl()[0] )
-            return flask.jsonify( order=game.getOrder(), gameID=game.getGameID(), 
-                                  isEnemy=int(usr.isEnemyWith(ctrler)) )
+            return flask.jsonify( order=game.getOrder(), gameID=game.getGameID() )
         else:
             return flask.jsonify( gameID=-1 )
 
@@ -55,87 +53,27 @@ def shuffle():
 def answer():    #- used by only ctrler -#
 
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
-    print 'Answer'
-    print request.form
 
     if   'half'   in request.form:    #- only for display card, do nothing more -#
-        print 'Has HALF ANS'
+        print 'Half Ans'
         grp.setAns( request.form.get('img'), request.form.get('box') )
         return flask.make_response() 
 
     elif 'giveup' in request.form:
+        print 'Give up'
+        grp.setAns( request.form.get('img'), request.form.get('box') )
+        grp.setMoveN( request.form.get('moveN') )
+        grp.giveUp()
         return flask.make_response()
 
     elif 'full'   in request.form:    #- one player finish the turn -#
-        usr.listenAns()
+        print 'Full Ans'
         grp.delAns() 
         grp.setAns( request.form.get('img0'), request.form.get('box0') ) 
         grp.setAns( request.form.get('img1'), request.form.get('box1') )
-        grp.setMoveN( int(request.form.get('moveN') ) )
-        grp.setCorrectN( int(request.form.get('correctN') ) )
+        #grp.setMoveN( int(request.form.get('moveN') ) )
+        #grp.setCorrectN( int(request.form.get('correctN') ) )
         return flask.jsonify( end=int(game.isOver()) )
-
-
-
-@app.route('/wait', methods=['GET'])
-def wait():    #- used by recvAns() from teammate and enemies -#
-
-    usr  = mg.getUsr( request.cookies.get('usrID') )
-    game = mg.getGame( usr.getGameID() )
- 
-    (ctrlUID, ctrlGID) = game.getCtrl()
-
-    if ctrlUID == -1 or ctrlGID == -1:
-        return flask.make_response()
-
-    ctrlGrp = mg.getGrp(ctrlGID)
-    (imgs, boxes) = ctrlGrp.getAns()
-
-    if   ctrlGrp.isGiveUp():
-        print 'Know Give Up'
-        return flask.make_response()
-
-    elif ctrlGrp.isHalfAns():    #- just for display imgs -#
-        print 'Know HALF ANS'
-        return flask.jsonify( half=1, img=imgs[0], box=boxes[0], countdown=game.getCountdown() )
-
-    elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
-        print 'Know Full Ans'
-        usr.listenAns()
-        return flask.jsonify( full=1, know=0, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1] )
-
-    else:                        #- no move -#
-        return flask.jsonify( countdown=game.getCountdown() )
-
-
-
-@app.route('/know', methods=['GET'])
-def know():
- 
-    global count 
-    (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
-   
-    if game.allKnowAns():
-     
-        print 'All Know'
-        curCtrlGrp  = mg.getGrp( game.getCtrl()[1] )
-        nextCtrlGrp = mg.getGrp( curCtrlGrp.getEnemyGID())
-        nextCtrler  = grp.getUsrs()[0]
-
-        count += 1
-        if count == 4:
-            game.reset()
-            game.setCtrl(nextCtrler.getUsrID(), nextCtrlGrp.getGrpID() )
-            count = 0
-
-        if usr.getGrpID() == nextCtrlGrp.getGrpID():
-            return flask.jsonify(allknow=1, ctrl=1)
-        else:
-            return flask.jsonify(allknow=1, ctrl=0)
-
-    else:
-        print 'Know Nothing'
-        return flask.make_response()
 
 
 
@@ -144,15 +82,50 @@ def countdown():
     usr  = mg.getUsr( request.cookies.get('usrID') )
     game = mg.getGame( usr.getGameID() )
     game.setCountDown( request.form.get('countdown') ) 
-    print 'Set Countdown'    
-    print request.form.get('countdown')
     return flask.make_response()
 
 
 
+@app.route('/wait', methods=['GET'])
+def wait():    #- used by recvAns() from teammate and enemies -#
+    
+    '''
+    usr  = mg.getUsr( request.cookies.get('usrID') )
+    game = mg.getGame( usr.getGameID() )
+  
+    (ctrlUID, ctrlGID) = game.getCtrl()
 
+    if ctrlUID == -1 or ctrlGID == -1:
+        return flask.make_response()
 
+    ctrler  = mg.getUsr(ctrlUID)
+    ctrlGrp = mg.getGrp(ctrlGID)
+    (imgs, boxes) = ctrlGrp.getAns()
 
+    if   ctrlGrp.isGiveUp():
+
+        if ctrlGrp.isHalfAns():  #- ctrler runs out of time with 1 card open -#
+            return flask.jsonify( giveup=1, img=imgs[0], box=boxes[0])
+        else:                    #- ctrler runs out of time with 0 card open -#
+            return flask.jsonify( giveup=1, img='', box='' )
+
+    elif ctrlGrp.isHalfAns():    #- just for display imgs -#
+        print 'Know Half Ans'
+        print game.getCountdown()
+        return flask.jsonify( half=1, img=imgs[0], box=boxes[0], countdown=game.getCountdown() )
+
+    elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
+        if  game.allKnowAns():    #- all player know answer, so reset for next turn -#
+            return flask.jsonify( full=1, allknow=1, isEnemy=isEnemy, end=game.isOver() )
+        elif usr.knowAns():
+            return flask.jsonify( full=1, know=1 )
+        else:
+            usr.listenAns()         
+            return flask.jsonify( full=1, know=0, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1] )
+    else:
+        print 'No Move'
+        return flask.jsonify( countdown=game.getCountdown() )
+    '''
 
 
 
@@ -172,7 +145,7 @@ def unload():
 @app.route('/ctrl', methods=['GET', 'POST'])
 def ctrl():
 
-    (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
+    (usr, grp, game) = getObjs( request.cookies.get('usrID') )
 
     if request.method == 'POST':    #- for sendCtrl() -#
         game.reset()

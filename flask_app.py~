@@ -119,7 +119,7 @@ def know():
      
         print 'All Know'
         curCtrlGrp  = mg.getGrp( game.getCtrl()[1] )
-        nextCtrlGrp = mg.getGrp( curCtrlGrp.getEnemyGID())
+        nextCtrlGrp = mg.getGrp( curCtrlgrp.getEnemyGID())
         nextCtrler  = grp.getUsrs()[0]
 
         count += 1

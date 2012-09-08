@@ -1,0 +1,293 @@
+PLAYERS: 1181
+{1181: <memorygame.Player instance at 0x9f3ba0c>}
+PLAYERS: 1182
+{1181: <memorygame.Player instance at 0x9f3ba0c>, 1182: <memorygame.Player instance at 0x9eca76c>}
+PLAYERS: 1183
+{1181: <memorygame.Player instance at 0x9f3ba0c>, 1182: <memorygame.Player instance at 0x9eca76c>, 1183: <memorygame.Player instance at 0x9ee49ac>}
+PLAYERS: 1184
+{1184: <memorygame.Player instance at 0x9f01b2c>, 1181: <memorygame.Player instance at 0x9f3ba0c>, 1182: <memorygame.Player instance at 0x9eca76c>, 1183: <memorygame.Player instance at 0x9ee49ac>}
+GROUPS:  {1181: <memorygame.Group instance at 0x9f0114c>}
+GROUPS:  {1181: <memorygame.Group instance at 0x9f0114c>, 1183: <memorygame.Group instance at 0x9f01e0c>}
+GAMES:  {1181: <memorygame.Game instance at 0x9f011cc>}
+Answer
+ImmutableMultiDict([('box', u'card2'), ('img', u'static/img/07.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'778'), ('moveN', u'1'), ('correctN', u'0'), ('startTime', u'8006'), ('turnLen1', u'4885'), ('img1', u'static/img/04.jpg'), ('img0', u'static/img/07.jpg'), ('box1', u'card7'), ('box0', u'card2')])
+Know Full Ans
+Know Full Ans
+Know Nothing
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card3'), ('img', u'static/img/08.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('box', u'card6'), ('img', u'static/img/07.jpg'), ('half', u'1')])
+Has HALF ANS
+Know Full Ans
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card3'), ('img', u'static/img/08.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('box', u'card12'), ('img', u'static/img/04.jpg'), ('half', u'1')])
+Has HALF ANS
+Know Full Ans
+Know Full Ans
+Know Full Ans
+Know Nothing
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card7'), ('img', u'static/img/04.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('box', u'card1'), ('img', u'static/img/05.jpg'), ('half', u'1')])
+Has HALF ANS
+Know Full Ans
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card3'), ('img', u'static/img/08.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('box', u'card1'), ('img', u'static/img/05.jpg'), ('half', u'1')])
+Has HALF ANS
+Know Full Ans
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card14'), ('img', u'static/img/05.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'84094'), ('moveN', u'1'), ('correctN', u'0'), ('startTime', u'109114'), ('turnLen1', u'85851'), ('img1', u'static/img/07.jpg'), ('img0', u'static/img/05.jpg'), ('box1', u'card6'), ('box0', u'card14')])
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card5'), ('img', u'static/img/01.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'210980'), ('moveN', u'1'), ('correctN', u'0'), ('startTime', u'196218'), ('turnLen1', u'212187'), ('img1', u'static/img/07.jpg'), ('img0', u'static/img/01.jpg'), ('box1', u'card6'), ('box0', u'card5')])
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card14'), ('img', u'static/img/05.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'1973'), ('moveN', u'2'), ('correctN', u'0'), ('startTime', u'418447'), ('turnLen1', u'3748'), ('img1', u'static/img/08.jpg'), ('img0', u'static/img/05.jpg'), ('box1', u'card3'), ('box0', u'card14')])
+Know Full Ans
+Know Full Ans
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card15'), ('img', u'static/img/06.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'227086'), ('moveN', u'2'), ('correctN', u'0'), ('startTime', u'423479'), ('turnLen1', u'1003'), ('img1', u'static/img/03.jpg'), ('img0', u'static/img/06.jpg'), ('box1', u'card16'), ('box0', u'card15')])
+Know HALF ANS
+Know Full Ans
+Know Full Ans
+Know Nothing
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
+Answer
+ImmutableMultiDict([('box', u'card17'), ('img', u'static/img/03.jpg'), ('half', u'1')])
+Has HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Know HALF ANS
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'1348'), ('moveN', u'2'), ('correctN', u'1'), ('startTime', u'434466'), ('turnLen1', u'2484'), ('img1', u'static/img/03.jpg'), ('img0', u'static/img/03.jpg'), ('box1', u'card16'), ('box0', u'card17')])
+Know Full Ans
+Know Full Ans
+Answer
+ImmutableMultiDict([('full', u'1'), ('turnLen0', u'9943'), ('moveN', u'0'), ('correctN', u'1'), ('startTime', u'434503'), ('turnLen1', u'0'), ('img1', u'static/img/03.jpg'), ('img0', u'static/img/03.jpg'), ('box1', u'card16'), ('box0', u'card17')])
+Know Nothing
+Know Full Ans
+All Know
+All Know
+All Know
+All Know
