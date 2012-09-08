@@ -156,8 +156,10 @@ $(document).ready(function() {
 
 				if (resp.isEnemy == 1)
 					turnState = WAIT;
-				else 
+				else {
 					turnState = CTRL;
+					turnStartTime = new Date();
+				}
 
                 syncCards(resp.order);    /*- sync card order with ctrler order -*/
                 window.clearInterval(recvOrderID); 
@@ -197,7 +199,6 @@ $(document).ready(function() {
 
     function sendHalfAns(img, box)
     {
-        $('#dbg').html('send HALF ANS'); 
         $.ajax({
             url:  "/answer",
             type: "POST",
@@ -224,7 +225,6 @@ $(document).ready(function() {
         });  
 
 		turnState = KNOW;
-		$("#dbg").html("KNOW");
     }
   
 
@@ -244,13 +244,11 @@ $(document).ready(function() {
                         $("#" + resp.box + " img").delay(1000).fadeOut(1000);
                     }
 					turnState = KNOW;
-					$("#dbg").html("KNOW");
                 }
                 else if (resp.full == 1) {
 
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1);
                     turnState = KNOW;
-					$("#dbg").html("KNOW");
                     if (resp.end == 1)
                         recvEnd();
                 }
@@ -266,7 +264,6 @@ $(document).ready(function() {
   
     function recvKnow()
 	{
-		$('#dbg').button('recvKnow: ' + turnState);
 		if (turnState != KNOW) return;
 
         $.ajax({
@@ -274,18 +271,14 @@ $(document).ready(function() {
             type: "GET",
             success: function(resp) {
 
-				$('#dbg').html('out of all know'); 
                 if (resp.allknow == 1) {
-					$('#dbg').html('in of all know')
 			
                     if   (resp.ctrl == 1) {
 					    turnState = CTRL;
-						$('#dbg').html('to be ctrl');
                         setTimeout(clearWaitMsg, 4000);  
 					}
                     else{  
 						turnState = WAIT;
-						$('#dbg').html('to be wait')
 					}
                 }
             }
@@ -297,7 +290,6 @@ $(document).ready(function() {
 
     function recvEnd()
     {
-        $('#dbg').html('Ending'); 
         $.ajax({
             url:  "/end",
             type: "POST",
@@ -423,7 +415,9 @@ $(document).ready(function() {
 
     function checkAns(img0, box0, img1, box1)
     {
+
         if (img0 != img1) {    /*- wrong answer -*/
+  		    $("#dbg").html('diff:' + img0 + '<br />' + img1);
 
             setTimeout(function() {
 
@@ -440,6 +434,8 @@ $(document).ready(function() {
         } 
         else {                /*- right answer -*/
 
+  		    $("#dbg").html('same:' + img0 + '<br />' + img1);
+
             if (turnState == CTRL){   
                 correctN++;
                 sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
@@ -449,7 +445,9 @@ $(document).ready(function() {
             }
             else
                showBoxes(box0, box1);
-            hideBoxes(box0, box1);
+
+            $("#" + box0 + " img").addClass("opacity");
+            $("#" + box1 + " img").addClass("opacity");
         } 
  
         setTimeout(function() {
