@@ -22,6 +22,7 @@ class Game():
         self.grps[0].reset()
         self.grps[1].reset()
         self.countdown = 0
+        self.changed = 0   #- state changed usr -#
 
     def getCtrl(self):
         return (self.ctrlUID, self.ctrlGID) 
@@ -53,6 +54,12 @@ class Game():
                     return False
         return True
 
+    def usrChangeState(self):
+        self.changed += 1
+
+    def allChanged(self):
+        return (self.changed == 4) 
+
 
 
 class Group():
@@ -60,8 +67,8 @@ class Group():
     def __init__(self, grpID, usr0, usr1):
         self.grpID = grpID
         self.usrs  = [usr0, usr1]
-        self.moveN    = -1
-        self.correctN = -1
+        self.moveN    = 0
+        self.correctN = 0
         self.reset()
 
     def reset(self):
@@ -74,9 +81,9 @@ class Group():
         self.usrs[1].reset()
 
     def getGrpID(self):
-        return grpID
+        return self.grpID
     def getGameID(self):
-        return gameID
+        return self.gameID
     def getEnemyGID(self): 
         return self.enemyGID
     def getCorrectN(self):
@@ -98,6 +105,11 @@ class Group():
         self.correctN = correctN
     def setMoveN(self, moveN):
         self.moveN = moveN
+
+    def increaseMoveN(self):
+        self.moveN += 1
+    def increaseMoveN(self):
+        self.correctN += 1
 
     def delAns(self):
         self.imgs  = []

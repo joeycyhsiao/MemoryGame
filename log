@@ -1,241 +1,531 @@
-PLAYERS: 1225
-{1225: <memorygame.Player instance at 0xb6dbacec>}
-PLAYERS: 1226
-{1225: <memorygame.Player instance at 0xb6dbacec>, 1226: <memorygame.Player instance at 0xa3aaeac>}
-PLAYERS: 1227
-{1225: <memorygame.Player instance at 0xb6dbacec>, 1226: <memorygame.Player instance at 0xa3aaeac>, 1227: <memorygame.Player instance at 0xa3b1d8c>}
-PLAYERS: 1228
-{1225: <memorygame.Player instance at 0xb6dbacec>, 1226: <memorygame.Player instance at 0xa3aaeac>, 1227: <memorygame.Player instance at 0xa3b1d8c>, 1228: <memorygame.Player instance at 0xa3aa4ac>}
-GROUPS:  {1225: <memorygame.Group instance at 0xb6d9b8ac>}
-GROUPS:  {1225: <memorygame.Group instance at 0xb6d9b8ac>, 1227: <memorygame.Group instance at 0xa3b042c>}
-GAMES:  {1225: <memorygame.Game instance at 0xb53dec6c>}
-Answer
-ImmutableMultiDict([('box', u'card7'), ('img', u'static/img/06.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'4098'), ('moveN', u'1'), ('correctN', u'0'), ('startTime', u'3002'), ('turnLen1', u'5785'), ('img1', u'static/img/01.jpg'), ('img0', u'static/img/06.jpg'), ('box1', u'card11'), ('box0', u'card7')])
-Know Full Ans
-Know Full Ans
+PLAYERS: 1323
+{1323: <memorygame.Player instance at 0xb6d78e2c>}
+PLAYERS: 1324
+{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>}
+PLAYERS: 1325
+{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>, 1325: <memorygame.Player instance at 0xb5bdb64c>}
+PLAYERS: 1326
+{1323: <memorygame.Player instance at 0xb6d78e2c>, 1324: <memorygame.Player instance at 0xb5bdb26c>, 1325: <memorygame.Player instance at 0xb5bdb64c>, 1326: <memorygame.Player instance at 0xb5be548c>}
+GROUPS:  {1323: <memorygame.Group instance at 0xb5be566c>}
+GROUPS:  {1323: <memorygame.Group instance at 0xb5be566c>, 1325: <memorygame.Group instance at 0xb5be560c>}
+GAMES:  {1323: <memorygame.Game instance at 0xb5be562c>}
+FULL moveN 1, correctN 0
 Know Nothing
-Know Full Ans
 All Know
 All Know
 All Know
 All Know
-Answer
-ImmutableMultiDict([('box', u'card7'), ('img', u'static/img/06.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card12'), ('img', u'static/img/04.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card1'), ('img', u'static/img/07.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card3'), ('img', u'static/img/02.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card18'), ('img', u'static/img/03.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'1222'), ('moveN', u'1'), ('correctN', u'0'), ('startTime', u'39047'), ('turnLen1', u'2296'), ('img1', u'static/img/04.jpg'), ('img0', u'static/img/03.jpg'), ('box1', u'card13'), ('box0', u'card18')])
-Know Full Ans
 Know Nothing
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card13'), ('img', u'static/img/04.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card12'), ('img', u'static/img/04.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'2690'), ('moveN', u'1'), ('correctN', u'1'), ('startTime', u'42049'), ('turnLen1', u'5785'), ('img1', u'static/img/04.jpg'), ('img0', u'static/img/04.jpg'), ('box1', u'card12'), ('box0', u'card13')])
-Know Full Ans
-Know Full Ans
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'4506'), ('moveN', u'0'), ('correctN', u'1'), ('startTime', u'47079'), ('turnLen1', u'0'), ('img1', u'static/img/04.jpg'), ('img0', u'static/img/04.jpg'), ('box1', u'card12'), ('box0', u'card13')])
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card15'), ('img', u'static/img/08.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card5'), ('img', u'static/img/01.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card8'), ('img', u'static/img/05.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card3'), ('img', u'static/img/02.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card1'), ('img', u'static/img/07.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card15'), ('img', u'static/img/08.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Know Full Ans
-Know Full Ans
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card16'), ('img', u'static/img/05.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('box', u'card8'), ('img', u'static/img/05.jpg'), ('half', u'1')])
-Has HALF ANS
-Know Full Ans
-Know Full Ans
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'5835'), ('moveN', u'0'), ('correctN', u'2'), ('startTime', u'91094'), ('turnLen1', u'0'), ('img1', u'static/img/05.jpg'), ('img0', u'static/img/05.jpg'), ('box1', u'card8'), ('box0', u'card16')])
-Know Full Ans
-Know Full Ans
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'1869'), ('moveN', u'1'), ('correctN', u'2'), ('startTime', u'86095'), ('turnLen1', u'5785'), ('img1', u'static/img/05.jpg'), ('img0', u'static/img/05.jpg'), ('box1', u'card8'), ('box0', u'card16')])
-All Know
-All Know
-All Know
-All Know
-Answer
-ImmutableMultiDict([('box', u'card17'), ('img', u'static/img/07.jpg'), ('half', u'1')])
-Has HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Know HALF ANS
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'2818'), ('moveN', u'1'), ('correctN', u'1'), ('startTime', u'102113'), ('turnLen1', u'4428'), ('img1', u'static/img/07.jpg'), ('img0', u'static/img/07.jpg'), ('box1', u'card1'), ('box0', u'card17')])
-Know Full Ans
 Know Nothing
-Know Full Ans
-Know Full Ans
-Answer
-ImmutableMultiDict([('full', u'1'), ('turnLen0', u'7526'), ('moveN', u'0'), ('correctN', u'1'), ('startTime', u'102108'), ('turnLen1', u'0'), ('img1', u'static/img/07.jpg'), ('img0', u'static/img/07.jpg'), ('box1', u'card1'), ('box0', u'card17')])
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 1, correctN 0
+Know Nothing
 All Know
 All Know
 All Know
 All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 2, correctN 0
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 2, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 3, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 3, correctN 1
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 4, correctN 0
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 4, correctN 1
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 5, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 5, correctN 1
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 6, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 6, correctN 2
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 7, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 7, correctN 3
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 8, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 8, correctN 3
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 9, correctN 0
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 9, correctN 3
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 10, correctN 1
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 10, correctN 4
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 11, correctN 1
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 11, correctN 5
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 12, correctN 1
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+FULL moveN 12, correctN 6
+Know Nothing
+All Know
+All Know
+All Know
+All Know
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing
+Know Nothing

@@ -6,8 +6,6 @@ var recvAnsID;
 var recvKnowID;
 var flipMsgID;
 
-var moveN       = 0;
-var correctN    = 0;
 var moveTime    = 0;
 var correctTime = 0;
 
@@ -89,7 +87,6 @@ $(document).ready(function() {
                     recvOrderID = setInterval(sendWait, 1000);  /*- no enough user waiting on server -*/
                 else {
                     /*- there is already another user waiting on server -*/
-                    turnState = CTRL;
 
                     order = shuffle();
                     sendOrder(order);  /*- send card order to server -*/ 
@@ -101,10 +98,11 @@ $(document).ready(function() {
                         gameStartTime = new Date();
                         window.clearInterval(flipMsgID);
                         $("#waiting").html('Take Control!');
+                        //turnState = CTRL;
                         setTimeout(clearWaitMsg, 3000);
-                        recvAnsID  = setInterval(recvAns, 1000); 
-                        recvKnowID = setInterval(recvKnow, 1000); 
-                        //setInterval(updateTime, 1000);  
+                        recvAnsID  = setInterval(recvAns, 500); 
+                        recvKnowID = setInterval(recvKnow, 500); 
+                        setInterval(updateTime, 1000);  
                     }, 5000);
                 }
             }
@@ -130,7 +128,6 @@ $(document).ready(function() {
     /*- send shuffled card order to server -*/
     function sendOrder(order)
     {
-        //$("#ctrl").button().bind('click', sendCtrl).button('disable');
         $.ajax({
             url:  "/shuffle",
             type: "POST",
@@ -147,36 +144,34 @@ $(document).ready(function() {
     /*- recv shuffled card order to server -*/   
     function recvOrder(order)
     {
-        //$("#ctrl").button().bind('click', sendCtrl).button('disable');
         $.ajax({
             url:  "/shuffle",
             type: "GET",
             success: function(resp) {
-                gameStartTime = new Date();
-
-				if (resp.isEnemy == 1)
-					turnState = WAIT;
-				else 
-					turnState = CTRL;
 
                 syncCards(resp.order);    /*- sync card order with ctrler order -*/
                 window.clearInterval(recvOrderID); 
                 flipMsgID = setInterval( function () {
-	                flipMsg("Ready");
+                    flipMsg("Ready");
                 }, 1000);
 
                 setTimeout(function () {
- 		            window.clearInterval(flipMsgID);
+
+                    gameStartTime = new Date();
+                    window.clearInterval(flipMsgID);
                     $('#game').html('Game ID: ' + resp.gameID);
 
-					if(turnState == CTRL){
-						$("#waiting").html('Take Control!');
-						setTimeout(clearWaitMsg, 3000);
-					}
 
-                    recvAnsID = setInterval(recvAns, 1000); 
-                    recvKnowID = setInterval(recvKnow, 1000); 
-                    //setInterval(updateTime, 1000);   
+					if   (resp.isEnemy == 1) turnState = WAIT;
+					else {
+                        $("#waiting").html('Take Control!');
+                        setTimeout(clearWaitMsg, 3000);
+                    }
+
+                    recvAnsID  = setInterval(recvAns, 500); 
+                    recvKnowID = setInterval(recvKnow, 500); 
+                    setInterval(updateTime, 1000);   
+
                 }, 5000);
             }
         });   
@@ -202,6 +197,10 @@ $(document).ready(function() {
             type: "POST",
             traditional: true,
             data:{ half:1, img:img, box:box},
+            success: function(resp) {
+                if (resp.full == 1)
+                    updateMove(0, resp.moveN, resp.correctN);
+            }
         });  
     }
 
@@ -215,14 +214,14 @@ $(document).ready(function() {
             traditional: true,
             data:{
                 full:1, img0:img0, img1:img1, box0:box0, box1:box1, 
-                moveN:moveN, correctN:correctN, turnLen0:turnLen0, turnLen1:turnLen1, startTime:startTime
+                turnLen0:turnLen0, turnLen1:turnLen1, startTime:startTime
             },
             success: function(resp) {   
+                updateMove(0, resp.moveN, resp.correctN);
+                turnState = KNOW;
                 if (resp.end == 1) recvEnd();
             }
         });  
-
-		turnState = KNOW;
     }
   
 
@@ -237,23 +236,28 @@ $(document).ready(function() {
             type: "GET",
             success: function(resp) {
                 if (resp.giveup == 1) {
+
+                    updateMove(resp.isEnemy, resp.moveN, -1);
                     if (resp.box != ""){
                         $("#" + resp.box + " img").fadeIn(1000);
                         $("#" + resp.box + " img").delay(1000).fadeOut(1000);
                     }
-					turnState = KNOW;
+                    turnState = KNOW;
                 }
                 else if (resp.full == 1) {
 
-                    checkAns(resp.img0, resp.box0, resp.img1, resp.box1);
+                    checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
+                    updateMove(resp.isEnemy, resp.moveN, resp.correctN);
                     turnState = KNOW;
-                    if (resp.end == 1)
-                        recvEnd();
+                    if (resp.end == 1) recvEnd();
                 }
                 else {
                     $("#timer").html('Countdown: ' + resp.countdown + ' seconds'); 
-                    if (resp.half == 1)
+                    if (resp.half == 1){
                         $("#" + resp.box + " img").fadeIn(1000);
+                        box_open = resp.box;
+                        img_open = resp.img;
+                    }
                 }
             } 
         });  
@@ -261,28 +265,23 @@ $(document).ready(function() {
 
   
     function recvKnow()
-	{
-		if (turnState != KNOW) return;
+    {
+        if (turnState != KNOW) return;
 
         $.ajax({
             url:  "/know",
             type: "GET",
             success: function(resp) {
-
                 if (resp.allknow == 1) {
-			
                     if   (resp.ctrl == 1) {
-					    turnState = CTRL;
+                        //turnState = CTRL;
                         setTimeout(clearWaitMsg, 4000);  
-					}
-                    else{  
-						turnState = WAIT;
-					}
+                    }
+                    else turnState = WAIT;
                 }
             }
         });
     }
-
 
 
 
@@ -291,13 +290,13 @@ $(document).ready(function() {
         $.ajax({
             url:  "/end",
             type: "POST",
-            data: {moveN:moveN, moveTime:moveTime, correctN:correctN, correctTime:correctTime},
+            data: {moveTime:moveTime, correctTime:correctTime},
             success:function(resp){
                 $('#waiting').removeClass('disappear');
-                $('#timer').removeClass('Countdown: -- seconds');
+                $('#timer').html('Countdown: -- seconds');
                 window.clearInterval(recvAnsID); 
                 if      (resp.result == 1)
-         	    $('#waiting').html("YOU WIN!");
+                    $('#waiting').html("YOU WIN!");
                 else if (resp.result == -1)
                     $('#waiting').html("YOU LOSE...");
                 else  
@@ -311,6 +310,7 @@ $(document).ready(function() {
     /*- clear wait msg, used before one take ctrl -*/ 
     function clearWaitMsg()
     {
+		turnState = CTRL;
         $("#waiting").html('');
         $("#waiting").addClass('disappear');
         turnTime = [0, 0];
@@ -318,18 +318,19 @@ $(document).ready(function() {
     }
 
 
+
     function updateTime()
     {
-        if ( turnState != CTRL  ) return;    
+        if ( turnState != CTRL || turnStartTime == 0 ) return;    
 
         var curTime = new Date();
         countdown = Math.ceil(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
-        $("#timer").html('Countdown: ' + countdown + ' seconds'); 
-        //sendCountdown(countdown);
+        sendCountdown(countdown);
 
         if (countdown <= 0) 
             giveUpTurn(img_open, box_open);
     }
+
 
 
     function recordTime(number, giveup)
@@ -346,21 +347,17 @@ $(document).ready(function() {
     }
 
 
+
     function giveUpTurn(img, box)
     {
         recordTime(0, 1);
-        moveN++;
-        $('#move_p').html("Playse Move: " + moveN);
-        $("#waiting").removeClass('disappear');
-        $("#timer").html('Countdown: -- seconds'); 
-        $("#ctrl").button('disable');
-      
+        
         $.ajax({
             url:  "/answer",
             type: "POST",
             traditional: true,
             data: {
-                giveup:1, img:img, box:box, moveN:moveN, 
+                giveup:1, img:img, box:box, 
                 turnLen:turnLen, startTime:getTimeFromBegin(turnStartTime)
             },
         }); 
@@ -390,62 +387,54 @@ $(document).ready(function() {
 
                 box_open = box_cur;
                 img_open = $("#" + box_open + " img").attr("src");
-                
+                sendHalfAns(img_open, box_open);
+
                 setTimeout(function() {
                     $("#boxcard div").bind("click", openCard)
                 }, 300);
-
-                sendHalfAns(img_open, box_open);
             } 
             else {
                 recordTime(1, 0);    /*- record timing of fliping 2nd card -*/
+
                 var img_cur = $("#" + box_cur + " img").attr("src");
-                checkAns(img_open, box_open, img_cur, box_cur);
+                checkAns(img_open, box_open, img_cur, box_cur, 1);
  
-                moveN++;
                 $('#waiting').removeClass('disappear');  
-                $('#move_p').html("Player Move: " + moveN);  
-                $("#correct_p").html("Player Score: " + correctN); 
             }
         }
     }
 
 
-    function checkAns(img0, box0, img1, box1)
+    function checkAns(img0, box0, img1, box1, isPlayer)
     {
-
         if (img0 != img1) {    /*- wrong answer -*/
-  		    $("#dbg").html('diff:' + img0 + '<br />' + img1);
 
             setTimeout(function() {
 
                 if (turnState == CTRL) {  
-                    sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
-                                getTimeFromBegin(turnStartTime) ); 
+                    if (isPlayer == 1){
+                        sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
+                                    getTimeFromBegin(turnStartTime) ); 
+                    }
                     $('#waiting').removeClass('disappear');
-                    $("#timer").html('Countdown: -- seconds'); 
-		        }
+                }
                 else 
-                    showBoxes(box0, box1);
+				    showBoxes(box0, box1);
+
                 hideBoxes(box0, box1);
             }, 400);
+
         } 
         else {                /*- right answer -*/
 
-  		    $("#dbg").html('same:' + img0 + '<br />' + img1);
-
-            if (turnState == CTRL){   
-                correctN++;
+            if (isPlayer == 1 && turnState == CTRL){   
                 sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
                             getTimeFromBegin(turnStartTime) );
-                $('#correct_p').html('Player Score: ' + correctN);
-                $("#timer").html('Countdown: -- seconds'); 
             }
-            else
-               showBoxes(box0, box1);
+            else 
+                showBoxes(box0, box1);
 
-            $("#" + box0 + " img").addClass("opacity");
-            $("#" + box1 + " img").addClass("opacity");
+			coverBoxes(box0, box1);
         } 
  
         setTimeout(function() {
@@ -473,6 +462,16 @@ $(document).ready(function() {
 
 
 
+    function coverBoxes(box0, box1)
+    {
+        $("#" + box0 + " img").addClass('opacity');
+        $("#" + box1 + " img").addClass('opacity');
+        box_open = "";
+        img_open = "";
+    }
+
+
+
     function unloadPage() 
     {
         $.ajax({
@@ -494,58 +493,37 @@ $(document).ready(function() {
          else                    $('#waiting').html(msg + '...');
     }
 
+   
+
+    function updateMove(isEnemy, moveN, correctN)
+    {
+        if (isEnemy == 1) 
+            $("#move_e").html("Opponent Move: " + moveN);
+        else              
+            $("#move_p").html("Player Move: "   + moveN);
+
+        if (correctN != -1) {
+            if (isEnemy == 1) 
+                $("#correct_e").html("Opponent Score: " + correctN);
+            else              
+                $("#correct_p").html("Player Score: "   + correctN);
+        }
+    }
 
 
-//    function sendCtrl()
-//    {
-//        $.ajax({
-//            url:'/ctrl',
-//            type:'POST',
-//            success: function (resp) {
-//                if (resp.ctrl != -1) {
-//                    $('#ctrl').button('disable');
-//                    window.clearInterval(recvCtrlID);
-//                    turnState = IN_CTRL;
-//                    //dbgTurnState();
-//                }
-//            }
-//        });
-//    }
-//
-//   
-//   
-//    function recvCtrl()
-//    {
-//        $.ajax({
-//            url:'/ctrl',
-//            type:'GET',
-//            success: function(resp){
-//                if (resp.ctrl != -1) {    /*- somebody  has taken the turn -*/
-//                    $('#ctrl').button('disable');
-//                    window.clearInterval(recvCtrlID); 
-//
-//                    if      (turnState == WAIT_MATE_CTRL)
-//                        turnState = WAIT_MATE_ANS;
-//                    else if (turnState == WAIT_ENEMY_CTRL)
-//                        turnState = WAIT_ENEMY_ANS;
-//
-//                }
-//            }
-//        });
-//    }
-
-
- 
     function getTimeFromBegin(time)
     {
          return time.getTime() - gameStartTime.getTime();
     }
 
 
+
     function dbgTurnState()
     {
         $('#dbg').html(turnState); 
     }
+
+
 });   
 
 
