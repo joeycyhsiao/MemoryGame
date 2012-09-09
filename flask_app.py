@@ -13,8 +13,6 @@ import csv
 app = Flask(__name__)
 
 
-count = 0
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
@@ -25,10 +23,34 @@ def index():
         return resp
 
     elif request.method == 'POST':   
+        usr = mg.getUsr( request.cookies.get('usrID') )
+        if usr == -1:
+            return jsonify( usrID=-1 ) 
+        if  ('init' in request.form) or ('polling' in request.form) :  
+            space = mg.getSpaceN()
+            return jsonify( usrID=usr.getUsrID(), space0=space[0], space1=space[1] )
+
+        elif 'choose' in request.form:        #- for sendWait() -#
+            side = request.form.get('side')
+            space = mg.takeSpace( usr.getUsrID(), int(side) )
+            return jsonify( side=side, space0=space[0], space1=space[1] )
+      
+
+
+@app.route('/game', methods=['GET', 'POST'])
+def game():
+
+    if   request.method == 'GET':    #- load the page -#
+        print 'GAME GET'
+        return make_response( flask.render_template('game.html') )
+
+    elif request.method == 'POST':   
         usr = mg.getUsr( request.cookies.get('usrID') ) 
-        if   'init'    in request.form:        #- for init(), return -1: waiting, else: game starting -#
-            return jsonify( gameID = mg.addUsr(usr) )
+        if   'init'    in request.form:        #- for init(). if gameID == -1: waiting; else: game starting; -#
+            print 'GAME POST INIT %d' %( usr.getUsrID() )
+            return jsonify( gameID = mg.joinUsr( usr.getUsrID() ) )
         elif 'waiting' in request.form:        #- for sendWait() -#
+            print 'GAME POST WAIT %d' %( usr.getUsrID() )
             return jsonify( gameID = usr.getGameID() )
 
 
@@ -191,7 +213,6 @@ def countdown():
 
 @app.route('/end', methods=['POST'])
 def end():
-    print 'END'
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
     game.writeRes()
     return jsonify( result=game.getResult( grp.getGrpID() ) )
@@ -200,20 +221,19 @@ def end():
 
 @app.route('/unload', methods=['GET'])
 def unload():
-    mg.rmWaiting( int(request.cookies.get('usrID') ) )
+    #if 'start' not in request.form:
+    #    print 'UNLOAD'
+    #    mg.rmWaiting( int(request.cookies.get('usrID') ) )
     return make_response()
 
 
 
 @app.route('/ctrl', methods=['GET', 'POST'])
 def ctrl():
-
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
-
     if request.method == 'POST':    #- for sendCtrl() -#
         game.reset()
         game.setCtrl( usr.getUsrID(), usr.getGrpID() )
-
     return jsonify( ctrl=game.getCtrl()[0] )
 
 

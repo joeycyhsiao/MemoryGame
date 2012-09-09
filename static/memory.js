@@ -84,6 +84,7 @@ $(document).ready(function()
     function init() 
     {
         $.ajax({
+			url:  '/game',
             type: "POST",
             data: {init: '1'},
             success: function (resp) {
@@ -120,6 +121,7 @@ $(document).ready(function()
     {
          flipMsg("Waiting for Other Players' Join");
          $.ajax({
+			url: '/game',
             type: "POST",
             data: {waiting: '1'},
             success: function (resp) {

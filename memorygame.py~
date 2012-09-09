@@ -4,8 +4,10 @@ GAMES   = {}
 GROUPS  = {}
 PLAYERS = {}
 
-WAITING = []
+WAITING = [ [-1, -1], [-1, -1] ]
+JOIN    = []
 TOTAL_N = 3
+
 
 class Game():
 
@@ -45,7 +47,8 @@ class Game():
     def isReady(self):
         return self.ready
     def isOver(self):
-        return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() >= TOTAL_N )
+        return (self.grps[0].getCorrectN() >= TOTAL_N/2 ) or \
+               (self.grps[1].getCorrectN() >= TOTAL_N/2 )
 
     def allKnow(self):
         retVal = True
@@ -224,30 +227,43 @@ class Player():
 
 
 
-def addUsr(usr):
-    global WAITING
-    waitingN = len(WAITING)
-    if   waitingN == 3:
-        game = createGame(WAITING[0], WAITING[1], WAITING[2], usr)
+def joinUsr(UID):
+    global WAITING, JOIN
+
+    usr = getUsr(UID)
+    if ( inWaiting(UID) ) and (UID not in JOIN):
+        JOIN.append(UID) 
+
+    print 'WAIT'
+    print WAITING
+
+    print 'JOIN'
+    print JOIN
+
+    print 'ALL JOIN'
+    print allJoin()
+
+    if allJoin():
+        game = createGame(WAITING)
         game.setCtrl( int(usr.getUsrID()), int(usr.getGrpID()) )
-        WAITING  = []
+        WAITING = [[-1, -1], [-1, -1]]
+        JOIN = []
         return game.getGameID()
-    elif waitingN <= 2: 
-        WAITING.append(usr)
+    else:
         return -1
 
 
 
-def createGame(usr0, usr1, usr2, usr3):
+def createGame(wait):
     global GAMES
 
     #- use known usrIDs as gameID and grpID -#
-    gameID = usr0.getUsrID()    
-    grpID0 = usr0.getUsrID()
-    grpID1 = usr2.getUsrID()
+    gameID = wait[0][0] 
+    grpID0 = wait[0][0]
+    grpID1 = wait[1][0])
 
-    grp0 = createGrp(gameID, grpID0, usr0, usr1)
-    grp1 = createGrp(gameID, grpID1, usr2, usr3)  
+    grp0 = createGrp(gameID, grpID0, wait[0][0], wait[0][1])
+    grp1 = createGrp(gameID, grpID1, wait[1][0], wait[1][1])  
     grp0.setEnemyGID(grpID1)
     grp1.setEnemyGID(grpID0)
 
@@ -325,7 +341,57 @@ def getGame(gameID):
 
 def rmWaiting(usrID):
     global WAITING
-    WAITING = [i for i in WAITING if i != usrID ]
+    print 'RM WAITING'
+    print WAITING
+    for i in range(0, 2):
+        for j in range(0, 2):
+            if WAITING[i][j] == usrID:
+                WAITING[i][j] = -1
+                break
+
+
+
+def takeSpace(usrID, side):
+    global WAITING
+    print 'TAKE SPACE'
+
+    for i in range(0, 2):
+        for j in range(0, 2):
+            if i == side:
+                if WAITING[i][j] == -1 and WAITING[i][1-j] != usrID:
+                    WAITING[i][j] = usrID
+                    print WAITING
+            if i != side:
+                if WAITING[i][j] == usrID:
+                    WAITING[i][j] = -1
+                    print WAITING
+
+    return getSpaceN()
+
+
+
+def getSpaceN():
+    global WAITING
+    space = [0, 0]
+    space[0] = len( [ i for i in WAITING[0] if i == -1] )
+    space[1] = len( [ i for i in WAITING[1] if i == -1] )
+    return space
+
+
+
+def inWaiting(usrID):
+    return ( len( [ WAITING[i][j] for i in range(0, 2)
+                                      for j in range(0, 2)
+                                          if WAITING[i][j] == usrID ] ) == 1)
+
+
+def allJoin():
+    count = 0
+    for i in range(0,2):
+        for j in range(0,2):
+            if WAITING[i][j] in JOIN:
+                count +=1 
+    return (count == 4)
 
 
 

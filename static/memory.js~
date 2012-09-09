@@ -84,6 +84,7 @@ $(document).ready(function()
     function init() 
     {
         $.ajax({
+			url:  '/game',
             type: "POST",
             data: {init: '1'},
             success: function (resp) {
@@ -261,7 +262,7 @@ $(document).ready(function()
                         img_open = '';
                     }
 
-					if (resp.isEnemy != 1) 
+					if (resp.isEnemy == 0) 
 						mateGiveup = 1;
 
                     updateMove(resp.isEnemy, resp.moveN, -1);
