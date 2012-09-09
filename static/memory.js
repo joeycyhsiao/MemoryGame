@@ -84,6 +84,7 @@ $(document).ready(function()
             type: "POST",
             data: {init: '1'},
             success: function (resp) {
+				setInterval(dbgTurnState,500);
                 if (resp.gameID == -1)
                     recvOrderID = setInterval(sendWait, 1000);  /*- no enough user waiting on server -*/
                 else {
@@ -99,6 +100,7 @@ $(document).ready(function()
                         gameStartTime = new Date();
                         window.clearInterval(flipMsgID);
                         $("#waiting").html('Take Control!');
+						turnStartTime = 0;
                         turnState = CTRL;
                         setTimeout(clearWaitMsg, 3000);
                         recvAnsID  = setInterval(recvAns, 1000); 
@@ -165,6 +167,7 @@ $(document).ready(function()
                     if   (resp.isEnemy == 1) turnState = WAIT;
                     else {
                         $("#waiting").html('Take Control!');
+						turnStartTime = 0;
                         turnState = CTRL;
                         setTimeout(clearWaitMsg, 3000);
                     }
@@ -287,6 +290,7 @@ $(document).ready(function()
             success: function(resp) {
                 if (resp.allknow == 1) {
                     if   (resp.ctrl == 1)  /*- assigned as ctrler -*/{
+						turnStartTime = 0;
 						turnState = CTRL;
 						$("#waiting").html('Take Control!');
                         setTimeout(clearWaitMsg, 4000);  
@@ -324,18 +328,22 @@ $(document).ready(function()
     /*- clear wait msg, used before one take ctrl -*/ 
     function clearWaitMsg()
     {
-		turnState = CTRL;
+        turnStartTime = new Date();
         $("#waiting").html('');
         $("#waiting").addClass('disappear');
         turnTime = [0, 0];
-        turnStartTime = new Date();
     }
 
 
 
     function updateTime()
     {
-        if ( turnState != CTRL || turnStartTime == 0 ) return;    
+        if ( turnState != CTRL || !$("#waiting").hasClass('disappear') || turnStartTime == 0 ) return;    
+
+        /*- 
+         *  there are many turnStartTime = 0 to prevent come into this function, 
+         *  and giveup before turnStartTime renewed
+        -*/
 
         var curTime = new Date();
         countdown = Math.floor(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
@@ -363,6 +371,12 @@ $(document).ready(function()
         recordTime(0, 1);
 		startTime = getTimeFromBegin(turnStartTime);
 
+        if (box_open != ""){    /*- give up after opening one card -*/
+            $("#" + box_open + " img").delay(1000).fadeOut(1000);
+            box_open = "";
+            img_open = "";
+        }
+
         $.ajax({
             url:  "/answer",
             type: "POST",
@@ -375,12 +389,6 @@ $(document).ready(function()
                 turnState = KNOW;
 			}
         }); 
-
-        if (box_open != ""){    /*- give up after opening one card -*/
-            $("#" + box_open + " img").delay(1000).fadeOut(1000);
-            box_open = "";
-            img_open = "";
-        } 
     }
 
 

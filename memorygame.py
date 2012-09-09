@@ -47,10 +47,10 @@ class Game():
     def isOver(self):
         return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() >= TOTAL_N )
 
-    def allKnowAns(self):
+    def allKnow(self):
         for grp in self.grps:
             for usr in grp.getUsrs():
-                if not( usr.knowAns() ):
+                if not( usr.isKnow() ):
                     return False
         return True
 
@@ -80,16 +80,16 @@ class Game():
             
             moves = grp.getMoves()
             times = grp.getTimes()
-            mover = grp.getMover()
+            movers = grp.getMovers()
 
             for i, move in enumerate(moves):
                 fp.write(str(move) + ',')
-                turnMover = mover[i]
+                turnMovers = movers[i]
                 turnTimes = times[i]
-                for mover in turnMover:
-                    fp.write( str(mover) + ',' )
-                for time in turnTimes:
-                    fp.write( str(time)  + ',' )
+                for turnMover in turnMovers:
+                    fp.write( str(turnMover) + ',' )
+                for turnTime  in turnTimes:
+                    fp.write( str(turnTime)  + ',' )
                 fp.write('\n')
             fp.close()
 
@@ -98,11 +98,11 @@ class Game():
 class Group():
 
     def __init__(self, grpID, usr0, usr1):
-        self.grpID = grpID
-        self.usrs  = [usr0, usr1]
-        self.times = []
-        self.mover = []
-        self.moves = []
+        self.grpID  = grpID
+        self.usrs   = [usr0, usr1]
+        self.times  = []
+        self.moves  = []
+        self.movers = []
         self.reset()
 
     def reset(self):
@@ -152,8 +152,8 @@ class Group():
 
     def getTimes(self):
         return self.times
-    def getMover(self):
-        return self.mover
+    def getMovers(self):
+        return self.movers
 
     def addMove(self, correct):
         if   correct == True:    #- correct -#
@@ -171,7 +171,7 @@ class Group():
 
     def finTurn(self):
         self.times.append(self.turnTimes)
-        self.mover.append(self.turnMover)
+        self.movers.append(self.turnMover)
         self.resetTurnTimes()
 
     def giveUpTurn(self):
@@ -209,9 +209,9 @@ class Player():
     def setGrpID(self, grpID):
         self.grpID = grpID
 
-    def listenAns(self):
+    def setKnow(self):
        self.know = True
-    def knowAns(self):
+    def isKnow(self):
        return self.know
 
     def isEnemyWith(self, another):
