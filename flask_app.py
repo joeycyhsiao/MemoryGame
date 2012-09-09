@@ -55,42 +55,60 @@ def shuffle():
 def answer():    #- used by only ctrler -#
 
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
+    UID = usr.getUsrID()
 
     if   'half'   in request.form:   
         grp.setAns( request.form.get('img'), request.form.get('box') )
 
-        if grp.isFullAns(): 
+        if grp.isHalfAns():
+            grp.setTurnTimes( request.form.get('startTime'), 0, UID )
+            grp.setTurnTimes( request.form.get('turnTime'),  1, UID )
+            return flask.make_response() 
+
+        elif grp.isFullAns(): 
+
+            grp.setTurnTimes( request.form.get('turnTime'),  2, UID)
             (imgs, boxes) = grp.getAns()
-            grp.increaseMoveN()
-            if imgs[0] == imgs[1]:
-                grp.increaseCorrectN()
+            grp.addMove( (imgs[0] == imgs[1]) )
+            
+            print 'Send HALF to FULL'
+            print grp.getTurnTimes()
+            grp.finTurn()
             usr.listenAns()
-            print 'HALF moveN %d, correctN %d' %( grp.getMoveN(), grp.getCorrectN() )
             return flask.jsonify( full=1, moveN=grp.getMoveN(), correctN=grp.getCorrectN(), end=int(game.isOver()) )
    
         else:
             return flask.make_response() 
 
     elif 'giveup' in request.form:
-        usr.listenAns()
         grp.giveUpTurn()
-        grp.increaseMoveN()
+        if grp.getTurnTimes()[0] == -1:
+            grp.setTurnTimes( request.form.get('startTime'), 0, UID)
+        grp.addMove('')
+
+        print 'Give up'
+        print grp.getTurnTimes()
+        grp.finTurn()
+        usr.listenAns()
         return flask.jsonify( moveN=grp.getMoveN() )
 
     elif 'full'   in request.form:    #- one player finish the turn -#
-        img0 = request.form.get('img0')
-        img1 = request.form.get('img1')
+        imgs = [request.form.get('img0'), request.form.get('img1') ]
 
         grp.delAns() 
-        grp.setAns( img0, request.form.get('box0') ) 
-        grp.setAns( img1, request.form.get('box1') )
+        grp.setAns( imgs[0], request.form.get('box0') ) 
+        grp.setAns( imgs[1], request.form.get('box1') )
 
-        grp.increaseMoveN()
-        if img0 == img1:
-            grp.increaseCorrectN()
+        grp.resetTurnTimes()
+        grp.setTurnTimes( request.form.get('startTime'), 0, UID )
+        grp.setTurnTimes( request.form.get('turnTime0'), 1, UID )
+        grp.setTurnTimes( request.form.get('turnTime1'), 2, UID )
+        grp.addMove( (imgs[0] == imgs[1]) )
 
+        print 'Send FULL'
+        print grp.getTurnTimes()
+        grp.finTurn()
         usr.listenAns()
-        print 'FULL moveN %d, correctN %d' %( grp.getMoveN(), grp.getCorrectN() )
         return flask.jsonify( moveN=grp.getMoveN(), correctN=grp.getCorrectN(), end=int(game.isOver()) )
 
 
@@ -175,7 +193,9 @@ def countdown():
 def end():
     print 'END'
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
+    game.writeRes()
     return flask.jsonify( result=game.getResult( grp.getGrpID() ) )
+
 
 
 @app.route('/unload', methods=['GET'])
@@ -195,21 +215,6 @@ def ctrl():
         game.setCtrl( usr.getUsrID(), usr.getGrpID() )
 
     return flask.jsonify( ctrl=game.getCtrl()[0] )
-
-
-
-def writeRes(usrID):
-    enemyID = getEnemy(usrID)
-    fp = open('./result/'+usrID+'_'+enemyID+'.txt', 'w')
-
-    fp.write(str(usrID) + ':' + str(enemyID) + '\n')
-    fp.write(str(CORRECT_N[usrID]) + ':' + str(CORRECT_N[enemyID]) + '\n')
-    for i, turnTime in enumerate(TURN_TIME[usrID]):
-        fp.write(str(TURN_START_TIME[usrID][i]) + ',')
-        for time in turnTime:
-            fp.write(str(time) + ',')
-        fp.write('\n')
-    fp.close()
 
 
 

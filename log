@@ -1,30 +1,16 @@
-PLAYERS: 1464
-{1464: <memorygame.Player instance at 0x8acf2ac>}
-PLAYERS: 1465
-{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>}
-PLAYERS: 1466
-{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>, 1466: <memorygame.Player instance at 0x8ad45ec>}
-PLAYERS: 1467
-{1464: <memorygame.Player instance at 0x8acf2ac>, 1465: <memorygame.Player instance at 0x8aceeac>, 1466: <memorygame.Player instance at 0x8ad45ec>, 1467: <memorygame.Player instance at 0x8ad4d4c>}
-GROUPS:  {1464: <memorygame.Group instance at 0x8ad4bac>}
-GROUPS:  {1464: <memorygame.Group instance at 0x8ad4bac>, 1466: <memorygame.Group instance at 0x8ad4c6c>}
-GAMES:  {1464: <memorygame.Game instance at 0x8ad4c4c>}
-FULL moveN 1, correctN 0
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
+PLAYERS: 1492
+{1492: <memorygame.Player instance at 0xb5cd17ec>}
+PLAYERS: 1493
+{1492: <memorygame.Player instance at 0xb5cd17ec>, 1493: <memorygame.Player instance at 0xb4ca198c>}
+PLAYERS: 1494
+{1492: <memorygame.Player instance at 0xb5cd17ec>, 1493: <memorygame.Player instance at 0xb4ca198c>, 1494: <memorygame.Player instance at 0xb4ca53ec>}
+PLAYERS: 1495
+{1492: <memorygame.Player instance at 0xb5cd17ec>, 1493: <memorygame.Player instance at 0xb4ca198c>, 1494: <memorygame.Player instance at 0xb4ca53ec>, 1495: <memorygame.Player instance at 0xb4caa58c>}
+GROUPS:  {1492: <memorygame.Group instance at 0xb4caa8ec>}
+GROUPS:  {1492: <memorygame.Group instance at 0xb4caa8ec>, 1494: <memorygame.Group instance at 0xb4caa04c>}
+GAMES:  {1492: <memorygame.Game instance at 0xb4caa96c>}
+Send FULL
+[3001, 4002, 4862]
 All Know
 ChangedN:  0
 All Know
@@ -33,20 +19,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 1, correctN 0
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
+Send FULL
+[10087, 10639, 11954]
 Know Nothing
-IS OVER?
-0:0
-
 All Know
 ChangedN:  0
 All Know
@@ -55,20 +30,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 2, correctN 0
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
+Send FULL
+[18063, 19549, 20540]
 Know Nothing
-IS OVER?
-0:0
-
 All Know
 ChangedN:  0
 All Know
@@ -77,20 +41,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 2, correctN 0
-IS OVER?
-0:0
-
+Send FULL
+[26074, 26176, 27632]
 Know Nothing
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
-IS OVER?
-0:0
-
 All Know
 ChangedN:  0
 All Know
@@ -99,19 +52,8 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 3, correctN 1
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
+Send FULL
+[34107, 35303, 36835]
 All Know
 ChangedN:  0
 All Know
@@ -120,20 +62,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 3, correctN 0
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
+Send FULL
+[42084, 43468, 44575]
 Know Nothing
-IS OVER?
-0:1
-
 All Know
 ChangedN:  0
 All Know
@@ -142,20 +73,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 4, correctN 1
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
-IS OVER?
-0:1
-
+Send FULL
+[51101, 51942, 53207]
 Know Nothing
-IS OVER?
-0:1
-
 All Know
 ChangedN:  0
 All Know
@@ -164,20 +84,8 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 4, correctN 1
-IS OVER?
-1:1
-
-Know Nothing
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
+Send FULL
+[59126, 60214, 61229]
 All Know
 ChangedN:  0
 All Know
@@ -186,65 +94,9 @@ All Know
 ChangedN:  2
 All Know
 ChangedN:  3
-FULL moveN 5, correctN 1
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-All Know
-ChangedN:  0
-All Know
-ChangedN:  1
-All Know
-ChangedN:  2
-All Know
-ChangedN:  3
-FULL moveN 5, correctN 1
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-IS OVER?
-1:1
-
-All Know
-ChangedN:  0
-All Know
-ChangedN:  1
-All Know
-ChangedN:  2
-All Know
-ChangedN:  3
-FULL moveN 6, correctN 2
-IS OVER?
-1:2
-
+Send FULL
+[66105, 67172, 68984]
 END
-IS OVER?
-1:2
-
 END
-IS OVER?
-1:2
-
 END
-IS OVER?
-1:2
-
 END

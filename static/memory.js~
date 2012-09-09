@@ -11,7 +11,7 @@ var correctTime = 0;
 
 var gameStartTime = 0;
 var turnStartTime = 0;
-var turnLen   = [0, 0];
+var turnTime = [0, 0];
 
 var turnState = -1;
 
@@ -193,11 +193,13 @@ $(document).ready(function()
 
     function sendHalfAns(img, box)
     {
+        startTime = getTimeFromBegin(turnStartTime);
+
         $.ajax({
             url:  "/answer",
             type: "POST",
             traditional: true,
-            data:{ half:1, img:img, box:box},
+            data:{ half:1, img:img, box:box, turnTime:turnTime[0], startTime:startTime},
             success: function(resp) {
                 if (resp.full == 1)
                     updateMove(0, resp.moveN, resp.correctN);
@@ -207,15 +209,17 @@ $(document).ready(function()
 
 
 
-    function sendFullAns(img0, img1, box0, box1, turnLen0, turnLen1, startTime)
+    function sendFullAns(img0, img1, box0, box1)
     {
+        startTime = getTimeFromBegin(turnStartTime);
+
         $.ajax({
             url:  "/answer",
             type: "POST",
             traditional: true,
             data:{
                 full:1, img0:img0, img1:img1, box0:box0, box1:box1, 
-                turnLen0:turnLen0, turnLen1:turnLen1, startTime:startTime
+                turnTime0:turnTime[0], turnTime1:turnTime[1], startTime:startTime
             },
             success: function(resp) {   
                 updateMove(0, resp.moveN, resp.correctN);
@@ -232,7 +236,7 @@ $(document).ready(function()
 
     function recvAns()
     {
-        if      ( turnState == KNOW ) return;
+        if      ( turnState == KNOW || turnState == END) return;
         else if ( turnState == WAIT ) flipMsg("Waiting for Opponents");
  
         $.ajax({
@@ -301,10 +305,8 @@ $(document).ready(function()
         $.ajax({
             url:  "/end",
             type: "POST",
-            data: {moveTime:moveTime, correctTime:correctTime},
             success:function(resp){
                 $('#waiting').removeClass('disappear');
-                $('#timer').html('Countdown: -- seconds');
                 window.clearInterval(recvAnsID);
                 window.clearInterval(recvKnowID); 
                 if      (resp.result == 1)
@@ -339,38 +341,34 @@ $(document).ready(function()
         countdown = Math.floor(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
         sendCountdown(countdown);
 
-        if (countdown <= 0) 
-            giveUpTurn(img_open, box_open);
+        if (countdown <= 0) giveUpTurn();
     }
 
 
 
-    function recordTime(number, giveup)
+    function recordTime(n, giveup)
     {
-        if      (giveup == 1 && turnLen[0] == 0)    /*- give up before any fliping -*/
-            turnLen = ['-----', '-----'];
-        else if (giveup == 1 && turnLen[0] != 0)    /*- give up after fliping one card -*/
-            turnLen[1] = '-----';
-        else { 
-            var curTime = new Date();
-            duration = curTime.getTime() - turnStartTime.getTime();
-            turnLen[number] = duration;
-        }
+        if      (giveup == 1 && turnTime[0] == 0)    /*- give up before any fliping -*/
+            turnTime = ['-----', '-----'];
+        else if (giveup == 1 && turnTime[0] != 0)    /*- give up after fliping one card -*/
+            turnTime[1] = '-----';
+        else 
+            turnTime[n] = getTimeFromBegin( new Date() );
     }
 
 
 
-    function giveUpTurn(img, box)
+    function giveUpTurn()
     {
         recordTime(0, 1);
-        
+		startTime = getTimeFromBegin(turnStartTime);
+
         $.ajax({
             url:  "/answer",
             type: "POST",
             traditional: true,
             data: {
-                giveup:1, turnLen:turnLen, 
-			    startTime:getTimeFromBegin(turnStartTime)
+				giveup:1, startTime:startTime
             },
 			success: function(resp){
                 updateMove(0, resp.moveN, -1);
@@ -403,7 +401,7 @@ $(document).ready(function()
 
                 box_open = box_cur;
                 img_open = $("#" + box_open + " img").attr("src");
-                sendHalfAns(img_open, box_open);
+                sendHalfAns( img_open, box_open );
 
                 setTimeout(function() {
                     $("#boxcard div").bind("click", openCard)
@@ -430,8 +428,7 @@ $(document).ready(function()
                 if (turnState == CTRL) {  
 
                     if (sendFull == 1)
-                        sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
-                                    getTimeFromBegin(turnStartTime) ); 
+                        sendFullAns(img0, img1, box0, box1); 
                     
                     $('#waiting').removeClass('disappear');
                 }
@@ -443,11 +440,10 @@ $(document).ready(function()
         } 
         else {                /*- right answer -*/
 
-            if (sendFull == 1 && turnState == CTRL){   
-                sendFullAns(img0, img1, box0, box1, turnLen[0], turnLen[1],
-                            getTimeFromBegin(turnStartTime) );
-            }
-            else showBoxes(box0, box1);
+            if (sendFull == 1 && turnState == CTRL)   
+                sendFullAns(img0, img1, box0, box1);
+            else 
+                showBoxes(box0, box1);
 
             coverBoxes(box0, box1);
         } 

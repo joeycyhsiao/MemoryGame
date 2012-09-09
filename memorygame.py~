@@ -45,8 +45,6 @@ class Game():
     def isReady(self):
         return self.ready
     def isOver(self):
-        print 'IS OVER?'
-        print '%d:%d\n' %( self.grps[0].getCorrectN(), self.grps[1].getCorrectN() )
         return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() >= TOTAL_N )
 
     def allKnowAns(self):
@@ -66,13 +64,34 @@ class Game():
     def getResult(self, grpID):
         grp      = getGrp( grpID )
         enemyGrp = getGrp( grp.getEnemyGID() )
-
         if   grp.getCorrectN() > enemyGrp.getCorrectN():
             return  1
         elif grp.getCorrectN() < enemyGrp.getCorrectN():
             return -1
         else:
             return  0
+
+    def writeRes(self):
+
+        for grp in self.grps:
+
+            fp = open('./result/game' + str(self.gameID) + '_grp' + str(grp.getGrpID()) + '.txt', 'w') 
+            fp.write( str(grp.getGrpID()) + '\n' )
+            
+            moves = grp.getMoves()
+            times = grp.getTimes()
+            mover = grp.getMover()
+
+            for i, move in enumerate(moves):
+                fp.write(str(move) + ',')
+                turnMover = mover[i]
+                turnTimes = times[i]
+                for mover in turnMover:
+                    fp.write( str(mover) + ',' )
+                for time in turnTimes:
+                    fp.write( str(time)  + ',')
+                fp.write('\n')
+            fp.close()
 
 
 
@@ -81,16 +100,16 @@ class Group():
     def __init__(self, grpID, usr0, usr1):
         self.grpID = grpID
         self.usrs  = [usr0, usr1]
-        self.moveN    = 0
-        self.correctN = 0
+        self.times = []
+        self.mover = []
+        self.moves = []
         self.reset()
 
     def reset(self):
-        self.giveup = False
-        self.startTimes = []
-        self.turnTimes  = []
-        self.imgs  = []
-        self.boxes = []
+        self.giveup    = False
+        self.imgs      = []
+        self.boxes     = []
+        self.resetTurnTimes()
         self.usrs[0].reset()
         self.usrs[1].reset()
 
@@ -100,14 +119,7 @@ class Group():
         return self.gameID
     def getEnemyGID(self): 
         return self.enemyGID
-    def getCorrectN(self):
-        return self.correctN
-    def getMoveN(self):
-        return self.moveN
-    def getStartTime(self):
-        return self.startTime
-    def getTurnTime(self):
-        return self.times
+
     def getUsrs(self):
         return self.usrs
 
@@ -115,15 +127,7 @@ class Group():
         self.gameID = gameID
     def setEnemyGID(self, enemyGID):
         self.enemyGID = enemyGID
-    def setCorrectN(self, correctN):
-        self.correctN = correctN
-    def setMoveN(self, moveN):
-        self.moveN = moveN
 
-    def increaseMoveN(self):
-        self.moveN += 1
-    def increaseCorrectN(self):
-        self.correctN += 1
 
     def delAns(self):
         self.imgs  = []
@@ -134,10 +138,41 @@ class Group():
         self.imgs.append(img)
         self.boxes.append(box)
 
-    def addStartTime(self, startTime):
-        self.startTimes.append(startTime)
-    def addTurnTime(self, turnTime):
-        self.turnTimes.append(turnTime)
+    def resetTurnTimes(self):
+        self.turnTimes = [-1, -1, -1]
+        self.turnMover = [-1, -1, -1]
+    def setTurnTimes(self, time, ind, uid):
+        self.turnTimes[ind] = int(time)
+        self.turnMover[ind] = int(uid)
+
+    def getTurnTimes(self):
+        return self.turnTimes
+    def getTurnMover(self):
+        return self.turnMover
+
+    def getTimes(self):
+        return self.times
+    def getMover(self):
+        return self.mover
+
+    def addMove(self, correct):
+        if   correct == True:    #- correct -#
+            self.moves.append(1)
+        elif correct == '':      #- giveup -#
+            self.moves.append(0) 
+        else:                    #- wrong -#
+            self.moves.append(-1)
+    def getMoves(self):
+        return self.moves
+    def getMoveN(self):
+        return len(self.moves)
+    def getCorrectN(self):
+        return len( [i for i in self.moves if i == 1] )
+
+    def finTurn(self):
+        self.times.append(self.turnTimes)
+        self.mover.append(self.turnMover)
+        self.resetTurnTimes()
 
     def giveUpTurn(self):
         self.giveup = True
