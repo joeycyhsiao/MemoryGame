@@ -65,6 +65,7 @@ def answer():    #- used by only ctrler -#
         if   grp.isHalfAns():
             grp.setTurnTimes( request.form.get('startTime'), 0, UID )
             grp.setTurnTimes( request.form.get('turnTime'),  1, UID )
+            print 'SEND HALF ANS %d' %(UID)
             return make_response() 
 
         elif grp.isFullAns():     #- both two people answer and become a pair -*/
@@ -83,8 +84,7 @@ def answer():    #- used by only ctrler -#
             grp.setTurnTimes( request.form.get('startTime'), 0, UID)
         grp.addMove('')
 
-        print 'Give up'
-        print grp.getTurnTimes()
+        print 'SEND GIVE UP %d' %(UID)
         grp.finTurn()
         return jsonify( moveN=grp.getMoveN() )
 
@@ -111,36 +111,44 @@ def wait():    #- used by recvAns() from teammate and enemies -#
 
     usr  = mg.getUsr( request.cookies.get('usrID') )
     game = mg.getGame( usr.getGameID() )
- 
+    UID  = int(usr.getUsrID())
+
     (ctrlUID, ctrlGID) = game.getCtrl()
-    if ctrlUID == -1 or ctrlGID == -1:
+    if not(game.allChanged) or ctrlUID == -1 or ctrlGID == -1:
         return make_response()
 
     ctrlGrp       = mg.getGrp(ctrlGID)
     (imgs, boxes) = ctrlGrp.getAns()
 
-    img = ''
-    box = ''
-    if len(boxes) > 0:
-        img = imgs[0]
-        box = boxes[0]
-
-    moveN         = ctrlGrp.getMoveN()
-    correctN      = ctrlGrp.getCorrectN()
-
     isEnemy = int( usr.isEnemyWith( mg.getUsr(ctrlUID) ) )
 
+    img = ''
+    box = ''
+    half = 0
+    if len(boxes) > 0:
+        img  = imgs[0]
+        box  = boxes[0]
+        half = 1
+
+    moveN    = ctrlGrp.getMoveN()
+    correctN = ctrlGrp.getCorrectN()
+
     if   ctrlGrp.isGiveUp():
-        return jsonify( giveup=1, img=img, box=box, moveN=moveN, isEnemy=isEnemy )
+        print 'RECV GIVE UP %d %d' %(half, UID)
+        if not isEnemy:
+            img = ''
+            box = ''
+        return jsonify( giveup=1, half=half, img=img, box=box, moveN=moveN, isEnemy=isEnemy )
 
     elif ctrlGrp.isHalfAns():    #- just for display imgs -#
-        return jsonify( half=1,   img=img, box=box, countdown=game.getCountdown() )
+        print 'RECV HALF ANS %d' %(UID)
+        return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown() )
 
     elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
         return jsonify( full=1, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1], 
                         moveN=moveN, correctN=correctN, isEnemy=isEnemy, end=game.isOver() )
     else:                        #- no move -#
-        return jsonify( countdown=game.getCountdown() )
+        return jsonify( countdown=game.getCountdown(), UID=int(usr.getUsrID()) )
 
 
 
@@ -150,13 +158,13 @@ def know():
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
    
     if game.allKnow():  
-        print 'All Know'
-
+        print 'ALL KNOW'
         curCtrlGrp  = mg.getGrp( game.getCtrl()[1] )
         nextCtrlGrp = mg.getGrp( curCtrlGrp.getEnemyGID() )
 
         game.usrChangeState()
         if game.allChanged():
+           print 'ALL CHANGED'
            game.reset()
            nextCtrler  = nextCtrlGrp.getUsrs()[0]
            game.setCtrl( nextCtrler.getUsrID(), nextCtrlGrp.getGrpID() )
@@ -165,9 +173,8 @@ def know():
             return jsonify(allknow=1, ctrl=1)
         else:
             return jsonify(allknow=1, ctrl=0)
-
     else:
-        print 'I Know!'
+        print 'ONE KNOW'
         usr.setKnow()
         return make_response()
 

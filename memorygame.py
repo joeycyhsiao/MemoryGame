@@ -45,19 +45,25 @@ class Game():
     def isReady(self):
         return self.ready
     def isOver(self):
-        return ( self.grps[0].getCorrectN() + self.grps[1].getCorrectN() >= TOTAL_N )
+        return (self.grps[0].getCorrectN() >= TOTAL_N/2 or 
+               (self.grps[1].getCorrectN() >= TOTAL_N/2 )
 
     def allKnow(self):
+        retVal = True
         for grp in self.grps:
             for usr in grp.getUsrs():
                 if not( usr.isKnow() ):
-                    return False
-        return True
+                    retVal = False
+                    break
+        if (retVal):
+            ctrlGrp = getGrp( self.ctrlGID )
+            ctrlGrp.delAns()
+        return retVal
 
     def usrChangeState(self):
         self.changed += 1
     def allChanged(self):
-        return (self.changed == 4) 
+        return (self.changed == 4) or (self.changed == 0)
     def getChangedN(self):
         return self.changed
 
