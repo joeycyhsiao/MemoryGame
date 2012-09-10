@@ -311,6 +311,9 @@ $(document).ready(function()
             type: "GET",
             success: function(resp) {
                 if (resp.allknow == 1) {
+
+                    closeAllCard(0);
+
                     if   (resp.ctrl == 1) { /*- assigned as ctrler -*/
                         turnStartTime = 0;
                         updateState(CTRL);
@@ -318,7 +321,7 @@ $(document).ready(function()
                         setTimeout(clearWaitMsg, 3000);  
                     }
                     else
-                        updateState(WAIT);
+                        setTimeout(updateState(WAIT), 1000);
                 }
             }
         });
@@ -580,16 +583,26 @@ $(document).ready(function()
 	{ 
 		return (img0 == img1); 
 	}
+ 
+    function closeAllCard(timing)
+    {
+        for (var i = 1 ; i <= 16 ; i++) {
+            var box = 'card'+i;
+
+            if ( timing == 0 && $("#" + box + " img").hasClass('opacity') )
+                continue;
+
+            if ( !$("#" + box + " img").is(":hidden") ){
+                $("#" + box + " img").fadeOut(1);
+                $("#" + box + " img").removeClass('opacity');
+			}
+        }
+    }
 
 
 
     function restart()
 	{
-        for (var i = 1 ; i <= 16 ; i++) {
-            var box = 'card'+i;
-            if ( !$("#" + box + " img").is(":hidden") ) 
-                $("#" + box + " img").fadeOut(1);
-        }
         turnState = -1;
 		restart = 1;
 		updateMove(0, 0, 0);
@@ -600,15 +613,22 @@ $(document).ready(function()
             data: {side:side},
             success:function (resp){
                 if (resp.success == 1){
-                    $("#restart").button('disable');
 
-					for (var i = 1; i < 99; i++)
-        				window.clearInterval(i);
-                    init();
+                    closeAllCard(1);
+
+                    for (var i = 1; i < 10; i++)
+                        window.clearInterval(i);
+			        
+                    $("#restart").button('disable');
+                    $("#waiting").html("Reconnecting..."); 
+
+					setTimeout( init, 2000 );
                 }
             }
         });
     }
+
+
 
 });   
 
