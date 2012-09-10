@@ -11,18 +11,18 @@ $(document).ready(function()
             data:{init:1},
             success: function(resp){
 
-				if (resp.usrID == -1)
-					$('#usrID').html('ERROR');
-				else{
-					$('#usrID').html('Your ID is <b>' + resp.usrID + '</b>');
-					$("#side0").button().bind('click', choose);
-					$("#side1").button().bind('click', choose);
+                if (resp.usrID == -1)
+                    $('#usrID').html('ERROR');
+                else{
+                    //$('#usrID').html('Your ID is <b>' + resp.usrID + '</b>');
+                    $("#side0").button().bind('click', choose);
+                    $("#side1").button().bind('click', choose);
 
-					$("#start").button().bind('click', start).button('disable');
+                    $("#start").button().bind('click', start).button('disable');
 
-					updateSpace(resp.space0, resp.space1);
-					setInterval(polling, 500);
-				}
+                    updateSpace(resp.space0, resp.space1);
+                    setInterval(polling, 500);
+                }
             }
         });
     }
@@ -46,7 +46,7 @@ $(document).ready(function()
 
 
     function polling()
-	{
+    {
         $.ajax({
             type:'POST',
             data:{polling:1},
@@ -54,19 +54,19 @@ $(document).ready(function()
                 updateSpace(resp.space0, resp.space1);
             }
         });
-	}
+    }
 
 
 
     function start()
-	{ 
-		window.location = "game";
+    { 
+        window.location = "game";
         //$.ajax({
-		//	url:'/unload',
+        //    url:'/unload',
         //    type:'POST',
-		//	data:{start:1},
+        //    data:{start:1},
         //});
-	}
+    }
 
 
 
@@ -81,8 +81,8 @@ $(document).ready(function()
         if (space1 <= 0) $("#side1").button('disable');
         else             $("#side1").button('enable');
 
-		if (space0 == 0 && space1 == 0)
-			$("#start").button('enable');
+        if (space0 == 0 && space1 == 0)
+            $("#start").button('enable');
     }
 
 
@@ -107,6 +107,15 @@ $(document).ready(function()
             async: false,
         });
     }
+
+
+
+
+
+
+
+
+
 
 
 });

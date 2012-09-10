@@ -18,6 +18,8 @@ var mateGiveup = 0;
 var prevTurnState = -1;
 var turnState = -1;
 
+var side;
+
 CTRL = 1;
 WAIT = 2;
 KNOW = 3;
@@ -84,7 +86,7 @@ $(document).ready(function()
     function init() 
     {
         $.ajax({
-			url:  '/game',
+            url:  '/game',
             type: "POST",
             data: {init: '1'},
             success: function (resp) {
@@ -103,8 +105,8 @@ $(document).ready(function()
                         gameStartTime = new Date();
                         window.clearInterval(flipMsgID);
                         $("#waiting").html('Take Control!');
-						turnStartTime = 0;
-						updateState(CTRL);
+                        turnStartTime = 0;
+                        updateState(CTRL);
                         setTimeout(clearWaitMsg, 3000);
                         recvAnsID  = setInterval(recvAns, 1000); 
                         recvKnowID = setInterval(recvKnow, 1000); 
@@ -121,7 +123,7 @@ $(document).ready(function()
     {
          flipMsg("Waiting for Other Players' Join");
          $.ajax({
-			url: '/game',
+            url: '/game',
             type: "POST",
             data: {waiting: '1'},
             success: function (resp) {
@@ -144,7 +146,7 @@ $(document).ready(function()
                 if (resp.gameID != -1){ 
                     $('#game').html('Game ID: ' + resp.gameID);
                     $("#side_txt").html("Group: " + resp.side);
-					dbgStr(resp.side);
+                    side = resp.side;
                 }
             } 
         });   
@@ -170,15 +172,15 @@ $(document).ready(function()
                     gameStartTime = new Date();
                     window.clearInterval(flipMsgID);
                     $('#game').html('Game ID: ' + resp.gameID);
-					$("#side_txt").html("Group: " + resp.side);
-					dbgStr(resp.side);
+                    $("#side_txt").html("Group: " + resp.side);
+                    side = resp.side;
 
                     if   (resp.isEnemy == 1) 
-						updateState(WAIT);
+                        updateState(WAIT);
                     else {
                         $("#waiting").html('Take Control!');
-						turnStartTime = 0;
-						updateState(CTRL);
+                        turnStartTime = 0;
+                        updateState(CTRL);
                         setTimeout(clearWaitMsg, 3000);
                     }
 
@@ -238,7 +240,7 @@ $(document).ready(function()
                 updateMove(0, resp.moveN, resp.correctN);
                 updateState(KNOW);
                 if (resp.end == 1){
-					updateState(END);
+                    updateState(END);
                     recvEnd();
                 }
             }
@@ -249,11 +251,11 @@ $(document).ready(function()
 
     function recvAns()
     {
-		if      ( prevTurnState == KNOW ){
-			updateState(turnState);
-			return;
-		}
-		else if ( turnState == KNOW || turnState == END ) return;
+        if      ( prevTurnState == KNOW ){
+            updateState(turnState);
+            return;
+        }
+        else if ( turnState == KNOW || turnState == END ) return;
         else if ( turnState == WAIT ) flipMsg("Waiting for Opponents");
  
         $.ajax({
@@ -268,21 +270,21 @@ $(document).ready(function()
                         img_open = '';
                     }
 
-					if (resp.isEnemy == 0) 
-						mateGiveup = 1;
+                    if (resp.isEnemy == 0) 
+                        mateGiveup = 1;
 
                     updateMove(resp.isEnemy, resp.moveN, -1);
-					updateState(KNOW);
+                    updateState(KNOW);
                 }
                 else if (resp.full == 1) {
 
                     checkAns(resp.img0, resp.box0, resp.img1, resp.box1, 0);
                     updateMove(resp.isEnemy, resp.moveN, resp.correctN);
-					updateState(KNOW);
+                    updateState(KNOW);
                     if (resp.end == 1){
-						updateState(END);
-						recvEnd();
-					}
+                        updateState(END);
+                        recvEnd();
+                    }
                 }
                 else  {
                     $("#timer").html('Countdown: ' + resp.countdown + ' seconds'); 
@@ -307,13 +309,13 @@ $(document).ready(function()
             success: function(resp) {
                 if (resp.allknow == 1) {
                     if   (resp.ctrl == 1) { /*- assigned as ctrler -*/
-						turnStartTime = 0;
-						updateState(CTRL);
-						$("#waiting").html('Take Control!');
+                        turnStartTime = 0;
+                        updateState(CTRL);
+                        $("#waiting").html('Take Control!');
                         setTimeout(clearWaitMsg, 3000);  
-					}
+                    }
                     else
-						updateState(WAIT);
+                        updateState(WAIT);
                 }
             }
         });
@@ -335,7 +337,9 @@ $(document).ready(function()
                 else if (resp.result == -1)
                     $('#waiting').html("YOU LOSE...");
                 else  
-                    $('#waiting').html("DRAW!");
+                    $('#waiting').html("DRAW!")
+			
+				$("#restart").button().bind('click', restart).button('enable');
             }
         });
     }
@@ -345,7 +349,7 @@ $(document).ready(function()
     /*- clear wait msg, used before one take ctrl -*/ 
     function clearWaitMsg()
     {
-		mateGiveup = 0;
+        mateGiveup = 0;
         turnStartTime = new Date();
         $("#waiting").html('');
         $("#waiting").addClass('disappear');
@@ -356,18 +360,19 @@ $(document).ready(function()
 
     function updateTime()
     {
-        if ( turnState != CTRL || !$("#waiting").hasClass('disappear') || turnStartTime == 0 ) return;    
-
         /*- 
          *  there are many turnStartTime = 0 to prevent come into this function, 
          *  and giveup before turnStartTime renewed
         -*/
+        if ( turnState != CTRL || !$("#waiting").hasClass('disappear') || turnStartTime == 0 ) 
+			return;    
 
         var curTime = new Date();
         countdown = Math.floor(30 - (curTime.getTime() - turnStartTime.getTime())/1000);
         sendCountdown(countdown);
 
-        if (mateGiveup == 0 && countdown <= 0) giveUpTurn();
+        if (mateGiveup == 0 && countdown <= 0) 
+			giveUpTurn();
     }
 
 
@@ -397,13 +402,13 @@ $(document).ready(function()
             },
             success: function(resp){
                 updateMove(0, resp.moveN, -1);
-				updateState(KNOW);
+                updateState(KNOW);
 
-		        if (box_open != ""){    /*- give up after opening one card -*/
-				    $("#" + box_open + " img").delay(1000).fadeOut(1000);
-				    box_open = "";
-				   img_open = "";
-				}
+                if (box_open != ""){    /*- give up after opening one card -*/
+                    $("#" + box_open + " img").delay(1000).fadeOut(1000);
+                    box_open = "";
+                   img_open = "";
+                }
             }
         }); 
     }
@@ -413,7 +418,7 @@ $(document).ready(function()
     function openCard() 
     {
         if ( (prevTurnState != CTRL && turnState != CTRL ) || 
-			 !($("#waiting").hasClass('disappear')) ||  turnStartTime == 0) return;    
+             !($("#waiting").hasClass('disappear')) ||  turnStartTime == 0) return;    
 
         var box_cur = $(this).attr("id");
 
@@ -447,7 +452,7 @@ $(document).ready(function()
 
     function checkAns(img0, box0, img1, box1, sendFull)
     {
-        if (img0 != img1) {    /*- wrong answer -*/
+        if ( !isSameImg(img0, img1) ) {    /*- wrong answer -*/
 
             setTimeout(function() {
 
@@ -523,7 +528,6 @@ $(document).ready(function()
     {
          flip++;
          if      (flip >= 3) flip = 0; 
-
          if      (flip % 3 == 0) $('#waiting').html(msg + '.');
          else if (flip % 3 == 1) $('#waiting').html(msg + '..');
          else                    $('#waiting').html(msg + '...');
@@ -547,24 +551,43 @@ $(document).ready(function()
     }
 
 
+
     function getTimeFromBegin(time)
+    { return time.getTime() - gameStartTime.getTime(); }
+
+
+
+    function dbgStr(string) 
+    { $('#dbg').html(string); }
+
+
+    function updateState(val)
     {
-         return time.getTime() - gameStartTime.getTime();
+        prevTurnState = turnState;
+        turnState = val;
     }
 
 
-
-    function dbgStr(string)
-    {
-        $('#dbg').html(string); 
-    }
-
-
-	function updateState(val)
-	{
-		prevTurnState = turnState;
-		turnState = val;
+    function isSameImg(img0, img1)
+	{ 
+		
+		return (img0 == img1); 
 	}
+
+
+
+	function restart()
+	{
+		$.ajax({
+			url:  '/restart',
+			type: 'POST',
+			data: {side:side},
+			success: init()
+		});
+	}
+
+
+
 });   
 
 

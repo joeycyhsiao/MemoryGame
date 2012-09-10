@@ -38,7 +38,7 @@
     	<div id='txtarea'>
             <div id="dbg"></div>
 			<div id="game">Game ID: </div>
-			<div id="side">Group: </div>
+			<div id="side_txt">Group: </div>
             <div id="correct_p">Player Score: 0</div>
             <div id="move_p">Player Moves: 0</div>
             <div id="correct_e">Opponent Score: 0</div>
@@ -46,6 +46,7 @@
             <div id="timer">Countdown: -- seconds</div>
             <br />
             <br />
-	</div>
+		</div>
+		<button id="restart" type='button'>RESTART</button>
     </body>
 </html>

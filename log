@@ -1,55 +1,45 @@
-PLAYERS: 1853
-{1853: <memorygame.Player instance at 0xb4371cec>}
-PLAYERS: 1854
-{1853: <memorygame.Player instance at 0xb4371cec>, 1854: <memorygame.Player instance at 0xb438558c>}
-PLAYERS: 1855
-{1853: <memorygame.Player instance at 0xb4371cec>, 1854: <memorygame.Player instance at 0xb438558c>, 1855: <memorygame.Player instance at 0xb43901ec>}
-PLAYERS: 1856
-{1856: <memorygame.Player instance at 0xb439d52c>, 1853: <memorygame.Player instance at 0xb4371cec>, 1854: <memorygame.Player instance at 0xb438558c>, 1855: <memorygame.Player instance at 0xb43901ec>}
-GROUPS:  {1855: <memorygame.Group instance at 0xb439d2ec>}
-GROUPS:  {1856: <memorygame.Group instance at 0xb439d80c>, 1855: <memorygame.Group instance at 0xb439d2ec>}
-GAMES:  {1855: <memorygame.Game instance at 0xb439d08c>}
-POST
-A
-GET
-A
-GET
-B
-GET
-B
-RECV HALF ANS 1854
-RECV HALF ANS 1856
-RECV HALF ANS 1855
-RECV HALF ANS 1853
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ALL KNOW
-ALL KNOW
-ALL KNOW
-ALL KNOW
-ALL CHANGED
-RECV HALF ANS 1853
-RECV HALF ANS 1854
-RECV HALF ANS 1856
-RECV HALF ANS 1855
-RECV HALF ANS 1853
-RECV HALF ANS 1854
-RECV HALF ANS 1856
-RECV HALF ANS 1855
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ONE KNOW
-ALL KNOW
-ALL KNOW
-ALL KNOW
-ALL KNOW
-ALL CHANGED
-RECV HALF ANS 1853
-RECV HALF ANS 1854
-RECV HALF ANS 1856
-RECV HALF ANS 1855
+PLAYERS: 1881
+{1881: <memorygame.Player instance at 0xb5cca80c>}
+PLAYERS: 1882
+{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>}
+PLAYERS: 1883
+{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>, 1883: <memorygame.Player instance at 0xa4891ac>}
+PLAYERS: 1884
+{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>, 1883: <memorygame.Player instance at 0xa4891ac>, 1884: <memorygame.Player instance at 0xa47b42c>}
+take space
+[[1882, -1], [-1, -1]]
+take space
+[[1882, 1884], [-1, -1]]
+take space
+[[1882, 1884], [1883, -1]]
+take space
+[[1882, 1884], [1883, 1881]]
+Join waiting [[1882, 1884], [1883, 1881]]
+JOIN:  [1881]
+Join waiting [[1882, 1884], [1883, 1881]]
+JOIN:  [1881, 1882]
+Join waiting [[1882, 1884], [1883, 1881]]
+JOIN:  [1881, 1882, 1884]
+Join waiting [[1882, 1884], [1883, 1881]]
+JOIN:  [1881, 1882, 1884, 1883]
+ALL Join
+SET Side A
+SET Side A
+GROUPS:  {1882: <memorygame.Group instance at 0xb5ce8b4c>}
+SET Side B
+SET Side B
+GROUPS:  {1882: <memorygame.Group instance at 0xb5ce8b4c>, 1883: <memorygame.Group instance at 0xb5ce80cc>}
+GAMES:  {1882: <memorygame.Game instance at 0xb5ce8fcc>}
+GET Side B
+GET Side A
+GET Side A
+GET Side B
+Join waiting [[-1, -1], [-1, -1]]
+JOIN:  []
+GET Side B
+Join waiting [[-1, -1], [-1, -1]]
+JOIN:  []
+GET Side A
+Join waiting [[-1, -1], [-1, -1]]
+JOIN:  []
+GET Side B

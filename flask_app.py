@@ -66,20 +66,15 @@ def shuffle():
     game = mg.getGame( usr.getGameID() )
 
     if   request.method == 'GET':     #- for recvOrder() -#
-
         if  ( game == -1 ) or ( not game.isReady() ):
             return jsonify( gameID=-1 )
         else:
             ctrler = mg.getUsr( game.getCtrl()[0] )
-            print 'GET'
-            print usr.getSide()
             return jsonify( order=game.getOrder(), gameID=game.getGameID(), 
                             isEnemy=int(usr.isEnemyWith(ctrler)), side=usr.getSide() )
 
     elif request.method == 'POST':    #- for sendOrder(), the usr is ctrler of 1st turn -#
         game.setOrder( request.form.getlist('order') )
-        print 'POST'
-        print usr.getSide()
         return jsonify( gameID=game.getGameID(), side=usr.getSide() )
 
 
@@ -162,14 +157,12 @@ def wait():    #- used by recvAns() from teammate and enemies -#
     correctN = ctrlGrp.getCorrectN()
 
     if   ctrlGrp.isGiveUp():
-        print 'RECV GIVE UP %d %d' %(half, UID)
         if not isEnemy:
             img = ''
             box = ''
         return jsonify( giveup=1, half=half, img=img, box=box, moveN=moveN, isEnemy=isEnemy )
 
     elif ctrlGrp.isHalfAns():    #- just for display imgs -#
-        print 'RECV HALF ANS %d' %(UID)
         return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown() )
 
     elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
@@ -186,13 +179,11 @@ def know():
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
    
     if game.allKnow():  
-        print 'ALL KNOW'
         curCtrlGrp  = mg.getGrp( game.getCtrl()[1] )
         nextCtrlGrp = mg.getGrp( curCtrlGrp.getEnemyGID() )
 
         game.usrChangeState()
         if game.allChanged():
-           print 'ALL CHANGED'
            game.reset()
            nextCtrler  = nextCtrlGrp.getUsrs()[0]
            game.setCtrl( nextCtrler.getUsrID(), nextCtrlGrp.getGrpID() )
@@ -202,7 +193,6 @@ def know():
         else:
             return jsonify(allknow=1, ctrl=0)
     else:
-        print 'ONE KNOW'
         usr.setKnow()
         return make_response()
 
@@ -232,6 +222,19 @@ def unload():
 
 
 
+@app.route('/restart', methods=['POST'])
+def restart():
+    usrID = request.cookies.get('usrID')
+    side = request.form.get('side')
+    mg.takeSpace( usrID, int(side) )
+    return make_response()
+  
+
+
+
+
+
+'''
 @app.route('/ctrl', methods=['GET', 'POST'])
 def ctrl():
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
@@ -239,7 +242,7 @@ def ctrl():
         game.reset()
         game.setCtrl( usr.getUsrID(), usr.getGrpID() )
     return jsonify( ctrl=game.getCtrl()[0] )
-
+'''
 
 
 if __name__ == "__main__":

@@ -213,6 +213,7 @@ class Player():
     def getGrpID(self):
         return self.grpID
     def getSide(self):
+        print 'GET Side %s' %(self.side)
         return self.side
 
     def setGameID(self, gameID):
@@ -220,6 +221,7 @@ class Player():
     def setGrpID(self, grpID):
         self.grpID = grpID
     def setSide(self, side):
+        print 'SET Side %s' %(side)
         self.side = side
 
     def setKnow(self):
@@ -239,9 +241,16 @@ def joinUsr(UID):
     if ( inWaiting(UID) ) and (UID not in JOIN):
         JOIN.append(UID) 
 
+    print 'Join waiting',
+    print WAITING
+
+    print 'JOIN: ',
+    print JOIN
+
     if not allJoin():
         return -1;
     else:
+        print 'ALL Join'
         game = createGame(WAITING)
         game.setCtrl( int(usr.getUsrID()), int(usr.getGrpID()) )
         WAITING = [[-1, -1], [-1, -1]]
@@ -254,9 +263,9 @@ def createGame(wait):
     global GAMES
 
     #- use known usrIDs as gameID and grpID -#
-    gameID = wait[0][0] 
-    grpID0 = wait[0][0]
-    grpID1 = wait[1][0]
+    gameID = getIDFromTxt('games')
+    grpID0 = getIDFromTxt('groups')
+    grpID1 = getIDFromTxt('groups')
 
     grp0 = createGrp(gameID, grpID0, 'A', getUsr(wait[0][0]), getUsr(wait[0][1]) )
     grp1 = createGrp(gameID, grpID1, 'B', getUsr(wait[1][0]), getUsr(wait[1][1]) )
@@ -290,6 +299,7 @@ def createGrp(gameID, grpID, side, usr0, usr1):
 def createUsr():
     global PLAYERS
 
+    '''
     fp = None
     if not os.path.exists("participants.txt"):
         fp = open("participants.txt", "w")
@@ -300,11 +310,23 @@ def createUsr():
         fp.seek(0)
     fp.write(str(usrID))
     fp.close()
+    '''
 
+    usrID = getIDFromTxt('usrs')
     PLAYERS[usrID] = Player(usrID)
     print 'PLAYERS: ' + str(usrID)
     print  PLAYERS
     return PLAYERS[usrID]
+
+
+
+def getIDFromTxt(kind):
+    fp = open(kind+".txt", "r+")
+    ID = int(fp.readline())+1
+    fp.seek(0)
+    fp.write( str(ID) )
+    fp.close()
+    return ID
 
 
 
@@ -358,6 +380,9 @@ def takeSpace(usrID, side):
             if i != side:
                 if WAITING[i][j] == usrID:
                     WAITING[i][j] = -1
+   
+    print 'take space'
+    print WAITING
 
     return getSpaceN()
 
