@@ -84,7 +84,7 @@ class Game():
 
         for grp in self.grps:
 
-            fp = open('./result/game' + str(self.gameID) + '_grp' + str(grp.getGrpID()) + '.txt', 'w') 
+            fp = open('./result/game' + str(self.gameID) + '_grp' + str(grp.getSide()) + '.txt', 'w') 
             fp.write( str(grp.getGrpID()) + '\n' )
             
             moves = grp.getMoves()
@@ -165,13 +165,17 @@ class Group():
     def getMovers(self):
         return self.movers
 
-    def addMove(self, correct):
-        if   correct == True:    #- correct -#
+    def addMove(self, img0, img1):
+        
+        if img0 == '' and img1 == '':
+            self.moves.append(0)  
+            return
+
+        if  img0[:-6] == img1[:-6]:
             self.moves.append(1)
-        elif correct == '':      #- giveup -#
-            self.moves.append(0) 
         else:                    #- wrong -#
             self.moves.append(-1)
+
     def getMoves(self):
         return self.moves
     def getMoveN(self):
@@ -393,8 +397,6 @@ def allJoin():
 def killGame( usrID ):
     global GAMES, GROUPS
 
-    print 'KILL'
-
     usr = getUsr( usrID )
 
     grpID  = usr.getGrpID()
@@ -407,7 +409,5 @@ def killGame( usrID ):
 
     usr.setGrpID(-1)
     usr.setGameID(-1)
-
-
 
 

@@ -112,7 +112,7 @@ def answer():    #- used by only ctrler -#
         grp.giveUpTurn()
         if grp.getTurnTimes()[0] == -1:
             grp.setTurnTimes( request.form.get('startTime'), 0, UID)
-        grp.addMove('', '')
+        grp.addMove('')
         grp.finTurn()
         return jsonify( moveN=grp.getMoveN() )
 

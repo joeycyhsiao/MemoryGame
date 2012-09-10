@@ -83,6 +83,7 @@ $(document).ready(function()
     $("img").hide();
     $("#boxcard div").click(openCard);
     window.onbeforeunload = unloadPage;
+    $('#restart').button().button('disable');
 
     init();
 
@@ -113,7 +114,8 @@ $(document).ready(function()
                         setTimeout(clearWaitMsg, 3000);
                         recvAnsID    = setInterval(recvAns, 1000); 
                         recvKnowID   = setInterval(recvKnow, 1000); 
-                        updateTimeID = setInterval(updateTime, 1000);  
+                        updateTimeID = setInterval(updateTime, 1000); 
+						$('#restart').button('disable'); 
                     }, 5000);
                 }
             }
@@ -190,6 +192,8 @@ $(document).ready(function()
                     recvAnsID    = setInterval(recvAns, 1000); 
                     recvKnowID   = setInterval(recvKnow, 1000); 
                     updateTimeID = setInterval(updateTime, 1000);   
+					$('#restart').button();
+					$('#restart').button('disable');
 
                 }, 5000);
             }
@@ -254,12 +258,19 @@ $(document).ready(function()
 
     function recvAns()
     {
+		//openAllCard();
+
         if      ( prevTurnState == KNOW ){
             updateState(turnState);
             return;
         }
         else if ( turnState == KNOW || turnState == END ) return;
-        else if ( turnState == WAIT ) flipMsg("Waiting for Opponents");
+        else if ( turnState == WAIT ){
+
+            if ( $("#waiting").hasClass('disappear') )
+                $("#waiting").removeClass('disappear');
+            flipMsg("Waiting for Opponents");
+        }
  
         $.ajax({
             url:  "/wait",
@@ -580,8 +591,16 @@ $(document).ready(function()
 
 
     function isSameImg(img0, img1)
-	{ 
-		return (img0 == img1); 
+	{
+		var ind0 = img0.indexOf('_');
+		var ind1 = img1.indexOf('_');
+
+        imgName0 = img0.substring(0, ind0); 
+        imgName1 = img1.substring(0, ind1); 
+
+		dbgStr(imgName0 + '</br>' +imgName1); 
+
+		return (imgName0 == imgName1); 
 	}
  
     function closeAllCard(timing)
@@ -593,12 +612,21 @@ $(document).ready(function()
                 continue;
 
             if ( !$("#" + box + " img").is(":hidden") ){
-                $("#" + box + " img").fadeOut(1);
+                $("#" + box + " img").fadeOut(500);
                 $("#" + box + " img").removeClass('opacity');
 			}
         }
     }
 
+
+    function openAllCard()
+    {
+        for (var i = 1 ; i <= 16 ; i++) {
+            var box = 'card'+i;
+            if ( $("#" + box + " img").is(":hidden") )
+                $("#" + box + " img").fadeIn(1);
+        }
+    }
 
 
     function restart()

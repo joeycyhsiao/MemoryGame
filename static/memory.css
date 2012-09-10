@@ -2,17 +2,26 @@
     font-family: Arial, "Free Sans";
 }
 
-#boxcard {
+#boxcard 
+{
+    position: relative;
+    margin: 0 auto;
+    width: 600px;
+    height: 600px;
+    z-index: 1;
+/*
     margin: 0 auto;
     width: 625px;
     height: 625px;
     z-index: 1;
+*/
 }
 
-#boxcard div {
+#boxcard div 
+{
     float: left;
-    width: 120px;
-    height: 120px;
+    width: 102px;
+    height: 102px;
     background: #d9d9d9;
     margin: 5px;
     padding: 5px;
@@ -27,21 +36,31 @@
     z-index: 2;
 }
 
-#boxcard div img {
+#boxcard div img 
+{
+    position: relative;
     border: none;
     z-index: 3;
+    left:15px;
+    right:15px;
+    top:15px;
+    bottom:15px;
 }
 
-.opacity {
+.opacity 
+{
     opacity: .6;
     filter: alpha(opacity=60);
 }
 
-#boxbutton {
+#boxbutton 
+{
     text-align: center;
     padding: 20px;
 }
-.link {
+
+.link 
+{
     font-size: 18px;
     color: #ffffff;
     text-decoration: none;
@@ -51,18 +70,21 @@
     -moz-border-radius: .5em;
     border-radius: .5em;
 }
-.link:hover {
+
+.link:hover 
+{
     background: #999;
 }
 
-#waiting.disappear{
+#waiting.disappear
+{
     width :0em;
     height:0em;
 }
 
 
-#waiting {
- 
+#waiting 
+{ 
     position:absolute;
     top:1.5em;
     bottom:5em;
@@ -106,7 +128,8 @@
     font-size:18px;
 }
 
-#title_0 { 
+#title_0 
+{ 
 	position: absolute;
 	font-size:300%; 
 	top:	10%;
@@ -114,7 +137,8 @@
 }
 
 
-#content {
+#content 
+{
 	position:	relative;
 	top:		10em;
 	left:		16em;
