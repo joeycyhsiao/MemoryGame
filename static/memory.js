@@ -141,8 +141,10 @@ $(document).ready(function()
             traditional: true,    /*- make the array send as an array -*/
             data: {order: order},
             success:function(resp) {
-                if (resp.gameID != -1) 
+                if (resp.gameID != -1){ 
                     $('#game').html('Game ID: ' + resp.gameID);
+                    $("#side_txt").html("Group: " + resp.side);
+                }
             } 
         });   
     }
@@ -167,6 +169,7 @@ $(document).ready(function()
                     gameStartTime = new Date();
                     window.clearInterval(flipMsgID);
                     $('#game').html('Game ID: ' + resp.gameID);
+					$("#side_txt").html("Group: " + resp.side);
 
                     if   (resp.isEnemy == 1) 
 						updateState(WAIT);
@@ -281,7 +284,6 @@ $(document).ready(function()
                 }
                 else  {
                     $("#timer").html('Countdown: ' + resp.countdown + ' seconds'); 
-					$("#dbg").html(resp.UID);
                     if ( resp.half == 1 ) {
                         $("#" + resp.box + " img").fadeIn(1000);
                         box_open = resp.box;
@@ -550,9 +552,9 @@ $(document).ready(function()
 
 
 
-    function dbgTurnState()
+    function dbgStr(string)
     {
-        $('#dbg').html(turnState); 
+        $('#dbg').html(string); 
     }
 
 

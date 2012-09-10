@@ -89,8 +89,8 @@
 #start
 {
     position:absolute;
-    top:25em;
-    left:30.6em;
+    top:28em;
+    left:30.5em;
 }
 
 

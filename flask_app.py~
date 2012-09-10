@@ -4,6 +4,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask import make_response
+from flask import redirect
 
 import memorygame as mg
 
@@ -17,16 +18,22 @@ app = Flask(__name__)
 def index():
 
     if   request.method == 'GET':    #- load the page -#
-        usr  = mg.createUsr()
         resp = make_response(flask.render_template('index.html'))
-        resp.set_cookie('usrID', usr.getUsrID() )
+
+        if  (request.cookies.get('usrID') is None) or \
+            (mg.getUsr( request.cookies.get('usrID') ) == -1 ):  #- either client or server is new, create new usr -#
+            usr = mg.createUsr()
+            resp.set_cookie('usrID', usr.getUsrID() )
+           
         return resp
 
     elif request.method == 'POST':   
         usr = mg.getUsr( request.cookies.get('usrID') )
-        if usr == -1:
+
+        if    usr == -1:
             return jsonify( usrID=-1 ) 
-        if  ('init' in request.form) or ('polling' in request.form) :  
+
+        elif  ('init' in request.form) or ('polling' in request.form) :  
             space = mg.getSpaceN()
             return jsonify( usrID=usr.getUsrID(), space0=space[0], space1=space[1] )
 
@@ -41,16 +48,13 @@ def index():
 def game():
 
     if   request.method == 'GET':    #- load the page -#
-        print 'GAME GET'
         return make_response( flask.render_template('game.html') )
 
     elif request.method == 'POST':   
         usr = mg.getUsr( request.cookies.get('usrID') ) 
         if   'init'    in request.form:        #- for init(). if gameID == -1: waiting; else: game starting; -#
-            print 'GAME POST INIT %d' %( usr.getUsrID() )
             return jsonify( gameID = mg.joinUsr( usr.getUsrID() ) )
         elif 'waiting' in request.form:        #- for sendWait() -#
-            print 'GAME POST WAIT %d' %( usr.getUsrID() )
             return jsonify( gameID = usr.getGameID() )
 
 
@@ -62,16 +66,17 @@ def shuffle():
     game = mg.getGame( usr.getGameID() )
 
     if   request.method == 'GET':     #- for recvOrder() -#
-        if  game != -1 and game.isReady() :
+
+        if  ( game == -1 ) or ( not game.isReady() ):
+            return jsonify( gameID=-1 )
+        else:
             ctrler = mg.getUsr( game.getCtrl()[0] )
             return jsonify( order=game.getOrder(), gameID=game.getGameID(), 
-                                  isEnemy=int(usr.isEnemyWith(ctrler)) )
-        else:
-            return jsonify( gameID=-1 )
+                            isEnemy=int(usr.isEnemyWith(ctrler)), side=usr.getSide() )
 
     elif request.method == 'POST':    #- for sendOrder(), the usr is ctrler of 1st turn -#
         game.setOrder( request.form.getlist('order') )
-        return jsonify( gameID=game.getGameID() )
+        return jsonify( gameID=game.getGameID(), side=usr.getSide() )
 
 
 
@@ -87,7 +92,6 @@ def answer():    #- used by only ctrler -#
         if   grp.isHalfAns():
             grp.setTurnTimes( request.form.get('startTime'), 0, UID )
             grp.setTurnTimes( request.form.get('turnTime'),  1, UID )
-            print 'SEND HALF ANS %d' %(UID)
             return make_response() 
 
         elif grp.isFullAns():     #- both two people answer and become a pair -*/
@@ -105,8 +109,6 @@ def answer():    #- used by only ctrler -#
         if grp.getTurnTimes()[0] == -1:
             grp.setTurnTimes( request.form.get('startTime'), 0, UID)
         grp.addMove('')
-
-        print 'SEND GIVE UP %d' %(UID)
         grp.finTurn()
         return jsonify( moveN=grp.getMoveN() )
 
@@ -219,11 +221,9 @@ def end():
 
 
 
-@app.route('/unload', methods=['GET'])
+@app.route('/unload', methods=['POST'])
 def unload():
-    if 'start' not in request.form:
-        print 'UNLOAD'
-        mg.rmWaiting( int(request.cookies.get('usrID') ) )
+    mg.delWaiting( int(request.cookies.get('usrID') ) )
     return make_response()
 
 

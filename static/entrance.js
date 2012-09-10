@@ -14,7 +14,7 @@ $(document).ready(function()
 				if (resp.usrID == -1)
 					$('#usrID').html('ERROR');
 				else{
-					$('#usrID').html('Your ID is ' + resp.usrID);
+					$('#usrID').html('Your ID is <b>' + resp.usrID + '</b>');
 					$("#side0").button().bind('click', choose);
 					$("#side1").button().bind('click', choose);
 
@@ -60,15 +60,11 @@ $(document).ready(function()
 
     function start()
 	{ 
-
 		window.location = "game";
         //$.ajax({
-		//	url:'/game',
-        //    type:'GET',
+		//	url:'/unload',
+        //    type:'POST',
 		//	data:{start:1},
-        //    success: function(resp){
-        //        updateSpace(resp.space0, resp.space1);
-        //    }
         //});
 	}
 

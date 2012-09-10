@@ -105,12 +105,13 @@ class Game():
 
 class Group():
 
-    def __init__(self, grpID, usr0, usr1):
+    def __init__(self, grpID, side, usr0, usr1):
         self.grpID  = grpID
         self.usrs   = [usr0, usr1]
         self.times  = []
         self.moves  = []
         self.movers = []
+        self.side   = side
         self.reset()
 
     def reset(self):
@@ -211,11 +212,15 @@ class Player():
         return self.gameID
     def getGrpID(self):
         return self.grpID
+    def getSide(self):
+        return self.side
 
     def setGameID(self, gameID):
         self.gameID = gameID
     def setGrpID(self, grpID):
         self.grpID = grpID
+    def setSide(self, side):
+        self.side = side
 
     def setKnow(self):
        self.know = True
@@ -234,23 +239,14 @@ def joinUsr(UID):
     if ( inWaiting(UID) ) and (UID not in JOIN):
         JOIN.append(UID) 
 
-    print 'WAIT'
-    print WAITING
-
-    print 'JOIN'
-    print JOIN
-
-    print 'ALL JOIN'
-    print allJoin()
-
-    if allJoin():
+    if not allJoin():
+        return -1;
+    else:
         game = createGame(WAITING)
         game.setCtrl( int(usr.getUsrID()), int(usr.getGrpID()) )
         WAITING = [[-1, -1], [-1, -1]]
         JOIN = []
         return game.getGameID()
-    else:
-        return -1
 
 
 
@@ -260,10 +256,10 @@ def createGame(wait):
     #- use known usrIDs as gameID and grpID -#
     gameID = wait[0][0] 
     grpID0 = wait[0][0]
-    grpID1 = wait[1][0])
+    grpID1 = wait[1][0]
 
-    grp0 = createGrp(gameID, grpID0, wait[0][0], wait[0][1])
-    grp1 = createGrp(gameID, grpID1, wait[1][0], wait[1][1])  
+    grp0 = createGrp(gameID, grpID0, 'A', getUsr(wait[0][0]), getUsr(wait[0][1]) )
+    grp1 = createGrp(gameID, grpID1, 'B', getUsr(wait[1][0]), getUsr(wait[1][1]) )
     grp0.setEnemyGID(grpID1)
     grp1.setEnemyGID(grpID0)
 
@@ -274,15 +270,17 @@ def createGame(wait):
 
 
 
-def createGrp(gameID, grpID, usr0, usr1):
+def createGrp(gameID, grpID, side, usr0, usr1):
     global GROUPS
 
     usr0.setGameID(gameID)
     usr1.setGameID(gameID)
     usr0.setGrpID(grpID)
     usr1.setGrpID(grpID)
+    usr0.setSide(side)
+    usr1.setSide(side)
 
-    GROUPS[grpID] = Group(grpID, usr0, usr1)
+    GROUPS[grpID] = Group(grpID, side, usr0, usr1)
     print 'GROUPS: ',
     print  GROUPS
     return GROUPS[grpID]
@@ -339,10 +337,8 @@ def getGame(gameID):
 
 
 
-def rmWaiting(usrID):
+def delWaiting(usrID):
     global WAITING
-    print 'RM WAITING'
-    print WAITING
     for i in range(0, 2):
         for j in range(0, 2):
             if WAITING[i][j] == usrID:
@@ -353,18 +349,15 @@ def rmWaiting(usrID):
 
 def takeSpace(usrID, side):
     global WAITING
-    print 'TAKE SPACE'
 
     for i in range(0, 2):
         for j in range(0, 2):
             if i == side:
                 if WAITING[i][j] == -1 and WAITING[i][1-j] != usrID:
                     WAITING[i][j] = usrID
-                    print WAITING
             if i != side:
                 if WAITING[i][j] == usrID:
                     WAITING[i][j] = -1
-                    print WAITING
 
     return getSpaceN()
 

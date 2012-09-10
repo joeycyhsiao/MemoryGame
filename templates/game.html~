@@ -37,7 +37,8 @@
         <div id="waiting"></div>
     	<div id='txtarea'>
             <div id="dbg"></div>
-            <div id="game">Game ID: </div>
+			<div id="game">Game ID: </div>
+			<div id="side">Group: </div>
             <div id="correct_p">Player Score: 0</div>
             <div id="move_p">Player Moves: 0</div>
             <div id="correct_e">Opponent Score: 0</div>
