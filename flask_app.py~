@@ -234,14 +234,14 @@ def unload():
 @app.route('/restart', methods=['POST'])
 def restart():
     usrID = request.cookies.get('usrID')
+    (usr, grp, game) = mg.getObjs(usrID)
+    #game.allReset()
     mg.killGame( usrID )
-
-    print 'POST RESTART %d' %(int(usrID))
+    #print 'POST RESTART %d' %(int(usrID))
     side_char = request.form.get('side')
     side = 0    #- side_char == 'A' -#
     if side_char == 'B':
         side = 1
-
     mg.takeSpace( usrID, side )
     return jsonify(success=1)
   

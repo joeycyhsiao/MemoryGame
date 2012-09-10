@@ -5,6 +5,7 @@ var flip  = 0;
 var recvAnsID;
 var recvKnowID;
 var flipMsgID;
+var updateTimeID;
 
 var moveTime    = 0;
 var correctTime = 0;
@@ -19,6 +20,8 @@ var prevTurnState = -1;
 var turnState = -1;
 
 var side;
+var restart = 0;
+
 
 CTRL = 1;
 WAIT = 2;
@@ -88,7 +91,7 @@ $(document).ready(function()
         $.ajax({
             url:  '/game',
             type: "POST",
-            data: {init: '1'},
+            data: {init: '1', restart:restart},
             success: function (resp) {
                 if (resp.gameID == -1)
                     recvOrderID = setInterval(sendWait, 1000);  /*- no enough user waiting on server -*/
@@ -108,9 +111,9 @@ $(document).ready(function()
                         turnStartTime = 0;
                         updateState(CTRL);
                         setTimeout(clearWaitMsg, 3000);
-                        recvAnsID  = setInterval(recvAns, 1000); 
-                        recvKnowID = setInterval(recvKnow, 1000); 
-                        setInterval(updateTime, 1000);  
+                        recvAnsID    = setInterval(recvAns, 1000); 
+                        recvKnowID   = setInterval(recvKnow, 1000); 
+                        updateTimeID = setInterval(updateTime, 1000);  
                     }, 5000);
                 }
             }
@@ -184,9 +187,9 @@ $(document).ready(function()
                         setTimeout(clearWaitMsg, 3000);
                     }
 
-                    recvAnsID  = setInterval(recvAns, 1000); 
-                    recvKnowID = setInterval(recvKnow, 1000); 
-                    setInterval(updateTime, 1000);   
+                    recvAnsID    = setInterval(recvAns, 1000); 
+                    recvKnowID   = setInterval(recvKnow, 1000); 
+                    updateTimeID = setInterval(updateTime, 1000);   
 
                 }, 5000);
             }
@@ -330,15 +333,20 @@ $(document).ready(function()
             type: "POST",
             success:function(resp){
                 $('#waiting').removeClass('disappear');
+
                 window.clearInterval(recvAnsID);
                 window.clearInterval(recvKnowID); 
+				window.clearInterval(flipMsgID);
+				window.clearInterval(updateTimeID);
+
                 if      (resp.result == 1)
                     $('#waiting').html("YOU WIN!");
                 else if (resp.result == -1)
                     $('#waiting').html("YOU LOSE...");
                 else  
                     $('#waiting').html("DRAW!")
-			
+        		box_open = '';
+        		img_open = '';		
 				$("#restart").button().bind('click', restart).button('enable');
             }
         });
@@ -570,23 +578,37 @@ $(document).ready(function()
 
     function isSameImg(img0, img1)
 	{ 
-		
 		return (img0 == img1); 
 	}
 
 
 
-	function restart()
+    function restart()
 	{
-		$.ajax({
-			url:  '/restart',
-			type: 'POST',
-			data: {side:side},
-			success: init()
-		});
-	}
+        for (var i = 1 ; i <= 16 ; i++) {
+            var box = 'card'+i;
+            if ( !$("#" + box + " img").is(":hidden") ) 
+                $("#" + box + " img").fadeOut(1);
+        }
+        turnState = -1;
+		restart = 1;
+		updateMove(0, 0, 0);
+		updateMove(1, 0, 0);
+        $.ajax({
+            url:  '/restart',
+            type: 'POST',
+            data: {side:side},
+            success:function (resp){
+                if (resp.success == 1){
+                    $("#restart").button('disable');
 
-
+					for (var i = 1; i < 99; i++)
+        				window.clearInterval(i);
+                    init();
+                }
+            }
+        });
+    }
 
 });   
 

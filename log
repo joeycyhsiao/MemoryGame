@@ -1,45 +1,1783 @@
-PLAYERS: 1881
-{1881: <memorygame.Player instance at 0xb5cca80c>}
-PLAYERS: 1882
-{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>}
-PLAYERS: 1883
-{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>, 1883: <memorygame.Player instance at 0xa4891ac>}
-PLAYERS: 1884
-{1881: <memorygame.Player instance at 0xb5cca80c>, 1882: <memorygame.Player instance at 0xa492c0c>, 1883: <memorygame.Player instance at 0xa4891ac>, 1884: <memorygame.Player instance at 0xa47b42c>}
+PLAYERS: 
+{2033: <memorygame.Player instance at 0x9169e6c>}
+PLAYERS: 
+{2033: <memorygame.Player instance at 0x9169e6c>, 2034: <memorygame.Player instance at 0x9192d0c>}
+PLAYERS: 
+{2033: <memorygame.Player instance at 0x9169e6c>, 2034: <memorygame.Player instance at 0x9192d0c>, 2035: <memorygame.Player instance at 0x919b68c>}
+PLAYERS: 
+{2033: <memorygame.Player instance at 0x9169e6c>, 2034: <memorygame.Player instance at 0x9192d0c>, 2035: <memorygame.Player instance at 0x919b68c>, 2036: <memorygame.Player instance at 0x919bb8c>}
 take space
-[[1882, -1], [-1, -1]]
+[[2033, -1], [-1, -1]]
 take space
-[[1882, 1884], [-1, -1]]
+[[2033, 2036], [-1, -1]]
 take space
-[[1882, 1884], [1883, -1]]
+[[-1, 2036], [2033, -1]]
 take space
-[[1882, 1884], [1883, 1881]]
-Join waiting [[1882, 1884], [1883, 1881]]
-JOIN:  [1881]
-Join waiting [[1882, 1884], [1883, 1881]]
-JOIN:  [1881, 1882]
-Join waiting [[1882, 1884], [1883, 1881]]
-JOIN:  [1881, 1882, 1884]
-Join waiting [[1882, 1884], [1883, 1881]]
-JOIN:  [1881, 1882, 1884, 1883]
-ALL Join
-SET Side A
-SET Side A
-GROUPS:  {1882: <memorygame.Group instance at 0xb5ce8b4c>}
-SET Side B
-SET Side B
-GROUPS:  {1882: <memorygame.Group instance at 0xb5ce8b4c>, 1883: <memorygame.Group instance at 0xb5ce80cc>}
-GAMES:  {1882: <memorygame.Game instance at 0xb5ce8fcc>}
-GET Side B
-GET Side A
-GET Side A
-GET Side B
-Join waiting [[-1, -1], [-1, -1]]
-JOIN:  []
-GET Side B
-Join waiting [[-1, -1], [-1, -1]]
-JOIN:  []
-GET Side A
-Join waiting [[-1, -1], [-1, -1]]
-JOIN:  []
-GET Side B
+[[-1, -1], [2033, 2036]]
+take space
+[[2035, -1], [2033, 2036]]
+take space
+[[2035, 2034], [2033, 2036]]
+GET game
+POST game init 2034
+POST game waiting 2034
+GET game
+POST game waiting 2034
+POST game init 2035
+POST game waiting 2034
+POST game waiting 2035
+GET game
+POST game init 2033
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+POST game waiting 2035
+GET game
+POST game init 2036
+GROUPS:  {100: <memorygame.Group instance at 0x91eb02c>}
+GROUPS:  {100: <memorygame.Group instance at 0x91eb02c>, 101: <memorygame.Group instance at 0x91eb30c>}
+GAMES:  {51: <memorygame.Game instance at 0x91eb34c>}
+POST shuffle 2036
+POST game waiting 2033
+POST game waiting 2034
+POST game waiting 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+POST countdown 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2033
+GET wait 2035
+GET wait 2036
+POST countdown 2036
+POST answer 2036
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+POST countdown 2036
+POST countdown 2033
+GET wait 2033
+GET wait 2034
+POST answer 2036
+GET wait 2035
+GET know 2036
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET know 2035
+GET know 2036
+GET know 2033
+GET know 2035
+GET know 2034
+GET know 2036
+GET know 2033
+GET know 2034
+GET know 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+POST answer 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+POST answer 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET know 2035
+GET wait 2036
+GET know 2033
+GET know 2034
+GET know 2035
+GET know 2036
+GET know 2034
+GET know 2033
+GET know 2035
+GET know 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2035
+POST answer 2036
+POST countdown 2036
+GET wait 2036
+POST countdown 2033
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+POST answer 2036
+POST countdown 2033
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET know 2036
+GET know 2033
+GET know 2034
+GET know 2035
+GET know 2036
+GET know 2033
+GET know 2034
+GET know 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+GET wait 2035
+POST answer 2035
+GET wait 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2035
+POST countdown 2035
+POST answer 2035
+GET wait 2036
+POST end 2035
+POST end 2036
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+POST end 2034
+POST end 2033
+KILL
+POST RESTART 2036
+take space
+[[-1, -1], [2036, -1]]
+POST game init 2036
+POST game waiting 2036
+POST game waiting 2036
+KILL
+POST RESTART 2035
+take space
+[[2035, -1], [2036, -1]]
+POST game init 2035
+POST game waiting 2036
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2035
+POST game waiting 2036
+KILL
+POST RESTART 2033
+take space
+[[2035, -1], [2036, 2033]]
+POST game init 2033
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2033
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2033
+POST game waiting 2035
+KILL
+POST RESTART 2034
+take space
+[[2035, 2034], [2036, 2033]]
+POST game init 2034
+GROUPS:  {102: <memorygame.Group instance at 0x919b2ec>}
+GROUPS:  {102: <memorygame.Group instance at 0x919b2ec>, 103: <memorygame.Group instance at 0x919be4c>}
+GAMES:  {52: <memorygame.Game instance at 0x919bdec>}
+POST shuffle 2034
+POST game waiting 2036
+POST game waiting 2033
+POST game waiting 2035
+GET wait 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+GET wait 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+POST answer 2034
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2033
+POST countdown 2035
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2033
+POST answer 2034
+POST countdown 2035
+GET wait 2035
+GET know 2034
+GET wait 2036
+GET wait 2033
+GET know 2035
+GET know 2034
+GET know 2036
+GET know 2033
+GET know 2035
+GET know 2034
+GET know 2036
+GET know 2033
+GET wait 2035
+GET wait 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+GET wait 2034
+GET wait 2036
+GET wait 2033
+GET wait 2035
+POST answer 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2033
+POST countdown 2033
+GET wait 2035
+GET wait 2034
+POST answer 2033
+GET wait 2036
+POST countdown 2036
+POST end 2033
+POST end 2036
+GET wait 2035
+POST end 2035
+GET wait 2034
+POST end 2034
+KILL
+POST RESTART 2036
+take space
+[[-1, -1], [2036, -1]]
+POST game init 2036
+POST game waiting 2036
+POST game waiting 2036
+POST game waiting 2036
+POST game waiting 2036
+KILL
+POST RESTART 2035
+take space
+[[2035, -1], [2036, -1]]
+POST game init 2035
+POST game waiting 2036
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2035
+POST game waiting 2036
+KILL
+POST RESTART 2033
+take space
+[[2035, -1], [2036, 2033]]
+POST game init 2033
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2033
+POST game waiting 2035
+POST game waiting 2036
+POST game waiting 2033
+POST game waiting 2035
+POST game waiting 2036
+KILL
+POST RESTART 2034
+take space
+[[2035, 2034], [2036, 2033]]
+POST game init 2034
+GROUPS:  {104: <memorygame.Group instance at 0x919ba2c>}
+GROUPS:  {104: <memorygame.Group instance at 0x919ba2c>, 105: <memorygame.Group instance at 0x919b3cc>}
+GAMES:  {53: <memorygame.Game instance at 0x91eb28c>}
+POST shuffle 2034
+POST game waiting 2033
+POST game waiting 2035
+POST game waiting 2036
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2034
+GET wait 2035
+GET wait 2036
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2034
+GET wait 2035
+GET wait 2036
+POST countdown 2035
+GET know 2034
+GET wait 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2035
+GET know 2036
+GET know 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2036
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2035
+POST countdown 2036
+GET wait 2036
+GET wait 2034
+GET wait 2033
+POST answer 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2035
+GET know 2036
+GET know 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2034
+GET wait 2035
+GET wait 2036
+POST countdown 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST answer 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET know 2034
+GET wait 2033
+GET know 2035
+GET know 2036
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2036
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2035
+POST countdown 2036
+GET wait 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST answer 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST answer 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2035
+GET wait 2036
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST answer 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2035
+GET wait 2036
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2035
+GET wait 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2035
+GET wait 2036
+GET know 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET know 2035
+GET know 2036
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2034
+POST answer 2033
+POST countdown 2033
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2034
+POST countdown 2035
+GET wait 2035
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2035
+GET wait 2036
+GET know 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET know 2035
+GET know 2036
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2033
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+GET wait 2035
+POST countdown 2036
+GET wait 2036
+POST answer 2033
+GET wait 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2034
+GET wait 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+POST answer 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2035
+GET wait 2036
+GET know 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2034
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET know 2034
+GET wait 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST answer 2033
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+POST answer 2033
+GET wait 2034
+GET know 2033
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+POST answer 2035
+POST countdown 2035
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+POST countdown 2034
+POST answer 2035
+GET wait 2033
+GET wait 2036
+GET know 2035
+GET wait 2034
+POST countdown 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET know 2033
+GET know 2036
+GET know 2035
+GET know 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+GET wait 2036
+GET wait 2035
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2036
+GET wait 2036
+GET wait 2035
+POST countdown 2036
+GET wait 2034
+GET wait 2033
+POST countdown 2033
+POST answer 2036
+POST end 2036
+GET wait 2035
+POST end 2035
+GET wait 2034
+POST end 2034
+POST countdown 2033
+GET wait 2033
+POST end 2033
+KILL
+POST RESTART 2034
+take space
+[[2034, -1], [-1, -1]]
+POST game init 2034
+POST game waiting 2034
+POST game waiting 2034
+POST game waiting 2034
+KILL
+POST RESTART 2035
+take space
+[[2034, 2035], [-1, -1]]
+POST game init 2035
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2034
+POST game waiting 2035
+KILL
+POST RESTART 2033
+take space
+[[2034, 2035], [2033, -1]]
+POST game init 2033
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+KILL
+POST RESTART 2036
+take space
+[[2034, 2035], [2033, 2036]]
+POST game init 2036
+GROUPS:  {106: <memorygame.Group instance at 0x9192c8c>}
+GROUPS:  {106: <memorygame.Group instance at 0x9192c8c>, 107: <memorygame.Group instance at 0x9192d4c>}
+GAMES:  {54: <memorygame.Game instance at 0x919bfec>}
+POST shuffle 2036
+POST game waiting 2035
+POST game waiting 2033
+POST game waiting 2034
+GET wait 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+POST countdown 2033
+GET wait 2033
+GET wait 2034
+POST answer 2033
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+POST countdown 2033
+GET wait 2033
+GET wait 2034
+POST countdown 2036
+GET wait 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+POST answer 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2034
+GET know 2036
+GET know 2035
+GET know 2033
+GET know 2034
+GET know 2036
+GET know 2035
+GET know 2033
+GET know 2034
+GET wait 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+POST answer 2035
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+POST countdown 2034
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+POST countdown 2035
+GET wait 2035
+GET wait 2033
+GET wait 2034
+POST countdown 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET wait 2036
+GET wait 2034
+POST countdown 2034
+POST answer 2034
+GET wait 2035
+POST countdown 2035
+GET wait 2033
+GET know 2034
+GET wait 2036
+GET know 2035
+GET know 2033
+GET know 2034
+GET know 2036
+GET know 2035
+GET know 2033
+GET know 2034
+GET know 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+GET wait 2035
+GET wait 2033
+GET wait 2034
+GET wait 2036
+GET wait 2035
+POST countdown 2033
+GET wait 2033
+GET wait 2034
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033
+GET wait 2036
+POST countdown 2036
+GET wait 2035
+GET wait 2033
+POST countdown 2033

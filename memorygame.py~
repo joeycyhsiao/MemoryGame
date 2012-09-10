@@ -27,6 +27,13 @@ class Game():
         self.countdown = 0
         self.changed = 0   #- state changed usr -#
 
+    def allReset(self):
+        self.reset()
+        self.order = ''
+        self.ready = False
+        self.grps[0].allReset()
+        self.grps[1].allReset() 
+
     def getCtrl(self):
         return (self.ctrlUID, self.ctrlGID) 
     def getGameID(self):
@@ -122,6 +129,12 @@ class Group():
         self.resetTurnTimes()
         self.usrs[0].reset()
         self.usrs[1].reset()
+
+    def allReset(self):
+        self.reset()
+        self.times  = []
+        self.moves  = []
+        self.movers = []
 
     def getGrpID(self):
         return self.grpID
@@ -242,12 +255,16 @@ def joinUsr(UID):
 
     if not allJoin():
         return -1;
-    else:
-        game = createGame(WAITING)
-        game.setCtrl( int(usr.getUsrID()), int(usr.getGrpID()) )
-        WAITING = [[-1, -1], [-1, -1]]
-        JOIN = []
-        return game.getGameID()
+
+    #if usr.getGameID() != -1:
+    game = createGame(WAITING)
+    #else:
+    #    game = getGame( usr.getGameID() )
+
+    game.setCtrl( int(usr.getUsrID()), int(usr.getGrpID()) )
+    WAITING = [[-1, -1], [-1, -1]]
+    JOIN = []
+    return game.getGameID()
 
 
 
@@ -358,9 +375,6 @@ def takeSpace(usrID, side):
                 if WAITING[i][j] == int(usrID):
                     WAITING[i][j] = -1
    
-    print 'take space'
-    print WAITING
-
     return getSpaceN()
 
 
@@ -393,8 +407,6 @@ def allJoin():
 def killGame( usrID ):
     global GAMES, GROUPS
 
-    print 'KILL'
-
     usr = getUsr( usrID )
 
     grpID  = usr.getGrpID()
@@ -407,7 +419,6 @@ def killGame( usrID ):
 
     usr.setGrpID(-1)
     usr.setGameID(-1)
-
 
 
 
