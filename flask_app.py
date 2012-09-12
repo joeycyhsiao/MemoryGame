@@ -14,7 +14,7 @@ import csv
 
 app = Flask(__name__)
 
-
+READY   = False
 OVER    = False
 IPs     = {}
 GAME_ID = -1
@@ -69,7 +69,7 @@ def game():
 
 @app.route('/shuffle', methods=['GET', 'POST'])
 def shuffle():
-    global GAME_ID
+    global GAME_ID, READY
     usr  = mg.getUsr( request.cookies.get('usrID') )
     game = mg.getGame( usr.getGameID() )
     GAME_ID = game.getGameID()
@@ -85,6 +85,7 @@ def shuffle():
 
     elif request.method == 'POST':    #- for sendOrder(), the usr is ctrler of 1st turn -#
         #print 'POST shuffle %d' %(usr.getUsrID())
+        READY = True
         game.setOrder( request.form.getlist('order') )
         return jsonify( gameID=game.getGameID(), side=usr.getSide() )
 
@@ -252,47 +253,29 @@ def restart():
     return jsonify(success=1)
 
 
-'''
-@app.route('/sound', methods=['POST'])
-def sound():
-    URL = 'http://209.129.244.29:21000/'
-
-    if  int(request.form.get('act')) == 0:
-        urllib2.urlopen(URL + 'stop')  
-
-    else:
-        URL += 'start'    
-        usr  = mg.getUsr(request.cookies.get('usrID'))
-        game = mg.getGame( usr.getGameID() )
-
-        (ctrlUID, ctrlGID) = game.getCtrl()
-        ctrl = int( int(ctrlUID) == int(request.cookies.get('usrID')) )
-    
-        sendReq    = urllib2.Request(URL)
-        data       = { 'usrID':str(usr.getUsrID()), 'ip':str(request.remote_addr), \
-                       'ctrl':str(ctrl), 'gameID':str(game.getGameID()) }
-        encodeData = urllib.urlencode(data)    
-
-        opener = urllib2.build_opener()
-        opener.open(sendReq, encodeData) 
-     
-    return make_response()
-'''    
 
 @app.route('/sound', methods=['POST'])
 def sound():
-    global OVER
+    global OVER, READY
     if  int(request.form.get('act')) == 0:
-        OVER = True
+        OVER  = True
+        READY = False
     else:
         OVER = False
-
     return make_response()
+
+
+
+@app.route('/ready', methods=['GET'])
+def ready():
+    print 'READY ' + str(READY)
+    return jsonify(ready=READY)
 
 
 
 @app.route('/over', methods=['GET'])
 def over():
+    print 'OVER ' + str(OVER)
     return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
 
 

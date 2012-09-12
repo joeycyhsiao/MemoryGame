@@ -14,7 +14,7 @@ import csv
 
 app = Flask(__name__)
 
-READY   = False
+
 OVER    = False
 IPs     = {}
 GAME_ID = -1
@@ -69,7 +69,7 @@ def game():
 
 @app.route('/shuffle', methods=['GET', 'POST'])
 def shuffle():
-    global GAME_ID, READY
+    global GAME_ID
     usr  = mg.getUsr( request.cookies.get('usrID') )
     game = mg.getGame( usr.getGameID() )
     GAME_ID = game.getGameID()
@@ -85,7 +85,6 @@ def shuffle():
 
     elif request.method == 'POST':    #- for sendOrder(), the usr is ctrler of 1st turn -#
         #print 'POST shuffle %d' %(usr.getUsrID())
-        READY = True
         game.setOrder( request.form.getlist('order') )
         return jsonify( gameID=game.getGameID(), side=usr.getSide() )
 
@@ -256,26 +255,18 @@ def restart():
 
 @app.route('/sound', methods=['POST'])
 def sound():
-    global OVER, READY
+    global OVER
     if  int(request.form.get('act')) == 0:
-        OVER  = True
-        READY = False
+        OVER = True
     else:
         OVER = False
+
     return make_response()
-
-
-
-@app.route('/ready', methods=['GET'])
-def ready():
-    print 'READY ' + str(READY)
-    return jsonify(ready=READY)
 
 
 
 @app.route('/over', methods=['GET'])
 def over():
-    print 'OVER' + str(OVER)
     return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
 
 
