@@ -7,7 +7,7 @@ PLAYERS = {}
 
 WAITING = [ [-1, -1], [-1, -1] ]
 JOIN    = []
-TOTAL_N = 8
+TOTAL_N = 3
 
 
 class Game():
@@ -164,6 +164,9 @@ class Group():
         return self.times
     def getMovers(self):
         return self.movers
+
+    def getSide(self):
+        return self.side
 
     def addMove(self, img0, img1):
         

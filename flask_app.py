@@ -8,11 +8,16 @@ from flask import redirect
 
 import memorygame as mg
 
+import urllib, urllib2
 import io, shutil, time, sys, os, re
 import csv
 
 app = Flask(__name__)
 
+
+OVER    = False
+IPs     = {}
+GAME_ID = -1
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -29,7 +34,6 @@ def index():
 
     elif request.method == 'POST':   
         usr = mg.getUsr( request.cookies.get('usrID') )
-
         if    usr == -1:
             return jsonify( usrID=-1 ) 
 
@@ -38,6 +42,7 @@ def index():
             return jsonify( usrID=usr.getUsrID(), space0=space[0], space1=space[1] )
 
         elif 'choose' in request.form:        #- for sendWait() -#
+            IPs[usr.getUsrID()] = request.remote_addr
             side = request.form.get('side')
             space = mg.takeSpace( usr.getUsrID(), int(side) )
             return jsonify( side=side, space0=space[0], space1=space[1] )
@@ -64,9 +69,10 @@ def game():
 
 @app.route('/shuffle', methods=['GET', 'POST'])
 def shuffle():
-
+    global GAME_ID
     usr  = mg.getUsr( request.cookies.get('usrID') )
     game = mg.getGame( usr.getGameID() )
+    GAME_ID = game.getGameID()
 
     if   request.method == 'GET':     #- for recvOrder() -#
         if  ( game == -1 ) or ( not game.isReady() ):
@@ -244,6 +250,50 @@ def restart():
 
     mg.takeSpace( usrID, side )
     return jsonify(success=1)
+
+
+'''
+@app.route('/sound', methods=['POST'])
+def sound():
+    URL = 'http://209.129.244.29:21000/'
+
+    if  int(request.form.get('act')) == 0:
+        urllib2.urlopen(URL + 'stop')  
+
+    else:
+        URL += 'start'    
+        usr  = mg.getUsr(request.cookies.get('usrID'))
+        game = mg.getGame( usr.getGameID() )
+
+        (ctrlUID, ctrlGID) = game.getCtrl()
+        ctrl = int( int(ctrlUID) == int(request.cookies.get('usrID')) )
+    
+        sendReq    = urllib2.Request(URL)
+        data       = { 'usrID':str(usr.getUsrID()), 'ip':str(request.remote_addr), \
+                       'ctrl':str(ctrl), 'gameID':str(game.getGameID()) }
+        encodeData = urllib.urlencode(data)    
+
+        opener = urllib2.build_opener()
+        opener.open(sendReq, encodeData) 
+     
+    return make_response()
+'''    
+
+@app.route('/sound', methods=['POST'])
+def sound():
+    global OVER
+    if  int(request.form.get('act')) == 0:
+        OVER = True
+    else:
+        OVER = False
+
+    return make_response()
+
+
+
+@app.route('/over', methods=['GET'])
+def over():
+    return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
 
 
 

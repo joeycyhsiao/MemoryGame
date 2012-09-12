@@ -105,6 +105,8 @@ $(document).ready(function()
                         flipMsg("Ready");
                     }, 1000);
 
+					startSound(1);
+
                     setTimeout( function() {
                         gameStartTime = new Date();
                         window.clearInterval(flipMsgID);
@@ -171,6 +173,8 @@ $(document).ready(function()
                 flipMsgID = setInterval( function () {
                     flipMsg("Ready");
                 }, 1000);
+
+                startSound(1);
 
                 setTimeout(function () {
 
@@ -352,6 +356,8 @@ $(document).ready(function()
                 window.clearInterval(recvKnowID); 
 				window.clearInterval(flipMsgID);
 				window.clearInterval(updateTimeID);
+
+                startSound(0);
 
                 if      (resp.result == 1)
                     $('#waiting').html("YOU WIN!");
@@ -598,8 +604,6 @@ $(document).ready(function()
         imgName0 = img0.substring(0, ind0); 
         imgName1 = img1.substring(0, ind1); 
 
-		dbgStr(imgName0 + '</br>' +imgName1); 
-
 		return (imgName0 == imgName1); 
 	}
  
@@ -656,6 +660,16 @@ $(document).ready(function()
         });
     }
 
+
+
+    function startSound(act)
+    {
+        $.ajax({
+			url:"/sound",
+            type:"POST",
+			data:{act:act},
+        });
+    }
 
 
 });   
