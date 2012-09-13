@@ -5,17 +5,6 @@ PARSED_DIR = '../result/parsed/'
 
 
 
-def insertBL(prevTime, time):
-
-    prevSec = int(prevTime/1000)
-    sec     = int(time/1000)
-
-
-
-
-
-
-
 def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
  
     fp = open(PARSED_DIR + 'res' + gameID + '.txt', 'w')
@@ -41,11 +30,11 @@ def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
         time = str(time)
         insertBL(prevTime, int(time))
 
-        fp.write(time+':\t\t|')
+        fp.write(time+':\t\t||')
         if time in timeA:
-            fp.write('     |'+timeA[time]+' |     |     |')
+            fp.write('     ||'+timeA[time]+' ||     ||     ||')
         if time in timeB:
-            fp.write('     |     |'+timeB[time]+' |     |')
+            fp.write('     ||     ||'+timeB[time]+' ||     ||')
  
         if time in timeK:
             ev  = evK[time]
@@ -53,15 +42,15 @@ def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
 
             if usr in uidA:
                 if ev == '0':
-                    fp.write('<'+usr+'|     |     |     |')
+                    fp.write('<'+usr+'||     ||     ||     ||')
                 else:
-                    fp.write(usr+'>|     |     |     |')
+                    fp.write(usr+'>||     ||     ||     ||')
 
             if usr in uidB:
                 if ev == '0':
-                    fp.write('     |     |     |'+usr+'>|')
+                    fp.write('     ||     ||     ||'+usr+'>||')
                 else:
-                    fp.write('     |     |     |<'+usr+'|')
+                    fp.write('     ||     ||     ||<'+usr+'||')
         fp.write('\n')
 
         
@@ -74,59 +63,63 @@ def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
 
 def getGameData(path, side):
     fp = open(path, 'r')
-    grpID  = fp.readline()
-    UIDs   = {}
-    time   = {}
+    grpID  = fp.readline() 
+    mover1 = [ line.strip().split(',')[2] for line in fp.readlines()]
 
-    for line in fp.readlines():
-        items = line.strip().split(',')
+    fp.seek(0)
+    grpID  = fp.readline() 
+    mover2 = [ line.strip().split(',')[3] for line in fp.readlines()]
 
-        ev             = items[0]  #- turn result -#
-        if ev == '-1':
-            ev = '0'
+    #print mover1
+    #print mover2
 
-        time[items[4]] = side+':'+ev+' '        #- turn start time -#
-        time[items[5]] = items[2]
-        time[items[6]] = items[3]
-        UIDs[items[2]] = True
-        UIDs[items[3]] = True
+    err = 0
+    prevM1 = None
+    prevM2 = None
+    for i, m1 in enumerate(mover1):
+        m2 = mover2[i]
 
-    fp.close()
-    return (time, UIDs)
+        if i == 0:
+            prevM1 = m1
+            prevM2 = m2
+            err += int(m1 == m2)
+            continue
 
+        if (prevM1 == '-1' or prevM2 == '-1'):
+            pass
+        elif prevM1 != m2 or prevM2 != m1:
+            err +=1
 
-def getKickData(path):
-    fp = open(path, 'r')
-    times  = {}
-    UIDs   = {}
-    events = {}
-
-    for i in range(0, 6):
-        items = fp.readline().strip().split(':')
-        if len(items) > 2:
-            name  = items[0]
-            usrID = items[2]
-            UIDs[name] = usrID
-
-    for line in fp.readlines():
-        (time, name, ev) = line.strip().split(':')
-        times[time]  = UIDs[name]
-        events[time] = ev
+        prevM1 = m1
+        prevM2 = m2
+      
+    print str(len(mover1)) + ',',
+    print str(err) + ',',
+    print str(float(err)/len(mover1)),
 
     fp.close()
+    return (1,0)
 
-    return (times, events)
-
+    #return (totalN, correctN)
 
 
 def parse(gameID, files):
 
     files = sorted(files) 
-    timeA, UID_A = getGameData(RAW_DIR+files[0], 'A')
-    timeB, UID_B = getGameData(RAW_DIR+files[1], 'B')
-    timeK, evK = getKickData(RAW_DIR+files[2])
-  
-    writeRes(gameID, timeA, UID_A, timeB, UID_B, timeK, evK)
+    ansA, correctA = getGameData(RAW_DIR+files[0], 'A')
+    ansB, correctB = getGameData(RAW_DIR+files[1], 'B')
+    print '\n'
+
+    corrRateA = float(correctA)/float(ansA)
+    corrRateB = float(correctB)/float(ansB)
+
+    #print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
+
+    #timeK, evK = getKickData(RAW_DIR+files[2])
+ 
+
+
+    #writeRes(gameID, timeA, UID_A, timeB, UID_B, timeK, evK)
 
 
 
