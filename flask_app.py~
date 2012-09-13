@@ -268,14 +268,12 @@ def sound():
 
 @app.route('/ready', methods=['GET'])
 def ready():
-    print 'READY ' + str(READY)
     return jsonify(ready=READY)
 
 
 
 @app.route('/over', methods=['GET'])
 def over():
-    print 'OVER ' + str(OVER)
     return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
 
 

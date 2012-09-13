@@ -175,8 +175,8 @@ def wait():    #- used by recvAns() from teammate and enemies -#
             box = ''
         return jsonify( giveup=1, half=half, img=img, box=box, moveN=moveN, isEnemy=isEnemy )
 
-    elif ctrlGrp.isHalfAns():    #- just for display imgs -#
-        return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown() )
+    #elif ctrlGrp.isHalfAns():    #- just for display imgs -#
+    #    return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown() )
 
     elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
         return jsonify( full=1, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1], 

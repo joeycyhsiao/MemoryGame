@@ -283,7 +283,7 @@ $(document).ready(function()
                 if (resp.giveup == 1) {
 
                     if (box_open != ''){
-                        $("#" + box_open + " img").delay(1200).fadeOut(1000);
+                        $("#" + box_open + " img").delay(1700).fadeOut(300);
                         box_open = '';
                         img_open = '';
                     }
@@ -433,7 +433,7 @@ $(document).ready(function()
                 updateState(KNOW);
 
                 if (box_open != ""){    /*- give up after opening one card -*/
-                    $("#" + box_open + " img").delay(1200).fadeOut(300);
+                    $("#" + box_open + " img").delay(1700).fadeOut(300);
                     box_open = "";
                    img_open = "";
                 }
@@ -480,7 +480,7 @@ $(document).ready(function()
 
     function checkAns(img0, box0, img1, box1, sendFull)
     {
-        if ( !isSameImg(img0, img1) ) {    /*- wrong answer -*/
+        if ( !isPairImg(img0, img1) ) {    /*- wrong answer -*/
 
             setTimeout(function() {
 
@@ -527,8 +527,8 @@ $(document).ready(function()
 
     function hideBoxes(box0, box1)
     {
-        $("#" + box0 + " img").delay(1200).fadeOut(300);
-        $("#" + box1 + " img").delay(1200).fadeOut(300);
+        $("#" + box0 + " img").delay(1700).fadeOut(300);
+        $("#" + box1 + " img").delay(1700).fadeOut(300);
     }
 
 
@@ -596,7 +596,7 @@ $(document).ready(function()
     }
 
 
-    function isSameImg(img0, img1)
+    function isPairImg(img0, img1)
 	{
 		var ind0 = img0.indexOf('_');
 		var ind1 = img1.indexOf('_');
@@ -604,7 +604,7 @@ $(document).ready(function()
         imgName0 = img0.substring(0, ind0); 
         imgName1 = img1.substring(0, ind1); 
 
-		return (imgName0 == imgName1); 
+		return (imgName0 == imgName1) && (img0 != img1); 
 	}
  
     function closeAllCard(timing)
@@ -616,7 +616,7 @@ $(document).ready(function()
                 continue;
 
             if ( !$("#" + box + " img").is(":hidden") ){
-                $("#" + box + " img").fadeOut(500);
+                $("#" + box + " img").fadeOut(300);
                 $("#" + box + " img").removeClass('opacity');
 			}
         }

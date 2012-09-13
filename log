@@ -1,21 +1,19 @@
 PLAYERS: 
-{2422: <memorygame.Player instance at 0x91004ec>}
+{2450: <memorygame.Player instance at 0x9a329ac>}
 PLAYERS: 
-{2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
+{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>}
+take space
+[[2451, -1], [-1, -1]]
+take space
+[[2451, 2450], [-1, -1]]
 PLAYERS: 
-{2424: <memorygame.Player instance at 0x911de4c>, 2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
+{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>, 2452: <memorygame.Player instance at 0x9a4feac>}
 PLAYERS: 
-{2424: <memorygame.Player instance at 0x911de4c>, 2425: <memorygame.Player instance at 0x912846c>, 2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
+{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>, 2452: <memorygame.Player instance at 0x9a4feac>, 2453: <memorygame.Player instance at 0x9a4fa2c>}
 take space
-[[2423, -1], [-1, -1]]
+[[2451, 2450], [2453, -1]]
 take space
-[[2423, 2424], [-1, -1]]
-take space
-[[2423, 2424], [2422, -1]]
-take space
-[[2423, 2424], [2422, -1]]
-take space
-[[2423, 2424], [2422, 2425]]
-GROUPS:  {362: <memorygame.Group instance at 0x911d64c>}
-GROUPS:  {362: <memorygame.Group instance at 0x911d64c>, 363: <memorygame.Group instance at 0x912872c>}
-GAMES:  {182: <memorygame.Game instance at 0x91284cc>}
+[[2451, 2450], [2453, 2452]]
+GROUPS:  {378: <memorygame.Group instance at 0x9abc26c>}
+GROUPS:  {378: <memorygame.Group instance at 0x9abc26c>, 379: <memorygame.Group instance at 0x9abc30c>}
+GAMES:  {190: <memorygame.Game instance at 0x9abc0ec>}
