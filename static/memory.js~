@@ -174,7 +174,7 @@ $(document).ready(function()
                     flipMsg("Ready");
                 }, 1000);
 
-                startSound(0);
+                startSound(1);
 
                 setTimeout(function () {
 
@@ -307,7 +307,7 @@ $(document).ready(function()
                 else  {
                     $("#timer").html('Countdown: ' + resp.countdown + ' seconds'); 
                     if ( resp.half == 1 ) {
-                        $("#" + resp.box + " img").fadeIn(1000);
+                        $("#" + resp.box + " img").fadeIn(300);
                         box_open = resp.box;
                         img_open = resp.img;
                     }
@@ -433,7 +433,7 @@ $(document).ready(function()
                 updateState(KNOW);
 
                 if (box_open != ""){    /*- give up after opening one card -*/
-                    $("#" + box_open + " img").delay(1000).fadeOut(1000);
+                    $("#" + box_open + " img").delay(1200).fadeOut(300);
                     box_open = "";
                    img_open = "";
                 }
@@ -453,7 +453,7 @@ $(document).ready(function()
         if ($("#" + box_cur + " img").is(":hidden")) {
 
             $("#boxcard div").unbind("click", openCard);
-            $("#" + box_cur + " img").fadeIn(1000);
+            $("#" + box_cur + " img").fadeIn(300);
 
             if (img_open == "" && box_open == "") {
                 recordTime(0, 0);    /*- record timing of fliping 1st card -*/
@@ -519,16 +519,16 @@ $(document).ready(function()
 
     function showBoxes(box0, box1)
     {
-        $("#" + box0 + " img").fadeIn(1000);
-        $("#" + box1 + " img").fadeIn(1000);
+        $("#" + box0 + " img").fadeIn(300);
+        $("#" + box1 + " img").fadeIn(300);
     }
 
 
 
     function hideBoxes(box0, box1)
     {
-        $("#" + box0 + " img").delay(1000).fadeOut(1000);
-        $("#" + box1 + " img").delay(1000).fadeOut(1000);
+        $("#" + box0 + " img").delay(1200).fadeOut(300);
+        $("#" + box1 + " img").delay(1200).fadeOut(300);
     }
 
 

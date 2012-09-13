@@ -7,7 +7,7 @@ PLAYERS = {}
 
 WAITING = [ [-1, -1], [-1, -1] ]
 JOIN    = []
-TOTAL_N = 3
+TOTAL_N = 8
 
 
 class Game():

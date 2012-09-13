@@ -1,23 +1,21 @@
 PLAYERS: 
-{2348: <memorygame.Player instance at 0x9ecf98c>}
+{2422: <memorygame.Player instance at 0x91004ec>}
 PLAYERS: 
-{2348: <memorygame.Player instance at 0x9ecf98c>, 2349: <memorygame.Player instance at 0x9ecf16c>}
+{2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
 PLAYERS: 
-{2348: <memorygame.Player instance at 0x9ecf98c>, 2349: <memorygame.Player instance at 0x9ecf16c>, 2350: <memorygame.Player instance at 0x9ed406c>}
-take space
-[[2349, -1], [-1, -1]]
-take space
-[[2349, -1], [2348, -1]]
-take space
-[[2349, 2350], [2348, -1]]
+{2424: <memorygame.Player instance at 0x911de4c>, 2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
 PLAYERS: 
-{2348: <memorygame.Player instance at 0x9ecf98c>, 2349: <memorygame.Player instance at 0x9ecf16c>, 2350: <memorygame.Player instance at 0x9ed406c>, 2351: <memorygame.Player instance at 0x9ed456c>}
+{2424: <memorygame.Player instance at 0x911de4c>, 2425: <memorygame.Player instance at 0x912846c>, 2422: <memorygame.Player instance at 0x91004ec>, 2423: <memorygame.Player instance at 0x911d80c>}
 take space
-[[2349, 2350], [2348, 2351]]
-GROUPS:  {304: <memorygame.Group instance at 0x9ed45ac>}
-GROUPS:  {304: <memorygame.Group instance at 0x9ed45ac>, 305: <memorygame.Group instance at 0x9ed420c>}
-GAMES:  {153: <memorygame.Game instance at 0x9ed408c>}
+[[2423, -1], [-1, -1]]
 take space
-[[-1, -1], [2348, -1]]
-PLAYERS: 
-{2352: <memorygame.Player instance at 0x9ed410c>, 2348: <memorygame.Player instance at 0x9ecf98c>, 2349: <memorygame.Player instance at 0x9ecf16c>, 2350: <memorygame.Player instance at 0x9ed406c>, 2351: <memorygame.Player instance at 0x9ed456c>}
+[[2423, 2424], [-1, -1]]
+take space
+[[2423, 2424], [2422, -1]]
+take space
+[[2423, 2424], [2422, -1]]
+take space
+[[2423, 2424], [2422, 2425]]
+GROUPS:  {362: <memorygame.Group instance at 0x911d64c>}
+GROUPS:  {362: <memorygame.Group instance at 0x911d64c>, 363: <memorygame.Group instance at 0x912872c>}
+GAMES:  {182: <memorygame.Game instance at 0x91284cc>}

@@ -275,7 +275,7 @@ def ready():
 
 @app.route('/over', methods=['GET'])
 def over():
-    print 'OVER' + str(OVER)
+    print 'OVER ' + str(OVER)
     return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
 
 
