@@ -1,6 +1,6 @@
 import os, sys
 
-RAW_DIR    = '../result/exp2/'
+RAW_DIR    = '../result/exp'
 PARSED_DIR = '../result/parsed/'
 
 
@@ -70,7 +70,7 @@ def getGameData(path, side):
     totalN   = 0
     correctN = 0
     for line in fp.readlines():
-        print line
+
         items = line.strip().split(',')
         totalN += 1
         if (items[0] == '1'):
@@ -125,6 +125,9 @@ def main():
 
 
 if __name__ == '__main__':
+
+    RAW_DIR += sys.args[1] + '/'
+    print RAW_DIR
     main()
 
 

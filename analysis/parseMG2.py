@@ -1,6 +1,6 @@
 import os, sys
 
-RAW_DIR    = '../result/exp2/'
+RAW_DIR    = '../result/exp'
 PARSED_DIR = '../result/parsed/'
 
 
@@ -125,6 +125,9 @@ def main():
 
 
 if __name__ == '__main__':
+
+    RAW_DIR += sys.argv[1] + '/'
+    print RAW_DIR
     main()
 
 

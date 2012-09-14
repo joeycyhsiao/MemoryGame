@@ -7,8 +7,8 @@ PLAYERS = {}
 
 WAITING = [ [-1, -1], [-1, -1] ]
 JOIN    = []
-TOTAL_N = 8
-
+TOTAL_N = 2
+SUPERVISOR = None
 
 class Game():
 
@@ -259,7 +259,7 @@ def joinUsr(UID):
 
 
 def createGame(wait):
-    global GAMES
+    global GAMES, SUPERVISOR
 
     gameID = getIDFromTxt('games')
     grpID0 = getIDFromTxt('groups')
@@ -269,6 +269,9 @@ def createGame(wait):
     grp1 = createGrp(gameID, grpID1, 'B', getUsr(wait[1][0]), getUsr(wait[1][1]) )
     grp0.setEnemyGID(grpID1)
     grp1.setEnemyGID(grpID0)
+
+    if (SUPERVISOR is not None):
+        SUPERVISOR.setGameID(gameID)
 
     GAMES[gameID] = Game(gameID, grp0, grp1)
     print 'GAMES: ',
@@ -304,6 +307,16 @@ def createUsr():
 
 
 
+def createSupevisor():
+    global PLAYERS, SUPERVISOR, GAMES
+    PLAYERS[0] = Player(0)
+    SUPERVISOR = PLAYERS[0]
+    SUPERVISOR.setGrpID(0)
+    SUPERVISOR.setSide('S') 
+    return PLAYERS[0]
+
+
+
 def getIDFromTxt(kind):
     fp = open(kind+".txt", "r+")
     ID = int(fp.readline())+1
@@ -326,6 +339,16 @@ def getUsr(usrID):
     if int(usrID) in PLAYERS:
         return PLAYERS[int(usrID)]
     return -1
+
+
+def getSupervisor():
+    global SUPERVISOR
+    return SUPERVISOR
+
+
+
+def isSupervisor(usr):
+    return ( usr.getUsrID() == 0 )
 
 
 
@@ -355,6 +378,7 @@ def delWaiting(usrID):
 
 def takeSpace(usrID, side):
     global WAITING
+
 
     for i in range(0, 2):
         for j in range(0, 2):

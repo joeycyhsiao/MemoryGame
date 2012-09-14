@@ -1,19 +1,25 @@
 PLAYERS: 
-{2450: <memorygame.Player instance at 0x9a329ac>}
+{2604: <memorygame.Player instance at 0x957614c>}
 PLAYERS: 
-{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>}
+{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>}
 take space
-[[2451, -1], [-1, -1]]
+[[-1, -1], [2604, -1]]
 take space
-[[2451, 2450], [-1, -1]]
+[[2605, -1], [2604, -1]]
 PLAYERS: 
-{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>, 2452: <memorygame.Player instance at 0x9a4feac>}
+{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>}
 PLAYERS: 
-{2450: <memorygame.Player instance at 0x9a329ac>, 2451: <memorygame.Player instance at 0x9a4fa6c>, 2452: <memorygame.Player instance at 0x9a4feac>, 2453: <memorygame.Player instance at 0x9a4fa2c>}
+{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>, 2607: <memorygame.Player instance at 0x960f66c>}
 take space
-[[2451, 2450], [2453, -1]]
+[[2605, -1], [2604, 2606]]
+PLAYERS: 
+{2608: <memorygame.Player instance at 0x960ffec>, 2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>, 2607: <memorygame.Player instance at 0x960f66c>}
 take space
-[[2451, 2450], [2453, 2452]]
-GROUPS:  {378: <memorygame.Group instance at 0x9abc26c>}
-GROUPS:  {378: <memorygame.Group instance at 0x9abc26c>, 379: <memorygame.Group instance at 0x9abc30c>}
-GAMES:  {190: <memorygame.Game instance at 0x9abc0ec>}
+[[2605, -1], [2604, 2606]]
+take space
+[[2605, 2608], [2604, 2606]]
+GROUPS:  {480: <memorygame.Group instance at 0x960fb4c>}
+GROUPS:  {480: <memorygame.Group instance at 0x960fb4c>, 481: <memorygame.Group instance at 0x960fe4c>}
+GAMES:  {241: <memorygame.Game instance at 0x960fa4c>}
+take space
+[[2608, -1], [-1, -1]]

@@ -173,16 +173,17 @@ def wait():    #- used by recvAns() from teammate and enemies -#
         if not isEnemy:
             img = ''
             box = ''
-        return jsonify( giveup=1, half=half, img=img, box=box, moveN=moveN, isEnemy=isEnemy )
-
-    #elif ctrlGrp.isHalfAns():    #- just for display imgs -#
-    #    return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown() )
+        return jsonify( giveup=1, half=half, img=img, box=box, moveN=moveN, isEnemy=isEnemy, side=ctrlGrp.getSide() )
 
     elif ctrlGrp.isFullAns():    #- ctrler finished ans -#
         return jsonify( full=1, img0=imgs[0], box0=boxes[0], img1=imgs[1], box1=boxes[1], 
-                        moveN=moveN, correctN=correctN, isEnemy=isEnemy, end=game.isOver() )
+                        moveN=moveN, correctN=correctN, isEnemy=isEnemy, end=game.isOver(), side=ctrlGrp.getSide() )
+
+    elif mg.isSupervisor(usr) and ctrlGrp.isHalfAns():    #- just for display imgs -#
+        return jsonify( giveup=0, half=half, img=img, box=box, countdown=game.getCountdown(), side=ctrlGrp.getSide() )
+
     else:                        #- no move -#
-        return jsonify( countdown=game.getCountdown(), UID=int(usr.getUsrID()) )
+        return jsonify( countdown=game.getCountdown(), UID=int(usr.getUsrID()), side=ctrlGrp.getSide())
 
 
 
@@ -225,6 +226,11 @@ def countdown():
 @app.route('/end', methods=['POST'])
 def end():
     (usr, grp, game) = mg.getObjs( request.cookies.get('usrID') )
+
+    if mg.isSupervisor(usr):   
+        usr.setGameID(-1)
+        return make_response() 
+
     #print 'POST end %d' %(usr.getUsrID())
     game.writeRes()
     return jsonify( result=game.getResult( grp.getGrpID() ) )
@@ -240,7 +246,11 @@ def unload():
 
 @app.route('/restart', methods=['POST'])
 def restart():
-    usrID = request.cookies.get('usrID')
+    usr = mg.getUsr( request.cookies.get('usrID') )  
+    if mg.isSupervisor( usr ):
+        return jsonify(success=1)
+
+    usrID = usr.getUsrID()
     mg.killGame( usrID )
 
     #print 'POST RESTART %d' %(int(usrID))
@@ -275,6 +285,29 @@ def ready():
 @app.route('/over', methods=['GET'])
 def over():
     return jsonify(over=OVER, IPs=IPs, gameID=GAME_ID)
+
+
+
+@app.route('/supervise', methods=['GET', 'POST'])
+def supervise():
+
+    if request.method == 'GET':   
+        resp = make_response(flask.render_template('supervisor.html'))
+        usr = mg.createSupevisor()
+        resp.set_cookie('usrID', usr.getUsrID() ) 
+        return resp
+
+    elif request.method == 'POST':   
+        usr = mg.getSupervisor() 
+        return jsonify( gameID = usr.getGameID() )
+
+
+
+
+
+
+
+
 
 
 
