@@ -63,55 +63,52 @@ def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
 
 def getGameData(path, side):
     fp = open(path, 'r')
-    grpID  = fp.readline() 
-    mover1 = [ line.strip().split(',')[2] for line in fp.readlines()]
+    grpID = fp.readline() 
+    start = [ int(line.strip().split(',')[4]) for line in fp.readlines() ]
 
     fp.seek(0)
-    grpID  = fp.readline() 
-    mover2 = [ line.strip().split(',')[3] for line in fp.readlines()]
+    grpID = fp.readline() 
+    time1 = [ int(line.strip().split(',')[5]) for line in fp.readlines() ]
+    
 
-    #print mover1
-    #print mover2
 
-    err = 0
-    prevM1 = None
-    prevM2 = None
-    for i, m1 in enumerate(mover1):
-        m2 = mover2[i]
+    fp.seek(0)
+    grpID = fp.readline() 
+    time2 = [ int(line.strip().split(',')[6]) for line in fp.readlines() ]
 
-        if i == 0:
-            prevM1 = m1
-            prevM2 = m2
-            err += int(m1 == m2)
-            continue
+    diff1 = [ time - start[i] if time-start[i] > 0 else 30000 for i, time in enumerate(time1) ]
+    diff2 = [ time - start[i] if time-start[i] > 0 else 30000 for i, time in enumerate(time2) ]
 
-        if (prevM1 == '-1' or prevM2 == '-1'):
-            pass
-        elif prevM1 != m2 or prevM2 != m1:
-            err +=1
 
-        prevM1 = m1
-        prevM2 = m2
-      
-    print str(len(mover1)) + ',',
-    print str(err) + ',',
-    print str(float(err)/len(mover1)),
+    for i, time1_i in enumerate(time1):
+        if time1[i] > time2[i]:    #- wrong time order, due to sync of server -#
+            tmp      = time2[i]
+            time2[i] = time1[i]
+            time1[i] = tmp 
+
 
     fp.close()
-    return (1,0)
+    return (diff1, diff2)
 
-    #return (totalN, correctN)
 
 
 def parse(gameID, files):
 
     files = sorted(files) 
-    ansA, correctA = getGameData(RAW_DIR+files[0], 'A')
-    ansB, correctB = getGameData(RAW_DIR+files[1], 'B')
-    print '\n'
+    diffA1, diffA2 = getGameData(RAW_DIR+files[0], 'A')
+    diffB1, diffB2 = getGameData(RAW_DIR+files[1], 'B')
 
-    corrRateA = float(correctA)/float(ansA)
-    corrRateB = float(correctB)/float(ansB)
+    sType = files[2].replace('.txt', '')[-1]
+    print sType
+
+    return (diffA1, diffB1, diffA2, diffB2)
+
+
+
+
+
+    #corrRateA = float(correctA)/float(ansA)
+    #corrRateB = float(correctB)/float(ansB)
 
     #print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
 
@@ -143,14 +140,25 @@ def main():
             gameFiles.append(fname)
 
         if len(gameFiles) == 3:
-            parse(gameID, gameFiles)
-
-
-
+            (diffA1, diffB1, diffA2, diffB2) = parse(gameID, gameFiles)
+ 
+            for v in diffA1: 
+                print '%d,' %v,
+            for v in diffB1: 
+                print '%d,' %v,
+            print '\n'
+    
+            for v in diffA2: 
+                print '%d,' %v,
+            for v in diffB2: 
+                print '%d,' %v,
+            print '\n'
+    
+    
 
 if __name__ == '__main__':
+    print 'Time'
     RAW_DIR += sys.argv[1] + '/'
-
     main()
 
 

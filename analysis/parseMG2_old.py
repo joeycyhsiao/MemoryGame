@@ -63,44 +63,21 @@ def writeRes(gameID, timeA, uidA, timeB, uidB, timeK, evK):
 
 def getGameData(path, side):
     fp = open(path, 'r')
-    grpID  = fp.readline() 
-    mover1 = [ line.strip().split(',')[2] for line in fp.readlines()]
+    grpID  = fp.readline()
+    UIDs   = {}
+    time   = {}
 
-    fp.seek(0)
-    grpID  = fp.readline() 
-    mover2 = [ line.strip().split(',')[3] for line in fp.readlines()]
+    totalN   = 0
+    correctN = 0
+    for line in fp.readlines():
 
-    #print mover1
-    #print mover2
-
-    err = 0
-    prevM1 = None
-    prevM2 = None
-    for i, m1 in enumerate(mover1):
-        m2 = mover2[i]
-
-        if i == 0:
-            prevM1 = m1
-            prevM2 = m2
-            err += int(m1 == m2)
-            continue
-
-        if (prevM1 == '-1' or prevM2 == '-1'):
-            pass
-        elif prevM1 != m2 or prevM2 != m1:
-            err +=1
-
-        prevM1 = m1
-        prevM2 = m2
-      
-    print str(len(mover1)) + ',',
-    print str(err) + ',',
-    print str(float(err)/len(mover1)),
+        items = line.strip().split(',')
+        totalN += 1
+        if (items[0] == '1'):
+            correctN += 1
 
     fp.close()
-    return (1,0)
-
-    #return (totalN, correctN)
+    return (totalN, correctN)
 
 
 def parse(gameID, files):
@@ -108,12 +85,14 @@ def parse(gameID, files):
     files = sorted(files) 
     ansA, correctA = getGameData(RAW_DIR+files[0], 'A')
     ansB, correctB = getGameData(RAW_DIR+files[1], 'B')
-    print '\n'
 
     corrRateA = float(correctA)/float(ansA)
     corrRateB = float(correctB)/float(ansB)
 
-    #print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
+    sType = files[2].replace('.txt', '')[-1]
+
+    print sType
+    print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
 
     #timeK, evK = getKickData(RAW_DIR+files[2])
  
@@ -149,6 +128,9 @@ def main():
 
 
 if __name__ == '__main__':
+
+    RAW_DIR += sys.argv[1] + '/'
+    print RAW_DIR
     main()
 
 

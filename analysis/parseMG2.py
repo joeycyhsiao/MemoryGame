@@ -89,6 +89,9 @@ def parse(gameID, files):
     corrRateA = float(correctA)/float(ansA)
     corrRateB = float(correctB)/float(ansB)
 
+    sType = files[2].replace('.txt', '')[-1]
+
+    print sType
     print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
 
     #timeK, evK = getKickData(RAW_DIR+files[2])

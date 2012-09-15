@@ -1,25 +1,19 @@
 PLAYERS: 
-{2604: <memorygame.Player instance at 0x957614c>}
+{2628: <memorygame.Player instance at 0x8b8e4cc>}
 PLAYERS: 
-{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>}
+{2628: <memorygame.Player instance at 0x8b8e4cc>, 2629: <memorygame.Player instance at 0x8bae4cc>}
 take space
-[[-1, -1], [2604, -1]]
-take space
-[[2605, -1], [2604, -1]]
+[[-1, -1], [2628, -1]]
 PLAYERS: 
-{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>}
+{2628: <memorygame.Player instance at 0x8b8e4cc>, 2629: <memorygame.Player instance at 0x8bae4cc>, 2630: <memorygame.Player instance at 0x8bc0bac>}
 PLAYERS: 
-{2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>, 2607: <memorygame.Player instance at 0x960f66c>}
+{2628: <memorygame.Player instance at 0x8b8e4cc>, 2629: <memorygame.Player instance at 0x8bae4cc>, 2630: <memorygame.Player instance at 0x8bc0bac>, 2631: <memorygame.Player instance at 0x8bc0f4c>}
 take space
-[[2605, -1], [2604, 2606]]
-PLAYERS: 
-{2608: <memorygame.Player instance at 0x960ffec>, 2604: <memorygame.Player instance at 0x957614c>, 2605: <memorygame.Player instance at 0x95a142c>, 2606: <memorygame.Player instance at 0x960f82c>, 2607: <memorygame.Player instance at 0x960f66c>}
+[[2631, -1], [2628, -1]]
 take space
-[[2605, -1], [2604, 2606]]
+[[2631, 2629], [2628, -1]]
 take space
-[[2605, 2608], [2604, 2606]]
-GROUPS:  {480: <memorygame.Group instance at 0x960fb4c>}
-GROUPS:  {480: <memorygame.Group instance at 0x960fb4c>, 481: <memorygame.Group instance at 0x960fe4c>}
-GAMES:  {241: <memorygame.Game instance at 0x960fa4c>}
-take space
-[[2608, -1], [-1, -1]]
+[[2631, 2629], [2628, 2630]]
+GROUPS:  {496: <memorygame.Group instance at 0x8c1614c>}
+GROUPS:  {496: <memorygame.Group instance at 0x8c1614c>, 497: <memorygame.Group instance at 0x8c165ec>}
+GAMES:  {249: <memorygame.Game instance at 0x8c16cec>}

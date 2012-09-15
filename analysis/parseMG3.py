@@ -106,12 +106,17 @@ def getGameData(path, side):
 def parse(gameID, files):
 
     files = sorted(files) 
+
+    sType = files[2].replace('.txt', '')[-1]
+    print ''
+    print sType
+
     ansA, correctA = getGameData(RAW_DIR+files[0], 'A')
     ansB, correctB = getGameData(RAW_DIR+files[1], 'B')
-    print '\n'
 
-    corrRateA = float(correctA)/float(ansA)
-    corrRateB = float(correctB)/float(ansB)
+
+    #corrRateA = float(correctA)/float(ansA)
+    #corrRateB = float(correctB)/float(ansB)
 
     #print "%d, %d, %f, %d, %d, %f" %(ansA, correctA, corrRateA, ansB, correctB, corrRateB)
 
@@ -149,6 +154,8 @@ def main():
 
 
 if __name__ == '__main__':
+    print "Err Rate"
+
     RAW_DIR += sys.argv[1] + '/'
 
     main()
